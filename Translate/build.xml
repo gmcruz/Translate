@@ -1,0 +1,91 @@
+<project name="Translate Module Build" default="BuildAll">
+	
+	<property name="glassfish_path" value="C:\glassfish4\glassfish"/>
+	<property name="glassfish_libs" value="${glassfish_path}\modules"/>
+	
+    <property name="bin" value="./bin"/>
+    <property name="lib" value="./lib"/>
+    <property name="src" value="./src"/> 
+    <property name="dist" value="./dist"/>
+	<property name="warfile" value="${dist}/TranslateModule.war"/>	
+	<property name="html" value="./WebContent"/>
+    
+    <path id="my.classpath">
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="${bin}"/>
+        
+        <fileset dir="${lib}">
+            <include name="*.jar"/>
+        </fileset>
+ 
+        <fileset dir="${glassfish_libs}">
+             <include name="**/javax*.jar"/>
+        </fileset>
+    	
+    </path>	 
+	
+    <target name="BuildAll" depends="clean, prep, compile, war" description="Complete rebuild.">
+        <echo message="Build complete."/>
+    </target>	
+	
+	<target name="classpath">
+		   <property name="current.classpath" refid="my.classpath"/>		   
+		   <echo level="info">Classpath is : ${current.classpath}</echo>
+	</target>
+    
+    <target name="clean">
+        <delete dir="${bin}"/>
+        <delete dir="${dist}"/>
+        <delete>
+           <fileset dir=".">
+              <include name="TEST*.xml"/>
+           </fileset>
+        </delete>
+    </target>
+    
+    <target name="prep">        
+        <mkdir dir="${bin}"/>
+        <mkdir dir="${dist}"/>        
+    </target>
+            
+    <target name="compile" description="Compile all Java classes" depends="prep">
+        
+    	<!-- no ant runtime.-->
+    	<presetdef name="javac">
+    		<javac includeantruntime="false" />
+    	</presetdef>
+    	
+        <javac srcdir="${src}" destdir="${bin}" debug="true" encoding="ISO-8859-1">
+            <classpath refid="my.classpath"/>
+        </javac>
+        
+        <echo message="Compiled."/>
+    </target>
+
+	<target name="war" depends="compile" description="Build WAR file.">
+		<copy todir="${bin}">
+			<fileset dir="${src}">
+				<include name="**/persistence.xml"/>
+			</fileset>
+		</copy>		
+		<copy todir="${bin}">
+		    <fileset dir="${src}">
+				<include name="**/log4j.properties"/>
+			</fileset>
+		</copy>
+	   <delete file="${warfile}"/>
+	   <war destfile="${warfile}" webxml="web.xml">
+	      <classes dir="${bin}">
+	      </classes>
+	   	
+      	  <lib dir="${lib}"/>
+	      <fileset dir="${html}"/>  <!-- html files -->	
+	   	          
+	   </war>
+		
+		<copy file="${warfile}" tofile="${glassfish_path}\domains\domain1\autodeploy\TranslateModule.war"/>
+		
+	</target>
+	
+
+</project>

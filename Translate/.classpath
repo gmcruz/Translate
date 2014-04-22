@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="bin" path="src"/>
+	<classpathentry kind="var" path="JRE_LIB" sourcepath="JRE_SRC"/>
+	<classpathentry kind="lib" path="C:/Program Files/eclipse_Kepler/plugins/org.eclipse.equinox.launcher_1.3.0.v20130327-1440.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="con" path="C:/Users/gcruz/workspace/Translate/bin"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jersey-client-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jersey-core-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jersey-json-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jersey-server-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jersey-servlet-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gcruz/workspace/Translate/lib/primefaces-2.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate4.2.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Javax"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
