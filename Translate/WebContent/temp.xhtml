@@ -1,0 +1,146 @@
+
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+	
+	
+<script id="data" type="application/json">
+{
+    "paragraphs": {
+        "paragraph": [
+            {
+                "sentences": [
+                    {
+                        "sentence": [
+                            {
+                                "id": 2554,
+                                "word": "yo",
+                                "translation": "I",
+                                "synonyms": "self,me",
+                                "definition": "to be",
+                                "punc": false,
+                                "uses": "I am who I am."
+                            },
+                            {
+                                "id": 2555,
+                                "word": "estaba",
+                                "translation": "was",
+                                "synonyms": "was doing",
+                                "definition": " to have been doing something",
+                                "punc": false,
+                                "uses": "It was raining outside so I went back in to get my umbrella."
+                            },
+                            {
+                                "id": 25554577,
+                                "word": "en",
+                                "translation": "in",
+                                "synonyms": "inside",
+                                "definition": "to be within something.",
+                                "punc": false,
+                                "uses": "I was confined inside the box."
+                            },
+                            {
+                                "id": 25554577,
+                                "word": "el",
+                                "translation": "the",
+                                "synonyms": "it",
+                                "definition": "article to a noun.",
+                                "punc": false,
+                                "uses": "The box was big."
+                            },
+                            {
+                                "id": 25554577,
+                                "word": "carro",
+                                "translation": "car",
+                                "synonyms": "Automobile",
+                                "definition": "Machine used to move from place to place on 4 wheels.",
+                                "punc": false,
+                                "uses": "The automobile made travel easier."
+                            },
+                            {
+                                "id": 255,
+                                "word": ".",
+                                "punc": true
+                            }
+                        ]
+                    },
+                    {
+                        "sentence": [
+                            {
+                                "id": 2556454654,
+                                "word": "el",
+                                "translation": "he",
+                                "synonyms": "himself",
+                                "definition": "He defined",
+                                "punc": false,
+                                "uses": "He put himself between a rock and a hardplace."
+                            },
+                            {
+                                "id": 2555,
+                                "ref": true
+                            },
+                            {
+                                "id": 25554577,
+                                "ref": "true"
+                            },
+                            {
+                                "id": 25554577,
+                                "word": "la",
+                                "translation": "the",
+                                "synonyms": "it (feminine)",
+                                "definition": "Feminine article to a noun.",
+                                "punc": false,
+                                "uses": "The box was big."
+                            },
+                            {
+                                "id": 25559554577,
+                                "word": "cahuela",
+                                "translation": "trunk",
+                                "synonyms": "kokffer, dead mans space",
+                                "definition": "The storeage area in an Autobile.",
+                                "punc": false,
+                                "uses": "The trunk of our automobile can hold plenty of luggage."
+                            },
+                            {
+                                "id": 255,
+                                "word": ".",
+                                "punc": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
+</script>
+
+
+
+
+	
+	<h:head>
+		<title>All Translations</title>
+	</h:head>
+	
+	<h:body>
+		<h1>All Translations</h1>	
+		<h:form>
+			<p:dataTable value="#{allTranslationsPageBean.translations}" var="translation" binding="#{allTranslationsPageBean.dataTable}">
+				<p:column><f:facet name="header">ID</f:facet>#{translation.id}</p:column>
+				<p:column><f:facet name="header">Rating</f:facet>#{translation.starRating}</p:column>
+				<p:column><f:facet name="header">Created</f:facet>#{translation.dateCreated}</p:column>
+				<p:column><f:facet name="header">Last Updated</f:facet>#{translation.lastUpdated}</p:column>
+				<p:column><f:facet name="header">Text</f:facet>#{translation.translationText}</p:column>
+			</p:dataTable>
+		</h:form>	
+	</h:body>
+
+</html>
+
+
+
+
+
