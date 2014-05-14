@@ -1,1 +1,38 @@
-Showpraa
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	
+	<head>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<title>Test Page</title>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$("#testp").click(function(){				
+			    //$(this).hide();
+			    $.ajax( {
+					type:'Get',
+					url:'http://gcruz-pc:8080/TranslateModule/resource/tests/',
+					success:function(data) {
+					 alert(data);
+					}
+				})			    
+			  });
+		});
+		</script>
+		
+	</head>
+	
+	<body>
+		<h1>All Tests</h1>			
+		<div id="testp">
+			Testing the para
+		</div>		
+	</body>
+
+</html>
+
+
+
+
+
