@@ -8,31 +8,41 @@
 		<title>Test Page</title>
 		<script type="text/javascript">
 		$(document).ready(function(){
-			$("#testp").click(function(){				
-			    //$(this).hide();
-			    $.ajax( {
-					type:'Get',
-					url:'http://gcruz-pc:8080/TranslateModule/resource/tests/',
-					success:function(data) {
-					 alert(data);
-					}
-				})			    
-			  });
+			$("#testp").click(function(){				    
+			    			
+				$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
+					var items = [];
+					$.each( data, function( key, val ) {
+						items.push( "<li>" + val + "</li>" );
+					});
+					 
+					$( "<ul/>", {
+						"class": "my-new-list", html: items.join( "" )
+					}).appendTo( "body" );
+					
+					
+					
+					$.each(data.paragraphs[0].paragraph[0].sentences[0].sentence[0], function(e, i) {
+						  console.log('e:' + e + ' - i:' + i);
+					});
+					
+					
+					
+				});				
+				
+				
+			});
 		});
 		</script>
 		
 	</head>
 	
 	<body>
-		<h1>All Tests</h1>			
+		<h1>All terms</h1>			
 		<div id="testp">
 			Testing the para
 		</div>		
 	</body>
 
 </html>
-
-
-
-
 
