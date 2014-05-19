@@ -5,11 +5,54 @@
 	<head>
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<title>Test Page</title>
+				
+		<style>			
+			body {				
+				border-style: dashed;
+				border-width: 1px;
+				color: green;				
+			}
+			
+			#container {
+				width: 500px;
+				border-style: dashed;
+				border-width: 2px;
+				color: yellow;	
+			} 
+			
+			#testp {				
+				border-style: dashed;
+				border-width: 1px;
+				color: red;
+				height: 200px; 
+			}
+			ul {
+				/*width: 800px;*/
+				border-style: dashed;
+				border-width: 1px;
+				list-style: none;
+				float: right;
+				margin: 5;
+				color: green;
+			}
+			li {
+				float: left;
+				line-height: 20px;
+				vertical-align: middle;
+				text-align: center;
+				margin: 0;
+				border-style: dotted;
+				border-width: 1px;
+				color: blue;	
+				padding: 0px 5px;
+			}
+		</style>
+				
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$("#testp").click(function(){				    
 
-				$.getJSON( "http://gcruz-pc:8080/TranslateModule/resource/tests/", function( data ) {
+				$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
 
 					if (data.hasOwnProperty("paragraphs")) {				
 						var items = [];
@@ -20,24 +63,25 @@
 								$.each( valParagraphs.paragraph, function( key, valParagraph ) {
 
 									$.each( valParagraph.sentences, function( key, valSentence ) {
+										
+										var meaning = valSentence.meaning;
+										//items.push( "<li>[" + meaning + "]</li>" );
 
-										items.push( "<li>[" + valSentence.meaning + "]</li>" );
-
-										$.each( valSentence.sentence, function( key, valWord ) {																						
+										$.each( valSentence.sentence, function( key, valWord ) {
+											
 											//Punctuation just show as is.
 											if(valWord.punc != undefined){
 												items.push( "<li>" + valWord.word + "</li>" );
 											}
 											//Ref word must loop to find in returned JSON
 											else if(valWord.ref != undefined){
-												items.push( "<li>" + valWord.ref + " is UNDEFINED AS REF</li>" );
+												items.push( "<li>" + valWord.ref + "</li>" );
 											}
 											//Regular word to process
 											else if(valWord.ref == undefined){
 												items.push( "<li>" + valWord.word + " </li>" );
-											}											
-
-
+											}	
+											
 										});
 									});
 								});
@@ -49,7 +93,7 @@
 
 						$( "<ul/>", {
 							"class": "my-new-list", html: items.join( "" )
-						}).appendTo( "body" );					
+						}).appendTo( "#testp" );					
 
 					}	
 
@@ -63,11 +107,36 @@
 
 	</head>
 
-	<body>
-		<h1>All terms</h1>			
-		<div id="testp">
-			Testing the para
-		</div>		
-	</body>
+	<body>			
+		<div id="container">
+			<div id="testp">
+				Testing the para
+			</div>		
+		</div>
+
+
+
+	<div id="container2" style="width: 500px">
+
+		<div id="header" style="background-color: #FFA500;">
+			<h1 style="margin-bottom: 0;">Main Title of Web Page</h1>
+		</div>
+
+		<div id="menu" style="background-color: #FFD700; height: 200px; width: 100px; float: left;">
+			<b>Menu</b><br/> HTML<br/> CSS<br/> JavaScript
+		</div>
+
+		<div id="content" style="background-color: #EEEEEE; height: 200px; width: 400px; float: left;">
+			Content goes here
+		</div>
+
+		<div id="footer" style="background-color: #FFA500; clear: both; text-align: center;">
+			Copyright © W3Schools.com
+		</div>
+
+	</div>
+
+
+</body>
 
 </html>
