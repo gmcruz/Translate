@@ -26,11 +26,11 @@ import com.translate.domain.Translation;
 public class TestResource {
 
 	private static Logger logger = Logger.getLogger(TestResource.class);
-
+	
 	@EJB
 	private TranslationManagerServiceLocal translationService;
-
-
+	
+	
 	@GET
 	@Produces({"application/json", "application/xml"})
 	public String getTest(){
@@ -141,28 +141,28 @@ public class TestResource {
 	   			"    }																											" +
 	   			"  ]																											" +
 				"}																												"; 
-
+		
 		return json;		
 	}
 
-
-
+	
+	
 	//Not Used Below ***************************************************
-
+	
 	@Path("/post")
 	@POST	
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response createTranslation(Translation translation){
-
+		
 		translation.setDateCreated(new Date());
 		translationService.createTranslation(translation);
-
+		
 		logger.debug("In createTranslation(JSON XML) " + translation.toString());
-
+		
 		String result = "Translation Created (XML JSON)" + translation.toString();		
 		return Response.status(201).entity(result).build();
-
+		
 	}
 
 	@Path("/{id}")
@@ -171,7 +171,7 @@ public class TestResource {
 	public Translation getTranslation(@PathParam("id") int id){	
 		return translationService.getTranslationById(id);
 	}	
-
+	
 	@Path("/{id}")
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
@@ -179,11 +179,11 @@ public class TestResource {
 	public Response updateTranslation(@PathParam("id") int id,Translation translation) throws Exception{
 		translation.setId(id);				
 		translationService.updateTranslation(translation);
-
+		
 		String result = "Translation Updated: " + translation.toString();
 		return Response.status(201).entity(result).build();
 	}
-
+	
 
 
 
