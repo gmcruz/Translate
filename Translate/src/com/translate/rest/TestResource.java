@@ -26,11 +26,11 @@ import com.translate.domain.Translation;
 public class TestResource {
 
 	private static Logger logger = Logger.getLogger(TestResource.class);
-	
+
 	@EJB
 	private TranslationManagerServiceLocal translationService;
-	
-	
+
+
 	@GET
 	@Produces({"application/json", "application/xml"})
 	public String getTest(){
@@ -51,7 +51,6 @@ public class TestResource {
 	   			"                                \"translation\": \"I\",														" +
 	   			"                                \"synonyms\": \"self,me\",														" +
 	   			"                                \"definition\": \"to be\",														" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"I am who I am.\"													" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -60,7 +59,6 @@ public class TestResource {
 	   			"                                \"translation\": \"was\",														" +
 	   			"                                \"synonyms\": \"was doing\",													" +
 	   			"                                \"definition\": \" to have been doing something\",								" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"It was raining outside so I went back in to get my umbrella.\"		" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -69,7 +67,6 @@ public class TestResource {
 	   			"                                \"translation\": \"in\",														" +
 	   			"                                \"synonyms\": \"inside\",														" +
 	   			"                                \"definition\": \"to be within something.\",									" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"I was confined inside the box.\"									" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -78,7 +75,6 @@ public class TestResource {
 	   			"                                \"translation\": \"the\",														" +
 	   			"                                \"synonyms\": \"it\",															" +
 	   			"                                \"definition\": \"article to a noun.\",										" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"The box was big.\"													" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -87,7 +83,6 @@ public class TestResource {
 	   			"                                \"translation\": \"car\",														" +
 	   			"                                \"synonyms\": \"Automobile\",													" +
 	   			"                                \"definition\": \"Machine used to move from place to place on 4 wheels.\",		" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"The automobile made travel easier.\"								" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -95,7 +90,8 @@ public class TestResource {
 	   			"                                \"word\": \".\",																" +
 	   			"                                \"punc\": true																	" +
 	   			"                            }																					" +
-	   			"                        ]																						" +
+	   			"                        ],																						" +
+				"    					 \"meaning\": \"sentence 1 one meaning\"												" +
 	   			"                    },																							" +
 	   			"                    {																							" +
 	   			"                        \"sentence\": [																		" +
@@ -105,7 +101,6 @@ public class TestResource {
 	   			"                                \"translation\": \"he\",														" +
 	   			"                                \"synonyms\": \"himself\",														" +
 	   			"                                \"definition\": \"He defined\",												" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"He put himself between a rock and a hardplace.\"					" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -122,7 +117,6 @@ public class TestResource {
 	   			"                                \"translation\": \"the\",														" +
 	   			"                                \"synonyms\": \"it (feminine)\",												" +
 	   			"                                \"definition\": \"Feminine article to a noun.\",								" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"The box was big.\"													" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -131,7 +125,6 @@ public class TestResource {
 	   			"                                \"translation\": \"trunk\",													" +
 	   			"                                \"synonyms\": \"kokffer, dead mans space\",									" +
 	   			"                                \"definition\": \"The storeage area in an Autobile.\",							" +
-	   			"                                \"punc\": false,																" +
 	   			"                                \"uses\": \"The trunk of our automobile can hold plenty of luggage.\"			" +
 	   			"                            },																					" +
 	   			"                            {																					" +
@@ -139,7 +132,8 @@ public class TestResource {
 	   			"                                \"word\": \".\",																" +
 	   			"                                \"punc\": true																	" +
 	   			"                            }																					" +
-	   			"                        ]																						" +
+	   			"                        ],																						" +
+				"    					 \"meaning\": \"sentence 2 one meaning\"												" +
 	   			"                    }																							" +
 	   			"                ]																								" +
 	   			"            }																									" +
@@ -147,28 +141,28 @@ public class TestResource {
 	   			"    }																											" +
 	   			"  ]																											" +
 				"}																												"; 
-		
+
 		return json;		
 	}
 
-	
-	
+
+
 	//Not Used Below ***************************************************
-	
+
 	@Path("/post")
 	@POST	
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response createTranslation(Translation translation){
-		
+
 		translation.setDateCreated(new Date());
 		translationService.createTranslation(translation);
-		
+
 		logger.debug("In createTranslation(JSON XML) " + translation.toString());
-		
+
 		String result = "Translation Created (XML JSON)" + translation.toString();		
 		return Response.status(201).entity(result).build();
-		
+
 	}
 
 	@Path("/{id}")
@@ -177,7 +171,7 @@ public class TestResource {
 	public Translation getTranslation(@PathParam("id") int id){	
 		return translationService.getTranslationById(id);
 	}	
-	
+
 	@Path("/{id}")
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
@@ -185,11 +179,11 @@ public class TestResource {
 	public Response updateTranslation(@PathParam("id") int id,Translation translation) throws Exception{
 		translation.setId(id);				
 		translationService.updateTranslation(translation);
-		
+
 		String result = "Translation Updated: " + translation.toString();
 		return Response.status(201).entity(result).build();
 	}
-	
+
 
 
 

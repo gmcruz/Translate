@@ -1,42 +1,68 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-	
+
 	<head>
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<title>Test Page</title>
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$("#testp").click(function(){				    
-			    			
+
 				$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
-					var items = [];
-					$.each( data, function( key, val ) {
-						items.push( "<li>" + val + "</li>" );
-					});
-					 
-					$( "<ul/>", {
-						"class": "my-new-list", html: items.join( "" )
-					}).appendTo( "body" );
-					
-					
-					
-					$.each(data.paragraphs[0].paragraph[0].sentences[0].sentence[0], function(e, i) {
-						  console.log('e:' + e + ' - i:' + i);
-					});
-					
-					
-					
+
+					if (data.hasOwnProperty("paragraphs")) {				
+						var items = [];
+						$.each( data.paragraphs, function( key, valParagraphs ) {
+
+							if (valParagraphs.hasOwnProperty("paragraph")) {
+
+								$.each( valParagraphs.paragraph, function( key, valParagraph ) {
+
+									$.each( valParagraph.sentences, function( key, valSentence ) {
+
+										items.push( "<li>[" + valSentence.meaning + "]</li>" );
+
+										$.each( valSentence.sentence, function( key, valWord ) {																						
+											//Punctuation just show as is.
+											if(valWord.punc != undefined){
+												items.push( "<li>" + valWord.word + "</li>" );
+											}
+											//Ref word must loop to find in returned JSON
+											else if(valWord.ref != undefined){
+												items.push( "<li>" + valWord.ref + " is UNDEFINED AS REF</li>" );
+											}
+											//Regular word to process
+											else if(valWord.ref == undefined){
+												items.push( "<li>" + valWord.word + " </li>" );
+											}											
+
+
+										});
+									});
+								});
+
+							}
+
+						});
+
+
+						$( "<ul/>", {
+							"class": "my-new-list", html: items.join( "" )
+						}).appendTo( "body" );					
+
+					}	
+
+
 				});				
-				
-				
+
+
 			});
 		});
 		</script>
-		
+
 	</head>
-	
+
 	<body>
 		<h1>All terms</h1>			
 		<div id="testp">
@@ -45,4 +71,3 @@
 	</body>
 
 </html>
-
