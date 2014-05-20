@@ -19,33 +19,40 @@
 				border-width: 2px;
 				color: yellow;	
 			} 
-			
-			#testp {				
-				border-style: dashed;
-				border-width: 1px;
-				color: red;
-				height: 200px; 
-			}
-			ul {
-				/*width: 800px;*/
-				border-style: dashed;
-				border-width: 1px;
-				list-style: none;
-				float: right;
-				margin: 5;
-				color: green;
-			}
-			li {
-				float: left;
-				line-height: 20px;
-				vertical-align: middle;
-				text-align: center;
-				margin: 0;
+						
+			#testp2 {				
 				border-style: dotted;
 				border-width: 1px;
-				color: blue;	
-				padding: 0px 5px;
+				color: blue;					
 			}
+			#testp2 ul li{
+				margin: 0;				
+				padding: 0;
+				list-style: none;
+				float: left;
+				border-style: dotted;
+				border-width: 1px;
+				color: red;			
+			}	
+			#testp2 li a {
+				display: block;		
+				text-decoration: none;	
+			}					
+			
+			
+			.cf:before,	.cf:after {
+			    content: " "; /* 1 */
+			    display: table; /* 2 */
+			}			
+			.cf:after {
+			    clear: both;
+			}			
+			/*** For IE 6/7 only Include this rule to trigger hasLayout and contain floats. */
+			.cf {
+			    *zoom: 1;
+			}
+				
+			
 		</style>
 				
 		<script type="text/javascript">
@@ -90,10 +97,10 @@
 
 						});
 
-
+						$("#testp2").html("");	
 						$( "<ul/>", {
 							"class": "my-new-list", html: items.join( "" )
-						}).appendTo( "#testp" );					
+						}).appendTo( "#testp2" ); 		
 
 					}	
 
@@ -108,15 +115,17 @@
 	</head>
 
 	<body>			
+		<div id="testp">text here</div>
 		<div id="container">
-			<div id="testp">
-				Testing the para
-			</div>		
+			<div id="testp2" class="cf"/>		
 		</div>
+	</body>
+
+</html>
 
 
 
-	<div id="container2" style="width: 500px">
+	<!-- <div id="container2" style="width: 500px">
 
 		<div id="header" style="background-color: #FFA500;">
 			<h1 style="margin-bottom: 0;">Main Title of Web Page</h1>
@@ -134,9 +143,4 @@
 			Copyright © W3Schools.com
 		</div>
 
-	</div>
-
-
-</body>
-
-</html>
+	</div> -->

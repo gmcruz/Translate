@@ -96,6 +96,206 @@ public class TestResource {
 	   			"                    {																							" +
 	   			"                        \"sentence\": [																		" +
 	   			"                            {																					" +
+	   			"                                \"id\": 2554,																	" +
+	   			"                                \"word\": \"yo\",																" +
+	   			"                                \"translation\": \"I\",														" +
+	   			"                                \"synonyms\": \"self,me\",														" +
+	   			"                                \"definition\": \"to be\",														" +
+	   			"                                \"uses\": \"I am who I am.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 2555,																	" +
+	   			"                                \"word\": \"estaba\",															" +
+	   			"                                \"translation\": \"was\",														" +
+	   			"                                \"synonyms\": \"was doing\",													" +
+	   			"                                \"definition\": \" to have been doing something\",								" +
+	   			"                                \"uses\": \"It was raining outside so I went back in to get my umbrella.\"		" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"en\",																" +
+	   			"                                \"translation\": \"in\",														" +
+	   			"                                \"synonyms\": \"inside\",														" +
+	   			"                                \"definition\": \"to be within something.\",									" +
+	   			"                                \"uses\": \"I was confined inside the box.\"									" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"el\",																" +
+	   			"                                \"translation\": \"the\",														" +
+	   			"                                \"synonyms\": \"it\",															" +
+	   			"                                \"definition\": \"article to a noun.\",										" +
+	   			"                                \"uses\": \"The box was big.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"carro\",															" +
+	   			"                                \"translation\": \"car\",														" +
+	   			"                                \"synonyms\": \"Automobile\",													" +
+	   			"                                \"definition\": \"Machine used to move from place to place on 4 wheels.\",		" +
+	   			"                                \"uses\": \"The automobile made travel easier.\"								" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 255,																	" +
+	   			"                                \"word\": \".\",																" +
+	   			"                                \"punc\": true																	" +
+	   			"                            }																					" +
+	   			"                        ],																						" +
+				"    					 \"meaning\": \"sentence 1 one meaning\"												" +
+	   			"                    },																							" +
+	   			"                    {																							" +
+	   			"                        \"sentence\": [																		" +
+	   			"                            {																					" +
+	   			"                                \"id\": 2554,																	" +
+	   			"                                \"word\": \"yo\",																" +
+	   			"                                \"translation\": \"I\",														" +
+	   			"                                \"synonyms\": \"self,me\",														" +
+	   			"                                \"definition\": \"to be\",														" +
+	   			"                                \"uses\": \"I am who I am.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 2555,																	" +
+	   			"                                \"word\": \"estaba\",															" +
+	   			"                                \"translation\": \"was\",														" +
+	   			"                                \"synonyms\": \"was doing\",													" +
+	   			"                                \"definition\": \" to have been doing something\",								" +
+	   			"                                \"uses\": \"It was raining outside so I went back in to get my umbrella.\"		" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"en\",																" +
+	   			"                                \"translation\": \"in\",														" +
+	   			"                                \"synonyms\": \"inside\",														" +
+	   			"                                \"definition\": \"to be within something.\",									" +
+	   			"                                \"uses\": \"I was confined inside the box.\"									" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"el\",																" +
+	   			"                                \"translation\": \"the\",														" +
+	   			"                                \"synonyms\": \"it\",															" +
+	   			"                                \"definition\": \"article to a noun.\",										" +
+	   			"                                \"uses\": \"The box was big.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"carro\",															" +
+	   			"                                \"translation\": \"car\",														" +
+	   			"                                \"synonyms\": \"Automobile\",													" +
+	   			"                                \"definition\": \"Machine used to move from place to place on 4 wheels.\",		" +
+	   			"                                \"uses\": \"The automobile made travel easier.\"								" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 255,																	" +
+	   			"                                \"word\": \".\",																" +
+	   			"                                \"punc\": true																	" +
+	   			"                            }																					" +
+	   			"                        ],																						" +
+				"    					 \"meaning\": \"sentence 1 one meaning\"												" +
+	   			"                    },																							" +
+	   			"                    {																							" +
+	   			"                        \"sentence\": [																		" +
+	   			"                            {																					" +
+	   			"                                \"id\": 2554,																	" +
+	   			"                                \"word\": \"yo\",																" +
+	   			"                                \"translation\": \"I\",														" +
+	   			"                                \"synonyms\": \"self,me\",														" +
+	   			"                                \"definition\": \"to be\",														" +
+	   			"                                \"uses\": \"I am who I am.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 2555,																	" +
+	   			"                                \"word\": \"estaba\",															" +
+	   			"                                \"translation\": \"was\",														" +
+	   			"                                \"synonyms\": \"was doing\",													" +
+	   			"                                \"definition\": \" to have been doing something\",								" +
+	   			"                                \"uses\": \"It was raining outside so I went back in to get my umbrella.\"		" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"en\",																" +
+	   			"                                \"translation\": \"in\",														" +
+	   			"                                \"synonyms\": \"inside\",														" +
+	   			"                                \"definition\": \"to be within something.\",									" +
+	   			"                                \"uses\": \"I was confined inside the box.\"									" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"el\",																" +
+	   			"                                \"translation\": \"the\",														" +
+	   			"                                \"synonyms\": \"it\",															" +
+	   			"                                \"definition\": \"article to a noun.\",										" +
+	   			"                                \"uses\": \"The box was big.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"carro\",															" +
+	   			"                                \"translation\": \"car\",														" +
+	   			"                                \"synonyms\": \"Automobile\",													" +
+	   			"                                \"definition\": \"Machine used to move from place to place on 4 wheels.\",		" +
+	   			"                                \"uses\": \"The automobile made travel easier.\"								" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 255,																	" +
+	   			"                                \"word\": \".\",																" +
+	   			"                                \"punc\": true																	" +
+	   			"                            }																					" +
+	   			"                        ],																						" +
+				"    					 \"meaning\": \"sentence 1 one meaning\"												" +
+	   			"                    },																							" +
+	   			"                    {																							" +
+	   			"                        \"sentence\": [																		" +
+	   			"                            {																					" +
+	   			"                                \"id\": 2554,																	" +
+	   			"                                \"word\": \"yo\",																" +
+	   			"                                \"translation\": \"I\",														" +
+	   			"                                \"synonyms\": \"self,me\",														" +
+	   			"                                \"definition\": \"to be\",														" +
+	   			"                                \"uses\": \"I am who I am.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 2555,																	" +
+	   			"                                \"word\": \"estaba\",															" +
+	   			"                                \"translation\": \"was\",														" +
+	   			"                                \"synonyms\": \"was doing\",													" +
+	   			"                                \"definition\": \" to have been doing something\",								" +
+	   			"                                \"uses\": \"It was raining outside so I went back in to get my umbrella.\"		" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"en\",																" +
+	   			"                                \"translation\": \"in\",														" +
+	   			"                                \"synonyms\": \"inside\",														" +
+	   			"                                \"definition\": \"to be within something.\",									" +
+	   			"                                \"uses\": \"I was confined inside the box.\"									" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"el\",																" +
+	   			"                                \"translation\": \"the\",														" +
+	   			"                                \"synonyms\": \"it\",															" +
+	   			"                                \"definition\": \"article to a noun.\",										" +
+	   			"                                \"uses\": \"The box was big.\"													" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 25554577,																" +
+	   			"                                \"word\": \"carro\",															" +
+	   			"                                \"translation\": \"car\",														" +
+	   			"                                \"synonyms\": \"Automobile\",													" +
+	   			"                                \"definition\": \"Machine used to move from place to place on 4 wheels.\",		" +
+	   			"                                \"uses\": \"The automobile made travel easier.\"								" +
+	   			"                            },																					" +
+	   			"                            {																					" +
+	   			"                                \"id\": 255,																	" +
+	   			"                                \"word\": \".\",																" +
+	   			"                                \"punc\": true																	" +
+	   			"                            }																					" +
+	   			"                        ],																						" +
+				"    					 \"meaning\": \"sentence 1 one meaning\"												" +
+	   			"                    },																							" +				
+	   			"                    {																							" +
+	   			"                        \"sentence\": [																		" +
+	   			"                            {																					" +
 	   			"                                \"id\": 2556454654,															" +
 	   			"                                \"word\": \"el\",																" +
 	   			"                                \"translation\": \"he\",														" +
