@@ -36,7 +36,6 @@ public class TestResource {
 		logger.debug("CALLED THE TEST");
 		String json;		
 		json = "    {																																	" +
-				"        \"names\": \"hello henry\",																									" +
 				"        \"paragraphs\": [																												" +
 				"            {																															" +
 				"                \"paragraph\": [																										" +

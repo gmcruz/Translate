@@ -14,7 +14,7 @@
 			}
 			
 			#container {
-				width: 500px;
+				width: 650px;
 				border-style: dashed;
 				border-width: 2px;
 				color: yellow;	
@@ -25,19 +25,26 @@
 				border-width: 1px;
 				color: blue;					
 			}
-			#testp2 ul li{
+			#testp2 tr td{
 				margin: 0;				
-				padding: 0;
+				padding: 0px 5px;
 				list-style: none;
 				float: left;
 				border-style: dotted;
-				border-width: 1px;
-				color: red;			
+				border-width: 0px;
+				color: black;			
 			}	
-			#testp2 li a {
-				display: block;		
-				text-decoration: none;	
-			}					
+						
+			div .elemWord {
+				font-size: 1.1em;
+				padding: 0px 0px;
+				color: black;
+			}
+			div .elemTranslation {
+				font-size: .7em;
+				color: #C0C0C0;
+				padding: 0px 0px;
+			}
 			
 			
 			.cf:before,	.cf:after {
@@ -78,15 +85,15 @@
 											
 											//Punctuation just show as is.
 											if(valWord.punc != undefined){
-												items.push( "<li>" + valWord.word + "</li>" );
+												items.push( "<td>" + valWord.word + "</td>" );
 											}
 											//Ref word must loop to find in returned JSON
 											else if(valWord.ref != undefined){
-												items.push( "<li>" + valWord.ref + "</li>" );
+												items.push( "<td>" + valWord.ref + "</td>" );
 											}
 											//Regular word to process
 											else if(valWord.ref == undefined){
-												items.push( "<li>" + valWord.word + " </li>" );
+												items.push( '<td><div class="elemWord">' + valWord.word + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
 											}	
 											
 										});
@@ -98,7 +105,7 @@
 						});
 
 						$("#testp2").html("");	
-						$( "<ul/>", {
+						$( "<tr/>", {
 							"class": "my-new-list", html: items.join( "" )
 						}).appendTo( "#testp2" ); 		
 
@@ -117,7 +124,7 @@
 	<body>			
 		<div id="testp">text here</div>
 		<div id="container">
-			<div id="testp2" class="cf"/>		
+			<table id="testp2" class="cf"/>		
 		</div>
 	</body>
 
