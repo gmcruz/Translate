@@ -82,7 +82,10 @@
 										//items.push( "<li>[" + meaning + "]</li>" );
 
 										$.each( valSentence.sentence, function( key, valWord ) {
-											
+											var next = valSentence.sentence[key+1];
+											if(next != undefined ){
+												console.log(valWord.word + ".");
+											}
 											//Punctuation just show as is.
 											if(valWord.punc != undefined){
 												items.push( "<td>" + valWord.word + "</td>" );
