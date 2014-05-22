@@ -32,18 +32,26 @@
 				float: left;
 				border-style: dotted;
 				border-width: 0px;
-				color: black;			
+				color: black;							
 			}	
 						
 			div .elemWord {
 				font-size: 1.1em;
-				padding: 0px 0px;
-				color: black;
+				padding: 0px 0px;	
+				margin: 0;			
+				border-style: dotted;
+				border-width: 0px;
+				color: black;	
+				font-family: Verdana;
 			}
 			div .elemTranslation {
 				font-size: .7em;
 				color: #C0C0C0;
 				padding: 0px 0px;
+				margin: 0;
+				border-style: dotted;
+				border-width: 0px;					
+				text-align: center;
 			}
 			
 			
@@ -75,20 +83,26 @@
 							if (valParagraphs.hasOwnProperty("paragraph")) {
 
 								$.each( valParagraphs.paragraph, function( key, valParagraph ) {
-
+									items.push( "<tr>" );									
 									$.each( valParagraph.sentences, function( key, valSentence ) {
 										
 										var meaning = valSentence.meaning;
 										//items.push( "<li>[" + meaning + "]</li>" );
-
+										
 										$.each( valSentence.sentence, function( key, valWord ) {
+											items.push( "<td>" );
+											//Look ahead to what is next for punctuation
 											var next = valSentence.sentence[key+1];
-											if(next != undefined ){
-												console.log(valWord.word + ".");
+											var addPunc = "";
+											//TODO change to a regex later
+											if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
+												addPunc = next.word;												
 											}
+											
+																						
 											//Punctuation just show as is.
 											if(valWord.punc != undefined){
-												items.push( "<td>" + valWord.word + "</td>" );
+												//dont push out as it has been hanlded by the peek ahead.
 											}
 											//Ref word must loop to find in returned JSON
 											else if(valWord.ref != undefined){
@@ -96,21 +110,24 @@
 											}
 											//Regular word to process
 											else if(valWord.ref == undefined){
-												items.push( '<td><div class="elemWord">' + valWord.word + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
+												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
 											}	
+											items.push( "</td>" );
 											
 										});
 									});
+									items.push( "</tr>" );
+									items.push( "<tr><td><br/></td></tr>" );
+									items.push( "<tr><td><br/></td></tr>" );
+									
 								});
 
 							}
 
 						});
-
-						$("#testp2").html("");	
-						$( "<tr/>", {
-							"class": "my-new-list", html: items.join( "" )
-						}).appendTo( "#testp2" ); 		
+						
+						$("#testp2").html("").html( items.join( "" ) );	
+							
 
 					}	
 
