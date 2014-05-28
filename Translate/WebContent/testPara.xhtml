@@ -20,12 +20,12 @@
 				color: yellow;	
 			} 
 						
-			#testp2 {				
+			#contentElem {				
 				border-style: dotted;
 				border-width: 1px;
 				color: blue;					
 			}
-			#testp2 tr td{
+			#contentElem tr td{
 				margin: 0;				
 				padding: 0px 5px;
 				list-style: none;
@@ -71,72 +71,89 @@
 		</style>
 				
 		<script type="text/javascript">
-		$(document).ready(function(){
-			$("#testp").click(function(){				    
-
-				$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
-
-					if (data.hasOwnProperty("paragraphs")) {				
-						var items = [];
-						$.each( data.paragraphs, function( key, valParagraphs ) {
-
-							if (valParagraphs.hasOwnProperty("paragraph")) {
-
-								$.each( valParagraphs.paragraph, function( key, valParagraph ) {
-									items.push( "<tr>" );									
-									$.each( valParagraph.sentences, function( key, valSentence ) {
-										
-										var meaning = valSentence.meaning;
-										//items.push( "<li>[" + meaning + "]</li>" );
-										
-										$.each( valSentence.sentence, function( key, valWord ) {
-											items.push( "<td>" );
-											//Look ahead to what is next for punctuation
-											var next = valSentence.sentence[key+1];
-											var addPunc = "";
-											//TODO change to a regex later
-											if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
-												addPunc = next.word;												
-											}
-											
-																						
-											//Punctuation just show as is.
-											if(valWord.punc != undefined){
-												//dont push out as it has been hanlded by the peek ahead.
-											}
-											//Ref word must loop to find in returned JSON
-											else if(valWord.ref != undefined){
-												items.push( "<td>" + valWord.ref + "</td>" );
-											}
-											//Regular word to process
-											else if(valWord.ref == undefined){
-												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
-											}	
-											items.push( "</td>" );
-											
-										});
-									});
-									items.push( "</tr>" );
-									items.push( "<tr><td><br/></td></tr>" );
-									items.push( "<tr><td><br/></td></tr>" );
-									
-								});
-
-							}
-
-						});
+			
+			$(document).ready(function(){
+				$("#testp").click(function(){				    
 						
-						$("#testp2").html("").html( items.join( "" ) );	
+					$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
+	
+						if (data.hasOwnProperty("paragraphs")) {				
+							var items = [];
+							$.each( data.paragraphs, function( key, valParagraphs ) {
+	
+								if (valParagraphs.hasOwnProperty("paragraph")) {
+	
+									$.each( valParagraphs.paragraph, function( key, valParagraph ) {
+										items.push( "<tr>" );									
+										$.each( valParagraph.sentences, function( key, valSentence ) {
+											
+											var meaning = valSentence.meaning;
+											//items.push( "<li>[" + meaning + "]</li>" );
+											
+											$.each( valSentence.sentence, function( key, valWord ) {
+																							
+												items.push( "<td>" );
+												
+												//Look ahead to what is next for punctuation
+												var next = valSentence.sentence[key+1];
+												var addPunc = "";
+												//TODO change to a regex later
+												if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
+													addPunc = next.word;												
+												}											
+																							
+												//Punctuation just show as is.
+												if(valWord.punc != undefined){
+													//dont push out as it has been hanlded by the peek ahead.
+												}
+												//Ref word must loop to find in returned JSON
+												else if(valWord.ref != undefined){												
+													var tempRef = getObjects(data, "id", valWord.id);
+													items.push( '<td><div class="elemWord">' + tempRef[0].word + addPunc + '</div><div class="elemTranslation">' + tempRef[0].translation + '</div></td>' );
+												}
+												//Regular word to process
+												else if(valWord.ref == undefined){
+													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
+												}	
+												items.push( "</td>" );
+												
+											});
+										});
+										items.push( "</tr>" );
+										items.push( "<tr><td><br/></td></tr>" );
+										items.push( "<tr><td><br/></td></tr>" );
+										
+									});
+	
+								}
+	
+							});
 							
-
-					}	
-
-
-				});				
-
-
+							$("#contentElem").html("").html( items.join( "" ) );	
+								
+	
+						}	
+	
+	
+					});				
+	
+	
+				});
 			});
-		});
+						
+			function getObjects(obj, key, val) {			
+			    var objects = [];
+			    for (var i in obj) {		    	
+			    	if (!obj.hasOwnProperty(i)) continue;
+			        if (typeof obj[i] == 'object') {
+			            objects = objects.concat(getObjects(obj[i], key, val));
+			        } else if (i == key &amp;&amp; obj[key] == val &amp;&amp; obj.word != undefined) {		        	
+			            objects.push(obj);
+			        }
+			    }
+			    return objects;
+			}
+			
 		</script>
 
 	</head>
@@ -144,9 +161,19 @@
 	<body>			
 		<div id="testp">text here</div>
 		<div id="container">
-			<table id="testp2" class="cf"/>		
+			<table id="contentElem" class="cf"/>		
 		</div>
 	</body>
 
 </html>
 
+
+
+
+
+<!-- 
+/*Get the keys of a javascript object.*/
+var keys = [];
+for(var k in obj) keys.push(k);
+console.log("total " + keys.length + " keys: " + keys);
+ -->
