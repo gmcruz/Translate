@@ -65,7 +65,8 @@ public class TestResource {
 				"                                        \"translation\": \"I \",																		" +
 				"                                        \"synonyms\": \"{synonyms}\",																	" +
 				"                                        \"definition\": \"{definition}\",																" +
-				"                                        \"uses\": \"{uses}\"																			" +
+				"                                        \"uses\": \"{uses}\",																			" +
+				"                                        \"show\": false																				" +
 				"                                    },																									" +
 				"                                    {																									" +
 				"                                        \"id\": 1005,																					" +
@@ -110,7 +111,8 @@ public class TestResource {
 				"                                        \"translation\": \"Germany \",																	" +
 				"                                        \"synonyms\": \"{synonyms}\",																	" +
 				"                                        \"definition\": \"{definition}\",																" +
-				"                                        \"uses\": \"{uses}\"																			" +
+				"                                        \"uses\": \"{uses}\",																			" +
+				"                                        \"show\": false																				" +				
 				"                                    },																									" +
 				"                                    {																									" +
 				"                                        \"id\": 1011,																					" +
@@ -123,7 +125,7 @@ public class TestResource {
 				"                                    {																									" +
 				"                                        \"id\": 1012,																					" +
 				"                                        \"word\": \"Schulpflicht \",																	" +
-				"                                        \"translation\": \"compulsory school attendance \",											" +
+				"                                        \"translation\": \"mandatory attendance \",													" +
 				"                                        \"synonyms\": \"{synonyms}\",																	" +
 				"                                        \"definition\": \"{definition}\",																" +
 				"                                        \"uses\": \"{uses}\"																			" +
@@ -412,7 +414,8 @@ public class TestResource {
 				"                                        \"translation\": \"Germany \",																						" +
 				"                                        \"synonyms\": \"{synonyms}\",																						" +
 				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"uses\": \"{uses}\",																" +
+				"                                        \"show\": false																	" +
 				"                                    },																						" +
 				"                                    {																						" +
 				"                                        \"id\": 1058,																						" +
@@ -431,36 +434,32 @@ public class TestResource {
 				"                                        \"uses\": \"{uses}\"																						" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1060,																						" +
-				"                                        \"word\": \"ungefähr\",																						" +
-				"                                        \"translation\": \"about \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1060,																		" +
+				"                                        \"word\": \"ungefähr\",															" +
+				"                                        \"translation\": \"about \",														" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1061,																						" +
-				"                                        \"word\": \"36000\",																						" +
-				"                                        \"translation\": \"36000 \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"word\": \"36000\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1062,																						" +
-				"                                        \"word\": \"öffentliche\",																						" +
-				"                                        \"translation\": \"public \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1062,																		" +
+				"                                        \"word\": \"öffentliche\",															" +
+				"                                        \"translation\": \"public \",														" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1063,																						" +
-				"                                        \"word\": \"Schulen\",																						" +
-				"                                        \"translation\": \"train \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1063,																		" +
+				"                                        \"word\": \"Schulen\",																" +
+				"                                        \"translation\": \"Schools\",														" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\",																" +
+				"                                        \"show\": false																	" +				
 				"                                    },																						" +
 				"                                    {																						" +
 				"                                        \"id\": 1064,																						" +
@@ -471,86 +470,65 @@ public class TestResource {
 				"                                        \"uses\": \"{uses}\"																						" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1065,																						" +
-				"                                        \"word\": \"nur\",																						" +
-				"                                        \"translation\": \"only \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1065,																		" +
+				"                                        \"word\": \"nur\",																	" +
+				"                                        \"translation\": \"only \",														" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1066,																						" +
-				"                                        \"word\": \"2600\",																						" +
-				"                                        \"translation\": \"2600 \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"word\": \"2600\"																	" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1067,																						" +
-				"                                        \"word\": \"private\",																						" +
-				"                                        \"translation\": \"private \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1067,																		" +
+				"                                        \"word\": \"Private\",																" +
+				"                                        \"translation\": \"\",																" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1068,																						" +
-				"                                        \"word\": \"Schulen\",																						" +
-				"                                        \"translation\": \"train \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+	   			"                                		 \"id\": 1063,																		" +
+	   			"                                		 \"ref\": true																		" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 255,																						" +
-				"                                        \"word\": \".\",																						" +
-				"                                        \"punc\": true																						" +
+				"                                        \"id\": 255,																		" +
+				"                                        \"word\": \".\",																	" +
+				"                                        \"punc\": true																		" +
 				"                                    }																						" +
-				"                                ],																						" +
-				"                                \"meaning\": \"sentence 1 one meaning\"																						" +
-				"                            },																						" +
-				"                            {																						" +
-				"                                \"sentence\": [																						" +
+				"                                ],																							" +
+				"                                \"meaning\": \"sentence 1 one meaning\"													" +
+				"                            },																								" +
+				"                            {																								" +
+				"                                \"sentence\": [																			" +
 				"                                    {																						" +
-				"                                        \"id\": 1072,																						" +
-				"                                        \"word\": \"Private\",																						" +
-				"                                        \"translation\": \"Private \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+	   			"                                		 \"id\": 1067,																		" +
+	   			"                                		 \"ref\": true																		" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1073,																						" +
-				"                                        \"word\": \"Schulen\",																						" +
-				"                                        \"translation\": \"train \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+	   			"                                		 \"id\": 1063,																		" +
+	   			"                                		 \"ref\": true																		" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1074,																						" +
-				"                                        \"word\": \"sind\",																						" +
-				"                                        \"translation\": \"are \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1074,																		" +
+				"                                        \"word\": \"sind\",																" +
+				"                                        \"translation\": \"are \",															" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1075,																						" +
-				"                                        \"word\": \"solche\",																						" +
-				"                                        \"translation\": \"such \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1075,																		" +
+				"                                        \"word\": \"solche\",																" +
+				"                                        \"translation\": \"such \",														" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1076,																						" +
-				"                                        \"word\": \"Schulen\",																						" +
-				"                                        \"translation\": \"train \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+	   			"                                		 \"id\": 1063,																		" +
+	   			"                                		 \"ref\": true																		" +
 				"                                    },																						" +
 				"                                    {																						" +
 				"                                        \"id\": 1077,																						" +
@@ -632,12 +610,8 @@ public class TestResource {
 				"                                        \"uses\": \"{uses}\"																						" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1089,																						" +
-				"                                        \"word\": \"Schulen\",																						" +
-				"                                        \"translation\": \"train \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+	   			"                                		 \"id\": 1063,																					" +
+	   			"                                		 \"ref\": true																					" +
 				"                                    },																						" +
 				"                                    {																						" +
 				"                                        \"id\": 1090,																						" +
@@ -696,25 +670,26 @@ public class TestResource {
 				"                                        \"uses\": \"{uses}\"																						" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1097,																						" +
-				"                                        \"word\": \"sind\",																						" +
-				"                                        \"translation\": \"are \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1097,																		" +
+				"                                        \"word\": \"sind\",																" +
+				"                                        \"translation\": \"are \",															" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 1098,																						" +
-				"                                        \"word\": \"kostenlos\",																						" +
-				"                                        \"translation\": \"free \",																						" +
-				"                                        \"synonyms\": \"{synonyms}\",																						" +
-				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"id\": 1098,																		" +
+				"                                        \"word\": \"kostenlos\",															" +
+				"                                        \"translation\": \"free \",														" +
+				"                                        \"synonyms\": \"{synonyms}\",														" +
+				"                                        \"definition\": \"{definition}\",													" +
+				"                                        \"uses\": \"{uses}\",																" +
+				"                                        \"show\": false																	" +				
 				"                                    },																						" +
 				"                                    {																						" +
-				"                                        \"id\": 255,																						" +
-				"                                        \"word\": \".\",																						" +
-				"                                        \"punc\": true																						" +
+				"                                        \"id\": 255,																		" +
+				"                                        \"word\": \".\",																	" +
+				"                                        \"punc\": true																		" +
 				"                                    }																						" +
 				"                                ],																						" +
 				"                                \"meaning\": \"sentence 2 one meaning\"																						" +
@@ -775,7 +750,8 @@ public class TestResource {
 				"                                        \"translation\": \"German \",																						" +
 				"                                        \"synonyms\": \"{synonyms}\",																						" +
 				"                                        \"definition\": \"{definition}\",																						" +
-				"                                        \"uses\": \"{uses}\"																						" +
+				"                                        \"uses\": \"{uses}\",																" +
+				"                                        \"show\": false																	" +				
 				"                                    },																						" +
 				"                                    {																						" +
 				"                                        \"id\": 1110,																						" +
@@ -862,7 +838,7 @@ public class TestResource {
 				"                                    {																						" +
 				"                                        \"id\": 1122,																						" +
 				"                                        \"word\": \"Kindergarten\",																						" +
-				"                                        \"translation\": \"kindergarten \",																						" +
+				"                                        \"translation\": \"\",																						" +
 				"                                        \"synonyms\": \"{synonyms}\",																						" +
 				"                                        \"definition\": \"{definition}\",																						" +
 				"                                        \"uses\": \"{uses}\"																						" +

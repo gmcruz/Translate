@@ -53,7 +53,15 @@
 				border-width: 0px;					
 				text-align: center;
 			}
-			
+			div .invisible {
+				font-size: .7em;
+				color: #FFFFFF;
+				padding: 0px 0px;
+				margin: 0;
+				border-style: dotted;
+				border-width: 0px;					
+				text-align: center;
+			}			
 			
 			.cf:before,	.cf:after {
 			    content: " "; /* 1 */
@@ -101,15 +109,27 @@
 												if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
 													addPunc = next.word;												
 												}											
-																							
+													
+												
+												//numbers or other words who do not have translations like names or city names etc....
+												if(valWord.id == undefined &amp;&amp; valWord.translation == undefined){
+													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation"> </div></td>' );
+												}
 												//Punctuation just show as is.
-												if(valWord.punc != undefined){
+												else if(valWord.punc != undefined){
 													//dont push out as it has been hanlded by the peek ahead.
 												}
+												else if(valWord.show != undefined &amp;&amp; valWord.show == false){
+													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
+												}
 												//Ref word must loop to find in returned JSON
-												else if(valWord.ref != undefined){												
+												else if(valWord.ref != undefined){		
 													var tempRef = getObjects(data, "id", valWord.id);
-													items.push( '<td><div class="elemWord">' + tempRef[0].word + addPunc + '</div><div class="elemTranslation">' + tempRef[0].translation + '</div></td>' );
+													var typeClass = "elemTranslation";
+													if(tempRef[0].show != undefined &amp;&amp; tempRef[0].show == false){
+														typeClass = "invisible";
+													}													
+													items.push( '<td><div class="elemWord">' + tempRef[0].word + addPunc + '</div><div class="' + typeClass + '">' + tempRef[0].translation + '</div></td>' );
 												}
 												//Regular word to process
 												else if(valWord.ref == undefined){
