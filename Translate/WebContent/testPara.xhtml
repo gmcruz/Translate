@@ -3,7 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
+		
 		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+		
 		<title>Test Page</title>
 				
 		<style>			
@@ -75,6 +78,31 @@
 			    *zoom: 1;
 			}
 				
+			div.selected {
+			  background-color: #3399FF;
+			  color: white;
+			  z-index: 100;
+			}
+			
+			.messagepop {
+			  background-color: #FFFFFF;
+			  border: 1px solid #999999;
+			  cursor: default;
+			  display: none;
+			  margin-top: 17px;
+			  position: absolute;
+			  text-align: left;
+			  width: 250px;
+			  z-index: 50;
+			  padding: 10px 10px 10px;
+			}
+			
+			label #labelNewTranslation{
+			  display: block;
+			  margin-bottom: 3px;
+			  padding-left: 15px;
+			  text-indent: -15px;
+			}					
 			
 		</style>
 				
@@ -83,7 +111,7 @@
 			$(document).ready(function(){
 				$("#testp").click(function(){				    
 						
-					$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
+					$.getJSON( "http://gcruz-pc:8080/TranslateModule/resource/tests/", function( data ) {
 	
 						if (data.hasOwnProperty("paragraphs")) {				
 							var items = [];
@@ -118,6 +146,10 @@
 												//Punctuation just show as is.
 												else if(valWord.punc != undefined){
 													//dont push out as it has been hanlded by the peek ahead.
+												}
+												//ask for help in getting it translated.
+												else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
+													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
 												}
 												else if(valWord.show != undefined &amp;&amp; valWord.show == false){
 													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
@@ -174,6 +206,38 @@
 			    return objects;
 			}
 			
+			//Add a new translation by users
+			$(function() {			    
+				
+				$("#newTranslationDiv").click(function(){
+					if($(this).hasClass("selected")) {
+			            deselect();               
+			        } else {
+			            $(this).addClass("selected");
+			            $(".newTranslationPopup").slideFadeToggle(function() { 
+			                $("#newTranslation").focus();
+			            });
+			        }
+			        return false;
+				})
+				
+				$(".close").click(function() {
+			        deselect();
+			        return false;
+			    });
+				
+			});
+			function deselect() {
+			    $(".newTranslationPopup").slideFadeToggle(function() { 
+			        $("#newTranslationDiv").removeClass("selected");
+			    });    
+			}
+			$.fn.slideFadeToggle = function(easing, callback) {
+			    return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
+			};
+			
+			
+			
 		</script>
 
 	</head>
@@ -183,6 +247,17 @@
 		<div id="container">
 			<table id="contentElem" class="cf"/>		
 		</div>
+		
+		<div class="messagepop newTranslationPopup">
+		    <form method="post" id="new_userTranslation" action="/messages">
+		        <p><label id="labelNewTranslation" for="newTranslation">Help out by adding a translation</label><input type="text" size="30" name="newTranslation" id="newTranslation" /></p>
+		        <p><input type="submit" value="Add Translation" name="commit" id="addTranslation"/>  <a class="close" href="/">Cancel</a></p>
+		    </form>
+		</div>
+		<div id="newTranslationDiv">Kostenlos</div>				
+		
+		
+		
 	</body>
 
 </html>

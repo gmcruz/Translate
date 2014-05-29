@@ -680,11 +680,10 @@ public class TestResource {
 				"                                    {																						" +
 				"                                        \"id\": 1098,																		" +
 				"                                        \"word\": \"kostenlos\",															" +
-				"                                        \"translation\": \"free \",														" +
+				"                                        \"empty\": true,																	" +
 				"                                        \"synonyms\": \"{synonyms}\",														" +
 				"                                        \"definition\": \"{definition}\",													" +
-				"                                        \"uses\": \"{uses}\",																" +
-				"                                        \"show\": false																	" +				
+				"                                        \"uses\": \"{uses}\"																" +
 				"                                    },																						" +
 				"                                    {																						" +
 				"                                        \"id\": 255,																		" +
