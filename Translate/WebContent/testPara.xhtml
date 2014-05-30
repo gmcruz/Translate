@@ -111,8 +111,17 @@
 			$(document).ready(function(){
 				$("#testp").click(function(){				    
 						
-					$.getJSON( "http://gcruz-pc:8080/TranslateModule/resource/tests/", function( data ) {
-	
+					$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
+						
+						var fromLang;
+						var toLang;
+						
+						if (data.hasOwnProperty("language")) {			
+							fromLang = data.language.from;
+							toLang = data.language.to;
+							
+						}
+						
 						if (data.hasOwnProperty("paragraphs")) {				
 							var items = [];
 							$.each( data.paragraphs, function( key, valParagraphs ) {
@@ -149,7 +158,7 @@
 												}
 												//ask for help in getting it translated.
 												else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
-													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
+													items.push( '<td><div class="elemWord" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLang + '\',\'' + toLang + '\');">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
 												}
 												else if(valWord.show != undefined &amp;&amp; valWord.show == false){
 													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
@@ -209,7 +218,7 @@
 			//Add a new translation by users
 			$(function() {			    
 				
-				$("#newTranslationDiv").click(function(){
+				$(".newTranslationDiv").click(function(){
 					if($(this).hasClass("selected")) {
 			            deselect();               
 			        } else {
@@ -221,8 +230,10 @@
 			        return false;
 				})
 				
-				$(".close").click(function() {
-			        deselect();
+				$(".close").click(function() {	    			       
+					$("#new_userTranslationform").find('input:text, input:hidden, input:password, input:file, select, textarea').val('');
+					$("#new_userTranslationform").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');					
+			        deselect();			        
 			        return false;
 			    });
 				
@@ -236,7 +247,13 @@
 			    return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
 			};
 			
-			
+			function newTranslationFn(id, fromLang, toLang) {			   
+				$(".newTranslationPopup").slideFadeToggle(function() { 			       
+			        $("#fromLangTranslationId").val(id);
+			        $("#newTranslationFromLang").val(fromLang);
+			        $("#newTranslationToLang").val(toLang);
+			    });    
+			}
 			
 		</script>
 
@@ -249,12 +266,18 @@
 		</div>
 		
 		<div class="messagepop newTranslationPopup">
-		    <form method="post" id="new_userTranslation" action="/messages">
-		        <p><label id="labelNewTranslation" for="newTranslation">Help out by adding a translation</label><input type="text" size="30" name="newTranslation" id="newTranslation" /></p>
+		    <form method="post" id="new_userTranslationform" action="/messages">
+		        <p>
+		        	<label id="labelNewTranslation" for="newTranslation">Help out by adding a translation</label>
+		        	<input type="text" size="30" name="newTranslation" id="newTranslation" />
+		        </p>		        	
 		        <p><input type="submit" value="Add Translation" name="commit" id="addTranslation"/>  <a class="close" href="/">Cancel</a></p>
+		        <input type="hidden" name="fromLangTranslationId" id="fromLangTranslationId" />
+		        <input type="hidden" name="newTranslationFromLang" id="newTranslationFromLang" />
+		        <input type="hidden" name="newTranslationToLang" id="newTranslationToLang" />
 		    </form>
 		</div>
-		<div id="newTranslationDiv">Kostenlos</div>				
+		<div id="newTranslationDiv" class="newTranslationDiv">Kostenlos</div>				
 		
 		
 		

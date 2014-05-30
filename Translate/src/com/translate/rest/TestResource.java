@@ -36,6 +36,11 @@ public class TestResource {
 		logger.debug("CALLED THE TEST");
 		String json;		
 		json = "    {																																	" +
+				"        \"language\": {																												" +
+				"        	\"from\": \"de_DE\",																										" +
+				"			\"to\": \"en_US\"																											" +
+				"        },																																" +
+				
 				"        \"paragraphs\": [																												" +
 				"            {																															" +
 				"                \"paragraph\": [																										" +
