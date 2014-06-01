@@ -200,7 +200,7 @@ public class TestResource {
 				"                                    {																									" +
 				"                                        \"id\": 1023,																					" +
 				"                                        \"word\": \"besuchen\",																		" +
-				"                                        \"translation\": \"visit \",																	" +
+				"                                        \"empty\": true,																				" +
 				"                                        \"synonyms\": \"{synonyms}\",																	" +
 				"                                        \"definition\": \"{definition}\",																" +
 				"                                        \"uses\": \"{uses}\"																			" +

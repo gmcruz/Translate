@@ -89,7 +89,7 @@
 			  border: 1px solid #999999;
 			  cursor: default;
 			  display: none;
-			  margin-top: 17px;
+			  margin-top: 7px;
 			  position: absolute;
 			  text-align: left;
 			  width: 250px;
@@ -111,7 +111,7 @@
 			$(document).ready(function(){
 				$("#testp").click(function(){				    
 						
-					$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
+					$.getJSON( "http://127.0.0.1/TranslateModule/resource/tests/", function( data ) {
 						
 						var fromLang;
 						var toLang;
@@ -133,8 +133,7 @@
 										$.each( valParagraph.sentences, function( key, valSentence ) {
 											
 											var meaning = valSentence.meaning;
-											//items.push( "<li>[" + meaning + "]</li>" );
-											
+																						
 											$.each( valSentence.sentence, function( key, valWord ) {
 																							
 												items.push( "<td>" );
@@ -145,8 +144,7 @@
 												//TODO change to a regex later
 												if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
 													addPunc = next.word;												
-												}											
-													
+												}													
 												
 												//numbers or other words who do not have translations like names or city names etc....
 												if(valWord.id == undefined &amp;&amp; valWord.translation == undefined){
@@ -190,14 +188,11 @@
 	
 							});
 							
-							$("#contentElem").html("").html( items.join( "" ) );	
-								
+							$("#contentElem").html("").html( items.join( "" ) );									
 	
-						}	
+						}		
 	
-	
-					});				
-	
+					});					
 	
 				});
 			});
@@ -214,46 +209,36 @@
 			    }
 			    return objects;
 			}
+						
+			function closeNewTranslationPopup() {				 			       
+				clearNewTranslationPopupForm();					
+		        deselect();				       
+			};
 			
-			//Add a new translation by users
-			$(function() {			    
-				
-				$(".newTranslationDiv").click(function(){
-					if($(this).hasClass("selected")) {
-			            deselect();               
-			        } else {
-			            $(this).addClass("selected");
-			            $(".newTranslationPopup").slideFadeToggle(function() { 
-			                $("#newTranslation").focus();
-			            });
-			        }
-			        return false;
-				})
-				
-				$(".close").click(function() {	    			       
-					$("#new_userTranslationform").find('input:text, input:hidden, input:password, input:file, select, textarea').val('');
-					$("#new_userTranslationform").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');					
-			        deselect();			        
-			        return false;
-			    });
-				
-			});
+			function clearNewTranslationPopupForm() {				 			       
+				$("#new_userTranslationform").find('input:text, input:hidden, input:password, input:file, select, textarea').val('');
+				$("#new_userTranslationform").find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');					       
+			};
+			
 			function deselect() {
 			    $(".newTranslationPopup").slideFadeToggle(function() { 
 			        $("#newTranslationDiv").removeClass("selected");
 			    });    
-			}
+			};
+			
 			$.fn.slideFadeToggle = function(easing, callback) {
 			    return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
 			};
 			
-			function newTranslationFn(id, fromLang, toLang) {			   
-				$(".newTranslationPopup").slideFadeToggle(function() { 			       
-			        $("#fromLangTranslationId").val(id);
-			        $("#newTranslationFromLang").val(fromLang);
-			        $("#newTranslationToLang").val(toLang);
-			    });    
-			}
+			function newTranslationFn(id, fromLang, toLang) {					
+				clearNewTranslationPopupForm();
+				$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});
+				$("#newTranslationPopup").slideFadeToggle(function() { 	}); 
+				$("#fromLangTranslationId").val(id);
+		        $("#newTranslationFromLang").val(fromLang);
+		        $("#newTranslationToLang").val(toLang);
+				$("#newTranslation").focus();
+			};
 			
 		</script>
 
@@ -265,22 +250,21 @@
 			<table id="contentElem" class="cf"/>		
 		</div>
 		
-		<div class="messagepop newTranslationPopup">
+		<div id="newTranslationPopup" class="messagepop newTranslationPopup">
 		    <form method="post" id="new_userTranslationform" action="/messages">
 		        <p>
 		        	<label id="labelNewTranslation" for="newTranslation">Help out by adding a translation</label>
 		        	<input type="text" size="30" name="newTranslation" id="newTranslation" />
 		        </p>		        	
-		        <p><input type="submit" value="Add Translation" name="commit" id="addTranslation"/>  <a class="close" href="/">Cancel</a></p>
+		        <p>
+		        	<input type="submit" value="Submit" name="commit" id="addTranslation"/>  
+		        	<input type="button" onclick="closeNewTranslationPopup()" value="Cancel" />  
+		        </p>
 		        <input type="hidden" name="fromLangTranslationId" id="fromLangTranslationId" />
 		        <input type="hidden" name="newTranslationFromLang" id="newTranslationFromLang" />
 		        <input type="hidden" name="newTranslationToLang" id="newTranslationToLang" />
 		    </form>
 		</div>
-		<div id="newTranslationDiv" class="newTranslationDiv">Kostenlos</div>				
-		
-		
-		
 	</body>
 
 </html>
