@@ -86,7 +86,7 @@
 			
 			.messagepop {
 			  background-color: #FFFFFF;
-			  border: 1px solid #999999;
+			  border: 2px solid #999999;
 			  cursor: default;
 			  display: none;
 			  margin-top: 7px;
@@ -95,6 +95,8 @@
 			  width: 250px;
 			  z-index: 50;
 			  padding: 10px 10px 10px;
+			  border-radius: 4px;
+			  box-shadow: 3px 3px 2px #888888;
 			}
 			
 			label #labelNewTranslation{
@@ -102,6 +104,10 @@
 			  margin-bottom: 3px;
 			  padding-left: 15px;
 			  text-indent: -15px;
+			}
+			
+			.handCursor{
+				cursor: pointer;
 			}					
 			
 		</style>
@@ -111,15 +117,14 @@
 			$(document).ready(function(){
 				$("#testp").click(function(){				    
 						
-					$.getJSON( "http://127.0.0.1/TranslateModule/resource/tests/", function( data ) {
+					$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
 						
 						var fromLang;
 						var toLang;
 						
 						if (data.hasOwnProperty("language")) {			
 							fromLang = data.language.from;
-							toLang = data.language.to;
-							
+							toLang = data.language.to;							
 						}
 						
 						if (data.hasOwnProperty("paragraphs")) {				
@@ -156,7 +161,7 @@
 												}
 												//ask for help in getting it translated.
 												else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
-													items.push( '<td><div class="elemWord" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLang + '\',\'' + toLang + '\');">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
+													items.push( '<td><div class="elemWord handCursor" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLang + '\',\'' + toLang + '\');">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
 												}
 												else if(valWord.show != undefined &amp;&amp; valWord.show == false){
 													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
@@ -212,7 +217,8 @@
 						
 			function closeNewTranslationPopup() {				 			       
 				clearNewTranslationPopupForm();					
-		        deselect();				       
+		        deselect();			
+		        $("#newTranslationPopup").slideFadeToggle('0'); 
 			};
 			
 			function clearNewTranslationPopupForm() {				 			       
@@ -221,23 +227,23 @@
 			};
 			
 			function deselect() {
-			    $(".newTranslationPopup").slideFadeToggle(function() { 
-			        $("#newTranslationDiv").removeClass("selected");
-			    });    
+				$(".newTranslationPopup").slideFadeToggle(function() { 
+					$("#newTranslationDiv").removeClass("selected");
+			    });   
 			};
 			
-			$.fn.slideFadeToggle = function(easing, callback) {
-			    return this.animate({ opacity: 'toggle', height: 'toggle' }, "fast", easing, callback);
+			$.fn.slideFadeToggle = function(showHide, easing, callback) {
+				return this.animate({ opacity: showHide, height: 'show' }, "fast", easing, callback);
 			};
 			
-			function newTranslationFn(id, fromLang, toLang) {					
-				clearNewTranslationPopupForm();
-				$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});
-				$("#newTranslationPopup").slideFadeToggle(function() { 	}); 
+			function newTranslationFn(id, fromLang, toLang) {
+				clearNewTranslationPopupForm();								
+				$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});				
 				$("#fromLangTranslationId").val(id);
 		        $("#newTranslationFromLang").val(fromLang);
 		        $("#newTranslationToLang").val(toLang);
 				$("#newTranslation").focus();
+				$("#newTranslationPopup").slideFadeToggle('1'); 
 			};
 			
 		</script>
@@ -250,7 +256,7 @@
 			<table id="contentElem" class="cf"/>		
 		</div>
 		
-		<div id="newTranslationPopup" class="messagepop newTranslationPopup">
+		<div id="newTranslationPopup" class="messagepop">
 		    <form method="post" id="new_userTranslationform" action="/messages">
 		        <p>
 		        	<label id="labelNewTranslation" for="newTranslation">Help out by adding a translation</label>
