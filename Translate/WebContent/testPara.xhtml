@@ -47,6 +47,16 @@
 				color: black;	
 				font-family: Verdana;
 			}
+			div .noTranslationHelp{
+				color: green;	
+			}
+			div .wordToHelpTranslate {
+				font-size: 1.3em;
+				padding: 0px 0px;	
+				margin: 0;	
+				color: #0066CC;	
+				font-family: Verdana;
+			}			
 			div .elemTranslation {
 				font-size: .7em;
 				color: #C0C0C0;
@@ -108,6 +118,10 @@
 			
 			.handCursor{
 				cursor: pointer;
+			}
+			
+			#newTranslationPopup p div{
+				border: 1px dotted #999999;
 			}					
 			
 		</style>
@@ -115,91 +129,89 @@
 		<script type="text/javascript">
 			
 			$(document).ready(function(){
-				$("#testp").click(function(){				    
-						
-					$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
-						
-						var fromLang;
-						var toLang;
-						
-						if (data.hasOwnProperty("language")) {			
-							fromLang = data.language.from;
-							toLang = data.language.to;							
-						}
-						
-						if (data.hasOwnProperty("paragraphs")) {				
-							var items = [];
-							$.each( data.paragraphs, function( key, valParagraphs ) {
-	
-								if (valParagraphs.hasOwnProperty("paragraph")) {
-	
-									$.each( valParagraphs.paragraph, function( key, valParagraph ) {
-										items.push( "<tr>" );									
-										$.each( valParagraph.sentences, function( key, valSentence ) {
-											
-											var meaning = valSentence.meaning;
-																						
-											$.each( valSentence.sentence, function( key, valWord ) {
-																							
-												items.push( "<td>" );
-												
-												//Look ahead to what is next for punctuation
-												var next = valSentence.sentence[key+1];
-												var addPunc = "";
-												//TODO change to a regex later
-												if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
-													addPunc = next.word;												
-												}													
-												
-												//numbers or other words who do not have translations like names or city names etc....
-												if(valWord.id == undefined &amp;&amp; valWord.translation == undefined){
-													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation"> </div></td>' );
-												}
-												//Punctuation just show as is.
-												else if(valWord.punc != undefined){
-													//dont push out as it has been hanlded by the peek ahead.
-												}
-												//ask for help in getting it translated.
-												else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
-													items.push( '<td><div class="elemWord handCursor" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLang + '\',\'' + toLang + '\');">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
-												}
-												else if(valWord.show != undefined &amp;&amp; valWord.show == false){
-													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
-												}
-												//Ref word must loop to find in returned JSON
-												else if(valWord.ref != undefined){		
-													var tempRef = getObjects(data, "id", valWord.id);
-													var typeClass = "elemTranslation";
-													if(tempRef[0].show != undefined &amp;&amp; tempRef[0].show == false){
-														typeClass = "invisible";
-													}													
-													items.push( '<td><div class="elemWord">' + tempRef[0].word + addPunc + '</div><div class="' + typeClass + '">' + tempRef[0].translation + '</div></td>' );
-												}
-												//Regular word to process
-												else if(valWord.ref == undefined){
-													items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
-												}	
-												items.push( "</td>" );
-												
-											});
-										});
-										items.push( "</tr>" );
-										items.push( "<tr><td><br/></td></tr>" );
-										items.push( "<tr><td><br/></td></tr>" );
 										
+				$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
+					
+					var fromLang;
+					var toLang;
+					
+					if (data.hasOwnProperty("language")) {			
+						fromLang = data.language.from;
+						toLang = data.language.to;							
+					}
+					
+					if (data.hasOwnProperty("paragraphs")) {				
+						var items = [];
+						$.each( data.paragraphs, function( key, valParagraphs ) {
+
+							if (valParagraphs.hasOwnProperty("paragraph")) {
+
+								$.each( valParagraphs.paragraph, function( key, valParagraph ) {
+									items.push( "<tr>" );									
+									$.each( valParagraph.sentences, function( key, valSentence ) {
+										
+										var meaning = valSentence.meaning;
+																					
+										$.each( valSentence.sentence, function( key, valWord ) {
+																						
+											items.push( "<td>" );
+											
+											//Look ahead to what is next for punctuation
+											var next = valSentence.sentence[key+1];
+											var addPunc = "";
+											//TODO change to a regex later
+											if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
+												addPunc = next.word;												
+											}													
+											
+											//numbers or other words who do not have translations like names or city names etc....
+											if(valWord.id == undefined &amp;&amp; valWord.translation == undefined){
+												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation"> </div></td>' );
+											}
+											//Punctuation just show as is.
+											else if(valWord.punc != undefined){
+												//dont push out as it has been hanlded by the peek ahead.
+											}
+											//ask for help in getting it translated.
+											else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
+												items.push( '<td><div class="elemWord handCursor noTranslationHelp" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLang + '\',\'' + toLang + '\',\'' + valWord.word + '\');">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
+											}
+											else if(valWord.show != undefined &amp;&amp; valWord.show == false){
+												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
+											}
+											//Ref word must loop to find in returned JSON
+											else if(valWord.ref != undefined){		
+												var tempRef = getObjects(data, "id", valWord.id);
+												var typeClass = "elemTranslation";
+												if(tempRef[0].show != undefined &amp;&amp; tempRef[0].show == false){
+													typeClass = "invisible";
+												}													
+												items.push( '<td><div class="elemWord">' + tempRef[0].word + addPunc + '</div><div class="' + typeClass + '">' + tempRef[0].translation + '</div></td>' );
+											}
+											//Regular word to process
+											else if(valWord.ref == undefined){
+												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
+											}	
+											items.push( "</td>" );
+											
+										});
 									});
-	
-								}
-	
-							});
-							
-							$("#contentElem").html("").html( items.join( "" ) );									
-	
-						}		
-	
-					});					
-	
-				});
+									items.push( "</tr>" );
+									items.push( "<tr><td><br/></td></tr>" );
+									items.push( "<tr><td><br/></td></tr>" );
+									
+								});
+
+							}
+
+						});
+						
+						$("#contentElem").html("").html( items.join( "" ) );									
+
+					}		
+
+				});						
+				
 			});
 						
 			function getObjects(obj, key, val) {			
@@ -236,7 +248,7 @@
 				return this.animate({ opacity: showHide, height: 'show' }, "fast", easing, callback);
 			};
 			
-			function newTranslationFn(id, fromLang, toLang) {
+			function newTranslationFn(id, fromLang, toLang, word) {
 				clearNewTranslationPopupForm();								
 				$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});				
 				$("#fromLangTranslationId").val(id);
@@ -244,6 +256,7 @@
 		        $("#newTranslationToLang").val(toLang);
 				$("#newTranslation").focus();
 				$("#newTranslationPopup").slideFadeToggle('1'); 
+				$("#wordToTranslate").text(word + " =");
 			};
 			
 		</script>
@@ -251,20 +264,21 @@
 	</head>
 
 	<body>			
-		<div id="testp">text here</div>
+		
 		<div id="container">
 			<table id="contentElem" class="cf"/>		
 		</div>
 		
 		<div id="newTranslationPopup" class="messagepop">
 		    <form method="post" id="new_userTranslationform" action="/messages">
-		        <p>
+		        <div>
 		        	<label id="labelNewTranslation" for="newTranslation">Help out by adding a translation</label>
-		        	<input type="text" size="30" name="newTranslation" id="newTranslation" />
-		        </p>		        	
+		        	<span id="wordToTranslate" class="wordToHelpTranslate" />		        	
+		        	<input type="text" size="10" name="newTranslation" id="newTranslation" />
+		        </div>		        	
 		        <p>
-		        	<input type="submit" value="Submit" name="commit" id="addTranslation"/>  
-		        	<input type="button" onclick="closeNewTranslationPopup()" value="Cancel" />  
+		        	<button type="submit" id="addTranslation">Submit</button>  
+		        	<button type="button" onclick="closeNewTranslationPopup()">Cancel</button>  
 		        </p>
 		        <input type="hidden" name="fromLangTranslationId" id="fromLangTranslationId" />
 		        <input type="hidden" name="newTranslationFromLang" id="newTranslationFromLang" />
