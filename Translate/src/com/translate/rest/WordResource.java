@@ -1,7 +1,6 @@
 package com.translate.rest;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

@@ -8,7 +8,8 @@
 		<!-- <class>com.translate.domain.Content</class>
 		<class>com.translate.domain.Language</class>-->
 		<class>com.translate.domain.Base</class>
-		<class>com.translate.domain.Translation</class>		
+		<class>com.translate.domain.Translation</class>
+		<class>com.translate.domain.Word</class>		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>		           
             <property name="eclipselink.logging.level" value="FINEST" />
