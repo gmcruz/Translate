@@ -130,7 +130,7 @@
 			
 			$(document).ready(function(){
 										
-				$.getJSON( "http://127.0.0.1:8080/TranslateModule/resource/tests/", function( data ) {
+				$.getJSON( "http://127.0.0.1/TranslateModule/resource/tests/", function( data ) {
 					
 					var fromLang;
 					var toLang;
@@ -212,6 +212,18 @@
 
 				});						
 				
+				
+				$("#addTranslationSubmit").click(function(){				
+					var id = $("#fromLangTranslationId").val();
+					var fromLang = $("#newTranslationFromLang").val();
+					var toLang = $("#newTranslationToLang").val();
+					var word = $("#newTranslation").val();
+				  	$.post("http://127.0.0.1/TranslateModule/resource/words/post/",{"contentId":1,"word":word,"languageId":1,"timeMiliStart":"1972-10-03T21:16:31.347+01:00","timeMiliEnd":"1997-07-17T19:20:30.45+01:00"},function(data,status){
+						closeNewTranslationPopup()
+				  	}, 'json');
+				});	 
+				
+				
 			});
 						
 			function getObjects(obj, key, val) {			
@@ -231,7 +243,7 @@
 				clearNewTranslationPopupForm();					
 		        deselect();			
 		        $("#newTranslationPopup").slideFadeToggle('0'); 
-			};
+			};			
 			
 			function clearNewTranslationPopupForm() {				 			       
 				$("#new_userTranslationform").find('input:text, input:hidden, input:password, input:file, select, textarea').val('');
@@ -269,20 +281,15 @@
 			<table id="contentElem" class="cf"/>		
 		</div>
 		
-		<!-- ui-dialog -->
-		<div id="dialog" class="ui-dialog" title="Dialog Title">
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		</div>
-		
 		<div id="newTranslationPopup" class="messagepop">
-		    <form method="post" id="new_userTranslationform" action="/messages">
+		    <form method="post" id="new_userTranslationform" action="#">
 		        <div>
 		        	<label id="labelNewTranslation" for="newTranslation">Help out by adding a translation</label>
 		        	<span id="wordToTranslate" class="wordToHelpTranslate" />		        	
 		        	<input type="text" size="10" name="newTranslation" id="newTranslation" />
 		        </div>		        	
 		        <p>
-		        	<button type="submit" id="addTranslation">Submit</button>  
+		        	<button type="button" id="addTranslationSubmit">Submit</button>  
 		        	<button type="button" onclick="closeNewTranslationPopup()">Cancel</button>  
 		        </p>
 		        <input type="hidden" name="fromLangTranslationId" id="fromLangTranslationId" />
