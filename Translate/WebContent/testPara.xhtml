@@ -127,10 +127,12 @@
 		</style>
 				
 		<script type="text/javascript">
+		
+			var domainName = "http://127.0.0.1:8080";
 			
 			$(document).ready(function(){
 										
-				$.getJSON( "http://127.0.0.1/TranslateModule/resource/tests/", function( data ) {
+				$.getJSON( domainName+"/TranslateModule/resource/tests/", function( data ) {
 					
 					var fromLang;
 					var toLang;
@@ -217,12 +219,26 @@
 					var id = $("#fromLangTranslationId").val();
 					var fromLang = $("#newTranslationFromLang").val();
 					var toLang = $("#newTranslationToLang").val();
-					var word = $("#newTranslation").val();
-				  	$.post("http://127.0.0.1/TranslateModule/resource/words/post/",{"contentId":1,"word":word,"languageId":1,"timeMiliStart":"1972-10-03T21:16:31.347+01:00","timeMiliEnd":"1997-07-17T19:20:30.45+01:00"},function(data,status){
-						closeNewTranslationPopup()
-				  	}, 'json');
+					var word = $("#newTranslation").val();				  				  	
+				  	var sendInfo = {
+				  		"contentId":1,
+				  		"word":word,
+				  		"languageId":1,
+				  		"timeMiliStart":"1972-10-03T21:16:31.347+01:00",
+				  		"timeMiliEnd":"1997-07-17T19:20:30.45+01:00"
+			        };
+
+			        $.ajax({
+			            type: "POST",
+			            url: domainName + "/TranslateModule/resource/words/post",
+			            dataType: "json",
+			            contentType: "application/json; charset=UTF-8",
+			            data: JSON.stringify(sendInfo),
+			            success: function (msg) { }			            
+			        });
+			        closeNewTranslationPopup();
 				});	 
-				
+											
 				
 			});
 						
@@ -297,8 +313,8 @@
 		        <input type="hidden" name="newTranslationToLang" id="newTranslationToLang" />
 		    </form>
 		</div>
-		
-	</body>
+
+</body>
 
 </html>
 
