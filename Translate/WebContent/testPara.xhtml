@@ -128,7 +128,7 @@
 				
 		<script type="text/javascript">
 		
-			var domainName = "http://127.0.0.1:8080";
+			var domainName = "http://127.0.0.1";
 			
 			$(document).ready(function(){
 										
@@ -155,15 +155,23 @@
 										var meaning = valSentence.meaning;
 																					
 										$.each( valSentence.sentence, function( key, valWord ) {
+											
+											var sentenceLength = valSentence.sentence.length - 1;
 																						
 											items.push( "<td>" );
 											
 											//Look ahead to what is next for punctuation
 											var next = valSentence.sentence[key+1];
 											var addPunc = "";
-											//TODO change to a regex later
-											if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){
-												addPunc = next.word;												
+																																
+											if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){//TODO change to a regex later
+												if(sentenceLength == (key + 1) &amp;&amp; next.word == "."){
+													//But if it is a period then we want to put the sentence meaning.												
+													addPunc = '<span class="showMeaning handCursor" title="' + meaning + '">. </span>';
+												}	
+												else{
+													addPunc = next.word;
+												}	
 											}													
 											
 											//numbers or other words who do not have translations like names or city names etc....
@@ -172,7 +180,7 @@
 											}
 											//Punctuation just show as is.
 											else if(valWord.punc != undefined){
-												//dont push out as it has been hanlded by the peek ahead.
+												//dont push out as it has been hanlded by the peek ahead.												
 											}
 											//ask for help in getting it translated.
 											else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
@@ -211,9 +219,12 @@
 						$("#contentElem").html("").html( items.join( "" ) );									
 
 					}		
-
+					
 				});						
 				
+				$(".showMeaning").tooltip({
+				      show: {effect: "slideDown", delay: 250}
+				});
 				
 				$("#addTranslationSubmit").click(function(){				
 					var id = $("#fromLangTranslationId").val();

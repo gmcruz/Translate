@@ -277,7 +277,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 2 one meaning\"																						" +
+				"                                \"meaning\": \"sentence 3 one meaning\"																						" +
 				"                            },																						" +
 				"                            {																						" +
 				"                                \"sentence\": [																						" +
@@ -392,7 +392,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 2 one meaning\"																						" +
+				"                                \"meaning\": \"sentence 4 one meaning\"																						" +
 				"                            }																						" +				
 
 	   			"                ]																								" +
@@ -503,7 +503,7 @@ public class TestResource {
 				"                                        \"punc\": true																		" +
 				"                                    }																						" +
 				"                                ],																							" +
-				"                                \"meaning\": \"sentence 1 one meaning\"													" +
+				"                                \"meaning\": \"sentence 5 one meaning\"													" +
 				"                            },																								" +
 				"                            {																								" +
 				"                                \"sentence\": [																			" +
@@ -602,7 +602,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 2 one meaning\"																						" +
+				"                                \"meaning\": \"sentence 6 one meaning\"																						" +
 				"                            },																						" +
 				"                            {																						" +
 				"                                \"sentence\": [																						" +
@@ -696,7 +696,7 @@ public class TestResource {
 				"                                        \"punc\": true																		" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 2 one meaning\"																						" +
+				"                                \"meaning\": \"sentence 7 one meaning\"																						" +
 				"                            }																						" +
 				"                        ]																						" +
 				"                    }																						" +
@@ -795,7 +795,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 1 one meaning\"																						" +
+				"                                \"meaning\": \"sentence 8 one meaning\"																						" +
 				"                            },																						" +
 				"                            {																						" +
 				"                                \"sentence\": [																						" +
@@ -853,7 +853,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 2 one meaning\"																						" +
+				"                                \"meaning\": \"sentence 9 one meaning\"																						" +
 				"                            }																						" +
 				"                        ]																						" +
 				"                    }																						" +
