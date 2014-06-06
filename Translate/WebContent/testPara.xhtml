@@ -249,9 +249,19 @@
 			        });
 			        closeNewTranslationPopup();
 				});	 
-											
+									
+				var options = $("#languageOptions");	
+				$.getJSON( domainName+"/TranslateModule/resource/locales/", function( data ) {													
+					if (data.hasOwnProperty("locale")) {						
+						$.each( data.locale, function( key, valLocale ) {
+							if(valLocale.active == 1){
+								options.append(new Option(this.language, this.id));
+							}
+						})
+					}	
+				})
 				
-			});
+			}); //Finishes $(document).ready(function(){
 						
 			function getObjects(obj, key, val) {			
 			    var objects = [];
@@ -305,6 +315,7 @@
 	<body>			
 		
 		<div id="container">
+			<select id="languageOptions"/>
 			<table id="contentElem" class="cf"/>		
 		</div>
 		

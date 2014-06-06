@@ -149,7 +149,7 @@ public class TestResource {
 				"                                        \"punc\": true																					" +
 				"                                    }																									" +				
 				"                                ],																										" +
-				"                                \"meaning\": \"sentence 1 one meaning\"																" +
+				"                                \"meaning\": \"First I must say that there is manadatory attendance education in Germany.\"																" +
 				"                            },																											" +
 				"                            {																											" +
 				"                                \"sentence\": [																						" +
@@ -211,7 +211,7 @@ public class TestResource {
 				"                                        \"punc\": true																					" +
 				"                                    }																									" +
 				"                                ],																										" +
-				"                                \"meaning\": \"sentence 2 one meaning\"																" +
+				"                                \"meaning\": \"Every child must therefore attend school.\"																" +
 				"                            },																											" +
 				"                            {																											" +
 				"                                \"sentence\": [																						" +
@@ -277,7 +277,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 3 one meaning\"																						" +
+				"                                \"meaning\": \"In each state compulsory education is regulated. \"																						" +
 				"                            },																						" +
 				"                            {																						" +
 				"                                \"sentence\": [																						" +
@@ -392,7 +392,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 4 one meaning\"																						" +
+				"                                \"meaning\": \"Mostly it's nine years, the need to go a child in the school. \"																						" +
 				"                            }																						" +				
 
 	   			"                ]																								" +
@@ -503,7 +503,7 @@ public class TestResource {
 				"                                        \"punc\": true																		" +
 				"                                    }																						" +
 				"                                ],																							" +
-				"                                \"meaning\": \"sentence 5 one meaning\"													" +
+				"                                \"meaning\": \"In Germany there are approximately 36,000 public schools and private schools only in 2600. \"													" +
 				"                            },																								" +
 				"                            {																								" +
 				"                                \"sentence\": [																			" +
@@ -602,7 +602,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 6 one meaning\"																						" +
+				"                                \"meaning\": \"Private schools are those schools for which parents have to pay something. \"																						" +
 				"                            },																						" +
 				"                            {																						" +
 				"                                \"sentence\": [																						" +
@@ -696,7 +696,7 @@ public class TestResource {
 				"                                        \"punc\": true																		" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 7 one meaning\"																						" +
+				"                                \"meaning\": \"Public schools are run by the state or province and are free. \"																						" +
 				"                            }																						" +
 				"                        ]																						" +
 				"                    }																						" +
@@ -795,7 +795,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 8 one meaning\"																						" +
+				"                                \"meaning\": \"At age six, a German child starts school. \"																						" +
 				"                            },																						" +
 				"                            {																						" +
 				"                                \"sentence\": [																						" +
@@ -853,7 +853,7 @@ public class TestResource {
 				"                                        \"punc\": true																						" +
 				"                                    }																						" +
 				"                                ],																						" +
-				"                                \"meaning\": \"sentence 9 one meaning\"																						" +
+				"                                \"meaning\": \"Before, it was mostly in kindergarten. \"																						" +
 				"                            }																						" +
 				"                        ]																						" +
 				"                    }																						" +
