@@ -29,5 +29,10 @@ public class LocaleManagerServiceImpl implements LocaleManagerServiceLocal {
 		localeDAO.updateLocaleDAO(locale);
 	}
 
+	@Override
+	public List<Locale> getAllActiveLocales() {
+		return localeDAO.getAllActiveLocalesDAO();
+	}
+
 	
 }

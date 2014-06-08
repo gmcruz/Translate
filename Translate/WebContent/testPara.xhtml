@@ -115,7 +115,9 @@
 			  padding-left: 15px;
 			  text-indent: -15px;
 			}
-			
+			label {
+			  color: black;
+			}
 			.handCursor{
 				cursor: pointer;
 			}
@@ -131,12 +133,12 @@
 			var domainName = "http://127.0.0.1";
 			
 			$(document).ready(function(){
-										
-				$.getJSON( domainName+"/TranslateModule/resource/tests/", function( data ) {
-					
-					var fromLang;
-					var toLang;
-					
+				
+				var fromLang;
+				var toLang;				
+				
+				$.getJSON( domainName+"/TranslateModule/resource/tests/", function( data ) {					
+
 					if (data.hasOwnProperty("language")) {			
 						fromLang = data.language.from;
 						toLang = data.language.to;							
@@ -250,13 +252,24 @@
 			        closeNewTranslationPopup();
 				});	 
 									
-				var options = $("#languageOptions");	
-				$.getJSON( domainName+"/TranslateModule/resource/locales/", function( data ) {													
+				var fromOptions = $("#fromlanguageOptions");
+				var toOptions = $("#tolanguageOptions");
+				$.getJSON( domainName+"/TranslateModule/resource/locales/active", function( data ) {													
 					if (data.hasOwnProperty("locale")) {						
-						$.each( data.locale, function( key, valLocale ) {
-							if(valLocale.active == 1){
-								options.append(new Option(this.language, this.id));
+						$.each( data.locale, function( key, valLocale ) {							
+								
+							var fromOption = new Option(this.language, this.id);
+							if(valLocale.localeId == fromLang){
+								fromOption.selected = true;	
 							}
+							fromOptions.append(fromOption);							
+
+							var toOption = new Option(this.language, this.id);
+							if(valLocale.localeId == toLang){
+								toOption.selected = true;	
+							}	
+							toOptions.append(toOption);								
+							
 						})
 					}	
 				})
@@ -315,7 +328,7 @@
 	<body>			
 		
 		<div id="container">
-			<select id="languageOptions"/>
+			<label>from:</label><select id="fromlanguageOptions"/>&nbsp;&nbsp;&nbsp;<label>to:</label><select id="tolanguageOptions"/>
 			<table id="contentElem" class="cf"/>		
 		</div>
 		

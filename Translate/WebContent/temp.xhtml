@@ -1,6 +1,155 @@
 /***************************
 
+CREATE TABLE `word_140` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `word` varchar(50) NOT NULL,
+  `synonyms` varchar(250) DEFAULT NULL,
+  `antonyms` varchar(250) DEFAULT NULL,
+  `definition` varchar(250) DEFAULT NULL,
+  `uses` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8;
+SELECT * FROM world.word_149;
 
+CREATE TABLE `word_149` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `word` varchar(50) NOT NULL,
+  `synonyms` varchar(250) DEFAULT NULL,
+  `antonyms` varchar(250) DEFAULT NULL,
+  `definition` varchar(250) DEFAULT NULL,
+  `uses` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `world`.`wordmappings_140_149` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `originLangId` int(11) NOT NULL,
+  `toLangId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8;		    	
+		    	
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(100,100);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(101,101);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(102,102);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(103,103);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(104,104);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(105,105);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(106,106);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(107,107);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(108,108);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(109,109);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(110,110);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(111,111);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(112,112);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(113,113);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(114,114);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(115,115);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(116,116);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(117,117);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(118,118);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(119,119);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(120,120);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(121,121);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(122,122);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(123,123);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(124,124);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(125,125);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(126,126);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(127,127);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(128,128);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(129,129);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(130,130);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(131,131);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(132,132);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(133,133);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(134,134);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(135,135);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(136,136);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(137,137);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(138,138);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(139,139);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(140,140);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(141,141);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(142,142);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(143,143);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(144,144);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(145,145);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(146,146);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(147,147);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(148,148);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(149,149);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(150,150);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(151,151);
+INSERT INTO `world`.`wordmappings_140_149`(`originLangId`,`toLangId`) VALUES(152,152);
+
+
+
+
+CREATE TABLE `world`.`wordmappings_149_140` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `originLangId` int(11) NOT NULL,
+  `toLangId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8;
+
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(100,100);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(101,101);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(102,102);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(103,103);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(104,104);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(105,105);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(106,106);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(107,107);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(108,108);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(109,109);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(110,110);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(111,111);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(112,112);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(113,113);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(114,114);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(115,115);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(116,116);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(117,117);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(118,118);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(119,119);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(120,120);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(121,121);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(122,122);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(123,123);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(124,124);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(125,125);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(126,126);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(127,127);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(128,128);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(129,129);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(130,130);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(131,131);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(132,132);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(133,133);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(134,134);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(135,135);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(136,136);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(137,137);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(138,138);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(139,139);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(140,140);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(141,141);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(142,142);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(143,143);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(144,144);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(145,145);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(146,146);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(147,147);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(148,148);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(149,149);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(150,150);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(151,151);
+INSERT INTO `world`.`wordmappings_149_140`(`originLangId`,`toLangId`) VALUES(152,152);
+
+
+DONE BELOW
 
 
 
@@ -153,8 +302,8 @@ $("#localetbl tr").each(function() {
 		    	
 		    	
 		    	
-		    	
-		    	
+
+
 		    	
 		    	
 *****************************/		    	

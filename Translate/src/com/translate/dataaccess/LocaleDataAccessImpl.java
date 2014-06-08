@@ -34,6 +34,14 @@ public class LocaleDataAccessImpl implements LocaleDataAccess {
 		//TODO id should BE a valid record already existing.
 		em.persist(locale);		
 	}
+
+	@Override
+	public List<Locale> getAllActiveLocalesDAO() {
+		Query q = em.createQuery("SELECT b FROM Locale b WHERE b.active = 1");
+		@SuppressWarnings("unchecked")
+		List<Locale> tempList = q.getResultList();
+		return tempList;		
+	}
 	
 	
 	

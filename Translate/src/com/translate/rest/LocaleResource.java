@@ -34,8 +34,9 @@ public class LocaleResource {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
+	@Path("/active")
 	public List<Locale> getAllLocales(){
-		return localeService.getAllLocales();		
+		return localeService.getAllActiveLocales();		
 	}
 
 	
