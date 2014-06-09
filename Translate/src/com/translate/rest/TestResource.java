@@ -1,23 +1,19 @@
 package com.translate.rest;
 
-import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
 import com.translate.TranslationManagerServiceLocal;
-import com.translate.domain.Translation;
 
 
 @Path("/tests")
@@ -32,8 +28,37 @@ public class TestResource {
 	
 	@GET
 	@Produces({"application/json", "application/xml"})
-	public String getTest(){
-		logger.debug("CALLED THE TEST");
+	public String getTest(@QueryParam("textToProcess") String textToProcess, @QueryParam("fromLang") String fromLang, @QueryParam("toLang") String toLang){
+
+		String json;		
+		json = "    {																																	" +
+				"        \"language\": {																												" +
+				"        	\"from\": \"de_DE\",																										" +
+				"			\"to\": \"en_US\"																											" +
+				"        },																																" +
+				"}																																		"; 
+		
+		return json;		
+	}
+
+	
+	
+	
+	
+	@Path("/post")
+	@POST	
+	@Consumes({MediaType.APPLICATION_FORM_URLENCODED,MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public String postTest(@FormParam("textToProcess") String textToProcess, @FormParam("fromLang") String fromLang, @FormParam("toLang") String toLang){
+		
+		logger.debug("POST GC CALLED THE fromLang: " + fromLang);
+		logger.debug("POST GC CALLED THE toLang: " + toLang);
+		logger.debug("POST GC CALLED THE textToProcess: " + textToProcess);
+	
+		
+		
+		
+		
 		String json;		
 		json = "    {																																	" +
 				"        \"language\": {																												" +
@@ -867,44 +892,5 @@ public class TestResource {
 
 	
 	
-	//Not Used Below ***************************************************
-	
-	@Path("/post")
-	@POST	
-	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Response createTranslation(Translation translation){
-		
-		translation.setDateCreated(new Date());
-		translationService.createTranslation(translation);
-		
-		logger.debug("In createTranslation(JSON XML) " + translation.toString());
-		
-		String result = "Translation Created (XML JSON)" + translation.toString();		
-		return Response.status(201).entity(result).build();
-		
-	}
-
-	@Path("/{id}")
-	@GET	
-	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Translation getTranslation(@PathParam("id") int id){	
-		return translationService.getTranslationById(id);
-	}	
-	
-	@Path("/{id}")
-	@PUT
-	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Response updateTranslation(@PathParam("id") int id,Translation translation) throws Exception{
-		translation.setId(id);				
-		translationService.updateTranslation(translation);
-		
-		String result = "Translation Updated: " + translation.toString();
-		return Response.status(201).entity(result).build();
-	}
-	
-
-
 
 }

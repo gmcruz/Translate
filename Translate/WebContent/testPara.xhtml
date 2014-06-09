@@ -132,102 +132,24 @@
 		
 			var domainName = "http://127.0.0.1";
 			
-			$(document).ready(function(){
+			$(document).ready(function(){				
 				
 				var fromLang;
-				var toLang;				
-				
-				$.getJSON( domainName+"/TranslateModule/resource/tests/", function( data ) {					
-
-					if (data.hasOwnProperty("language")) {			
-						fromLang = data.language.from;
-						toLang = data.language.to;							
-					}
-					
-					if (data.hasOwnProperty("paragraphs")) {				
-						var items = [];
-						$.each( data.paragraphs, function( key, valParagraphs ) {
-
-							if (valParagraphs.hasOwnProperty("paragraph")) {
-
-								$.each( valParagraphs.paragraph, function( key, valParagraph ) {
-									items.push( "<tr>" );									
-									$.each( valParagraph.sentences, function( key, valSentence ) {
-										
-										var meaning = valSentence.meaning;
-																					
-										$.each( valSentence.sentence, function( key, valWord ) {
+				var toLang;	
 											
-											var sentenceLength = valSentence.sentence.length - 1;
-																						
-											items.push( "<td>" );
-											
-											//Look ahead to what is next for punctuation
-											var next = valSentence.sentence[key+1];
-											var addPunc = "";
-																																
-											if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){//TODO change to a regex later
-												if(sentenceLength == (key + 1) &amp;&amp; next.word == "."){
-													//But if it is a period then we want to put the sentence meaning.												
-													addPunc = '<span class="showMeaning handCursor" title="' + meaning + '">. </span>';
-												}	
-												else{
-													addPunc = next.word;
-												}	
-											}													
-											
-											//numbers or other words who do not have translations like names or city names etc....
-											if(valWord.id == undefined &amp;&amp; valWord.translation == undefined){
-												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation"> </div></td>' );
-											}
-											//Punctuation just show as is.
-											else if(valWord.punc != undefined){
-												//dont push out as it has been hanlded by the peek ahead.												
-											}
-											//ask for help in getting it translated.
-											else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
-												items.push( '<td><div class="elemWord handCursor noTranslationHelp" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLang + '\',\'' + toLang + '\',\'' + valWord.word + '\');">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
-											}
-											else if(valWord.show != undefined &amp;&amp; valWord.show == false){
-												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
-											}
-											//Ref word must loop to find in returned JSON
-											else if(valWord.ref != undefined){		
-												var tempRef = getObjects(data, "id", valWord.id);
-												var typeClass = "elemTranslation";
-												if(tempRef[0].show != undefined &amp;&amp; tempRef[0].show == false){
-													typeClass = "invisible";
-												}													
-												items.push( '<td><div class="elemWord">' + tempRef[0].word + addPunc + '</div><div class="' + typeClass + '">' + tempRef[0].translation + '</div></td>' );
-											}
-											//Regular word to process
-											else if(valWord.ref == undefined){
-												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
-											}	
-											items.push( "</td>" );
-											
-										});
-									});
-									items.push( "</tr>" );
-									items.push( "<tr><td><br/></td></tr>" );
-									items.push( "<tr><td><br/></td></tr>" );
-									
-								});
-
-							}
-
-						});
-						
-						$("#contentElem").html("").html( items.join( "" ) );									
-
-					}		
-					
-				});						
+				var toFromLanguages = setTransformation($("#textToProcess").text(), 140, 149);	//TODO Initial Values must do something here.
+				fromLang = toFromLanguages["fromLang"];
+				toLang = toFromLanguages["toLang"];
 				
 				$(".showMeaning").tooltip({
-				      show: {effect: "slideDown", delay: 250}
-				});
+					show: {effect: "slideDown", delay: 250}
+				});		
+								
+				$("#fromlanguageOptions").change(function () {				    
+				    var toFromLanguages = setTransformation($("#textToProcess").text(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
+				});		
 				
+//TODO TO BE FINSIHED				
 				$("#addTranslationSubmit").click(function(){				
 					var id = $("#fromLangTranslationId").val();
 					var fromLang = $("#newTranslationFromLang").val();
@@ -320,6 +242,117 @@
 				$("#newTranslationPopup").slideFadeToggle('1'); 
 				$("#wordToTranslate").text(word + " =");
 			};
+
+			
+			function setTransformation(requestedTextToProcess, requestedFromLang, requestedToLang){
+				
+				var fromLangSet;
+				var toLangSet;
+				
+				 $.ajax({
+			          	//in order to be able to set a variable indie json to be seen outside.
+			            async: false,
+					 	type: "POST",
+			            url: domainName + "/TranslateModule/resource/transformations/post",
+			            dataType: "json",
+			            data: { textToProcess: requestedTextToProcess, fromLang: requestedFromLang, toLang: requestedToLang } ,
+			            success: function (data) {
+			            				            	
+							if (data.hasOwnProperty("language")) {			
+								fromLangSet = data.language.from;
+								toLangSet = data.language.to;							
+							}
+							
+							if (data.hasOwnProperty("paragraphs")) {				
+								var items = [];
+								$.each( data.paragraphs, function( key, valParagraphs ) {
+
+									if (valParagraphs.hasOwnProperty("paragraph")) {
+
+										$.each( valParagraphs.paragraph, function( key, valParagraph ) {
+											items.push( "<tr>" );									
+											$.each( valParagraph.sentences, function( key, valSentence ) {
+												
+												var meaning = valSentence.meaning;
+																							
+												$.each( valSentence.sentence, function( key, valWord ) {
+													
+													var sentenceLength = valSentence.sentence.length - 1;
+																								
+													items.push( "<td>" );
+													
+													//Look ahead to what is next for punctuation
+													var next = valSentence.sentence[key+1];
+													var addPunc = "";
+																																		
+													if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){//TODO change to a regex later
+														if(sentenceLength == (key + 1) &amp;&amp; next.word == "."){
+															//But if it is a period then we want to put the sentence meaning.												
+															addPunc = '<span class="showMeaning handCursor" title="' + meaning + '">. </span>';
+														}	
+														else{
+															addPunc = next.word;
+														}	
+													}													
+													
+													//numbers or other words who do not have translations like names or city names etc....
+													if(valWord.id == undefined &amp;&amp; valWord.translation == undefined){
+														items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation"> </div></td>' );
+													}
+													//Punctuation just show as is.
+													else if(valWord.punc != undefined){
+														//dont push out as it has been hanlded by the peek ahead.												
+													}
+													//ask for help in getting it translated.
+													else if(valWord.empty != undefined &amp;&amp; valWord.empty == true){
+														items.push( '<td><div class="elemWord handCursor noTranslationHelp" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLangSet + '\',\'' + toLangSet + '\',\'' + valWord.word + '\');">' + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
+													}
+													else if(valWord.show != undefined &amp;&amp; valWord.show == false){
+														items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="invisible">' + valWord.translation + '</div></td>' );
+													}
+													//Ref word must loop to find in returned JSON
+													else if(valWord.ref != undefined){		
+														var tempRef = getObjects(data, "id", valWord.id);
+														var typeClass = "elemTranslation";
+														if(tempRef[0].show != undefined &amp;&amp; tempRef[0].show == false){
+															typeClass = "invisible";
+														}													
+														items.push( '<td><div class="elemWord">' + tempRef[0].word + addPunc + '</div><div class="' + typeClass + '">' + tempRef[0].translation + '</div></td>' );
+													}
+													//Regular word to process
+													else if(valWord.ref == undefined){
+														items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
+													}	
+													items.push( "</td>" );
+													
+												});
+											});
+											items.push( "</tr>" );
+											items.push( "<tr><td><br/></td></tr>" );
+											items.push( "<tr><td><br/></td></tr>" );
+											
+										});
+
+									}
+
+								});
+								
+								$("#contentElem").html("").html( items.join( "" ) );									
+
+							}			            	
+			            	
+			            }
+			        });
+
+								
+				var toFromLanguages = {
+						  "fromLang": fromLangSet,
+						  "toLang": toLangSet
+						}
+										
+				return toFromLanguages;
+				
+			}
 			
 		</script>
 
@@ -347,6 +380,13 @@
 		        <input type="hidden" name="newTranslationFromLang" id="newTranslationFromLang" />
 		        <input type="hidden" name="newTranslationToLang" id="newTranslationToLang" />
 		    </form>
+		</div>
+		<div>
+			<label>text to process:</label><textarea id="textToProcess">
+				Zunächst muss ich sagen, dass es in Deutschland eine Schulpflicht gibt. Jedes Kind muss also eine Schule besuchen. In jedem Bundesland ist die Schulpflicht geregelt. Meistens sind es neun Jahre, die ein Kind in die Schule gehen muss.
+				In Deutschland gibt es ungefähr 36000 öffentliche Schulen und nur 2600 private Schulen. Private Schulen sind solche Schulen, für die die Eltern etwas zahlen müssen. Öffentliche Schulen werden vom Staat oder Bundesland betrieben und sind kostenlos.
+				Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. Die erste Klasse besucht es dann in einer Grundschule. Meistens dauert die Grundschule vier Jahre lang, in einigen Fällen aber auch sechs Jahre lang.
+			</textarea>			
 		</div>
 
 </body>
