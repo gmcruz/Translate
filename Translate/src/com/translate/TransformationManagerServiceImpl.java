@@ -1,5 +1,7 @@
 package com.translate;
 
+import java.util.Scanner;
+
 import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
@@ -19,7 +21,15 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		transformation.setToLanguageId(toLang);
 		transformation.setTransformationText(getTempJson());
 		
-		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang + " textToProcess: " + textToProcess);
+		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);
+		
+		
+		Scanner sc = new Scanner(textToProcess);
+	      while (sc.hasNext()) {
+	          String aLong = sc.next();
+	          logger.debug(aLong);
+	      }
+	      sc.close();
 		
 		return transformation.getTransformationText();
 		
