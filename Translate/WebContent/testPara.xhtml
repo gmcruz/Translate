@@ -137,7 +137,7 @@
 				var fromLang;
 				var toLang;	
 											
-				var toFromLanguages = setTransformation($("#textToProcess").text(), 140, 149);	//TODO Initial Values must do something here.
+				var toFromLanguages = setTransformation($("#textToProcess").val(), 140, 149);	//TODO Initial Values must do something here.
 				fromLang = toFromLanguages["fromLang"];
 				toLang = toFromLanguages["toLang"];
 				
@@ -146,7 +146,7 @@
 				});		
 								
 				$("#fromlanguageOptions").change(function () {				    
-				    var toFromLanguages = setTransformation($("#textToProcess").text(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
+				    var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
 				});		
 				
 //TODO TO BE FINSIHED				
@@ -248,7 +248,7 @@
 				
 				var fromLangSet;
 				var toLangSet;
-				
+				console.log("requestedTextToProcess: " + requestedTextToProcess);
 				 $.ajax({
 			          	//in order to be able to set a variable indie json to be seen outside.
 			            async: false,
@@ -382,11 +382,7 @@
 		    </form>
 		</div>
 		<div>
-			<label>text to process:</label><textarea id="textToProcess">
-				Zunächst muss ich sagen, dass es in Deutschland eine Schulpflicht gibt. Jedes Kind muss also eine Schule besuchen. In jedem Bundesland ist die Schulpflicht geregelt. Meistens sind es neun Jahre, die ein Kind in die Schule gehen muss.
-				In Deutschland gibt es ungefähr 36000 öffentliche Schulen und nur 2600 private Schulen. Private Schulen sind solche Schulen, für die die Eltern etwas zahlen müssen. Öffentliche Schulen werden vom Staat oder Bundesland betrieben und sind kostenlos.
-				Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. Die erste Klasse besucht es dann in einer Grundschule. Meistens dauert die Grundschule vier Jahre lang, in einigen Fällen aber auch sechs Jahre lang.
-			</textarea>			
+			<label>text to process:</label><textarea id="textToProcess" cols="90" rows="15"/>			
 		</div>
 
 </body>
