@@ -6,6 +6,7 @@
     <property name="bin" value="./bin"/>
     <property name="lib" value="./lib"/>
     <property name="src" value="./src"/> 
+	<property name="resrc" value="./resources"/> 
     <property name="dist" value="./dist"/>
 	<property name="warfile" value="${dist}/TranslateModule.war"/>	
 	<property name="html" value="./WebContent"/>
@@ -73,14 +74,26 @@
 				<include name="**/log4j.properties"/>
 			</fileset>
 		</copy>
+		
+   		<copy todir="${bin}/resources/com/translate">
+   			<fileset dir="${resrc}/com/translate">
+   				<include name="*.properties"/>
+   			</fileset>
+   		</copy>	
+				
 	   <delete file="${warfile}"/>
-	   <war destfile="${warfile}" webxml="web.xml">
-	      <classes dir="${bin}">
-	      </classes>
+		
+	   <war destfile="${warfile}" webxml="web.xml" >
+	      
+	   	  <classes dir="${bin}"></classes>
 	   	
       	  <lib dir="${lib}"/>
-	      <fileset dir="${html}"/>  <!-- html files -->	
-	   	          
+	      <fileset dir="${html}"/>  <!-- html files -->	   	
+	   	 
+	   	  <webinf dir="."> 
+	   	     <include name="faces-config.xml"/>
+	   	  </webinf>	   
+	   	
 	   </war>
 		
 		<copy file="${warfile}" tofile="${glassfish_path}\domains\domain1\autodeploy\TranslateModule.war"/>

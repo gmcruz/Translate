@@ -1,3 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="#{languageSwitcher.language}"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.prime.com.tr/ui">
+   <f:view locale="#{languageSwitcher.locale}">
+   <h:head>
+      <title>Java EE 6 Starter Application</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <h:outputStylesheet name="css/screen.css"/>
+   </h:head>
+   <h:body>
+      <div id="container">
+         <div id="content">
+            <div id="sidebar">
+               <h3>Language switcher:</h3>
+               <h:form id="langauge_form">
+                  <h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
+                  <h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English" />
+               </h:form>
+            </div>
+            <ui:insert name="content">
+               
+               
+               <h1>All Translations</h1>	
+		<h:form>
+			<p:dataTable value="#{allTranslationsPageBean.translations}" var="translation" binding="#{allTranslationsPageBean.dataTable}">
+				<p:column><f:facet name="header">ID</f:facet>#{translation.id}</p:column>
+				<p:column><f:facet name="header">Rating</f:facet>#{translation.starRating}</p:column>
+				<p:column><f:facet name="header">Created</f:facet>#{translation.dateCreated}</p:column>
+				<p:column><f:facet name="header">Last Updated</f:facet>#{translation.lastUpdated}</p:column>
+				<p:column><f:facet name="header">Text</f:facet>#{translation.translationText}</p:column>
+			</p:dataTable>
+		</h:form>	
+               
+               
+               
+               
+            </ui:insert>
+         </div>
+         <div id="footer">            
+            <p>
+               This project was generated from a Maven archetype maintained by the Weld team.<br/>
+               Weld is the reference implementation of CDI, released under the Apache License, Version 2.0.<br/>
+            </p>
+         </div>
+      </div>
+   </h:body>
+   </f:view>
+</html>
+
+
+
+
+
+
+
+
+<!-- 
+
 <html
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -26,4 +88,4 @@
 
 
 
-
+ -->

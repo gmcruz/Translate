@@ -28,11 +28,11 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		Scanner sc = new Scanner(textToProcess);
 		//Pattern p = Pattern.compile(" |-|\\.|\\r\\n|\\n");
 		//Pattern p = Pattern.compile("				");
-		Pattern p = Pattern.compile("\\n\\n");//TODO this seems to work best but there has to be a better way.
+		Pattern p = Pattern.compile("\\n\\n|\\r\\n|\\r");//TODO this seems to work best but there has to be a better way.
 		sc.useDelimiter(p);
 	    while (sc.hasNext()) {	    	
 	    	String aLong = sc.next();
-	        logger.debug("@@" + aLong.trim() + "@@");
+	        logger.debug("@@" + aLong.trim() + "@@" + sc.delimiter() + "@@");
 	    }
 	    sc.close();
 		
