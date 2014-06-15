@@ -7,47 +7,14 @@
         xmlns:p="http://primefaces.prime.com.tr/ui">
    <f:view locale="#{languageSwitcher.locale}">
    <h:head>
-      <title>Java EE 6 Starter Application</title>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<style>
-body {
-   margin: 0;
-   padding: 0;
-   font-family: Verdana, sans-serif;
-   font-size: 0.9em;
-}
-#container {
-   margin: 0 auto;
-   padding: 0 20px 10px 20px;
-   border: 1px dotted #666666;
-   width: 865px; /* subtract 40px from banner width for padding */
-   background: #FFFFFF url(#{request.contextPath}/resources/images/header.png) no-repeat;
-   padding-top: 110px;
-}
-#sidebar {
-   font-size: 0.9em;
-   width: 225px;
-   float: right;
-   border: 1px dashed #666666;
-   background: #EAECEE;
-   padding: 0 15px 5px 15px;
-}
-#sidebar ul {
-   padding-left: 30px;
-}
-#footer {
-   clear: both;
-   text-align: center;
-   color: #666666;
-   font-size: 0.85em;
-   border: 1px dashed #666666;
-}
-</style>
+      <title>All Translations</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />      
+      <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
    </h:head>
    <h:body>
-      <div id="container">
+      <div id="maincontainer">
          <div id="content">
-            <div id="sidebar">
+            <div id="mainsidebar">
                <h3>Language switcher:</h3>
                <h:form id="langauge_form">
 					<h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English" /> | 
@@ -58,26 +25,25 @@ body {
             <ui:insert name="content">
                
                
+               
                <h1><h:outputText value="#{msg['translations.all']}" /></h1>	
-		<h:form>
-			<p:dataTable value="#{allTranslationsPageBean.translations}" var="translation" binding="#{allTranslationsPageBean.dataTable}">
-				<p:column><f:facet name="header">ID</f:facet>#{translation.id}</p:column>
-				<p:column><f:facet name="header">Rating</f:facet>#{translation.starRating}</p:column>
-				<p:column><f:facet name="header">Created</f:facet>#{translation.dateCreated}</p:column>
-				<p:column><f:facet name="header">Last Updated</f:facet>#{translation.lastUpdated}</p:column>
-				<p:column><f:facet name="header">Text</f:facet>#{translation.translationText}</p:column>
-			</p:dataTable>
-		</h:form>	
-               
-               
+				<h:form>
+					<p:dataTable value="#{allTranslationsPageBean.translations}" var="translation" binding="#{allTranslationsPageBean.dataTable}">
+						<p:column><f:facet name="header">ID</f:facet>#{translation.id}</p:column>
+						<p:column><f:facet name="header">Rating</f:facet>#{translation.starRating}</p:column>
+						<p:column><f:facet name="header">Created</f:facet>#{translation.dateCreated}</p:column>
+						<p:column><f:facet name="header">Last Updated</f:facet>#{translation.lastUpdated}</p:column>
+						<p:column><f:facet name="header">Text</f:facet>#{translation.translationText}</p:column>
+					</p:dataTable>
+				</h:form>	
+                              
                
                
             </ui:insert>
          </div>
-         <div id="footer">            
+         <div id="mainfooter">            
             <p>
-               This project was generated from a Maven archetype maintained by the Weld team.<br/>
-               Weld is the reference implementation of CDI, released under the Apache License, Version 2.0.<br/>
+               Footer of site template<br/>
             </p>
          </div>
       </div>

@@ -80,12 +80,16 @@
    				<include name="*.properties"/>
    			</fileset>
    		</copy>	
-   		<copy todir="${bin}/resources/images">
+   		<copy todir="${html}/resources/images">
    			<fileset dir="${resrc}/images">
    				<include name="*.*"/>
    			</fileset>
    		</copy>			
-		
+   		<copy todir="${html}/resources/css">
+   			<fileset dir="${resrc}/css">
+   				<include name="*.*"/>
+   			</fileset>
+   		</copy>			
 				
 	   <delete file="${warfile}"/>
 		
