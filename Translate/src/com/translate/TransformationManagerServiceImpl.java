@@ -1,9 +1,14 @@
 package com.translate;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.ejb.Stateless;
+
+import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
@@ -22,20 +27,83 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		transformation.setToLanguageId(toLang);
 		transformation.setTransformationText(getTempJson());
 		
-		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);
+		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);		
 		
+		Scanner paragraphs = new Scanner(textToProcess);
 		
-		Scanner sc = new Scanner(textToProcess);
+		JSONObject jsonMainTransformation = new JSONObject();
+		JSONObject jsonLanguage = new JSONObject();	
+		JSONObject jsonParagraphs = new JSONObject();	
+		JSONObject jsonSentences = new JSONObject();	
+		
+		jsonLanguage.put("from", "dg_DG");//TODO
+		jsonLanguage.put("to", "ui_UI");//TODO		
+		
+		jsonMainTransformation.put("language", jsonLanguage);
+		
+		logger.debug("jsonMainTransformation.toString(): " + jsonMainTransformation.toString());
+		//transformation.setTransformationText(jsonMainTransformation.toString());
+		
+		//Get all the paragraphs first.
 		//Pattern p = Pattern.compile(" |-|\\.|\\r\\n|\\n");
 		//Pattern p = Pattern.compile("				");
 		Pattern p = Pattern.compile("\\n\\n|\\r\\n|\\r");//TODO this seems to work best but there has to be a better way.
-		sc.useDelimiter(p);
-	    while (sc.hasNext()) {	    	
-	    	String aLong = sc.next();
-	        logger.debug("@@" + aLong.trim() + "@@" + sc.delimiter() + "@@");
+		paragraphs.useDelimiter(p);
+	    while (paragraphs.hasNext()) {	    	
+	    	String paragraph = paragraphs.next();
+	    	
+	    	Scanner sentences = new Scanner(paragraph);
+	    	Pattern s = Pattern.compile("\\.");
+	    	sentences.useDelimiter(s);
+	    	
+	    	while (sentences.hasNext()) {	    	
+	 	    	String sentence = sentences.next(); 	    	
+	 	    	
+	 	    	JSONObject jsonSentence = new JSONObject();	
+	 	    	
+		    	//get the individual words
+		    	Scanner words = new Scanner(sentence);
+		    	Pattern w = Pattern.compile(" ");
+		    	words.useDelimiter(w);
+	 	    	String punctuations = "[()<>/;\\*%$,?!:-]";
+	 	    	Pattern paragraphDelimPattern = Pattern.compile(punctuations);	
+		    	while (words.hasNext()) {	    	
+		 	    	String word = words.next(); 	    	
+		 	    	Matcher m = paragraphDelimPattern.matcher(word);	 	    	
+		 	    	boolean foundPunctuations;
+		 	    	foundPunctuations = m.find();
+		 	    	if(foundPunctuations){	
+	 	    			logger.debug("||" + m.group() + "||**");
+	 	    			logger.debug(word.replaceAll(punctuations,"").trim() + "**");
+		 	    	} else{
+		 	    		logger.debug(word.trim() + "**");	
+		 	    		
+		 	    		Map<String, String> wordMap = new HashMap<String, String>();
+		 	    		wordMap.put("id", "ui_UI");		
+		 	    		wordMap.put("word", word.trim());
+		 	    		wordMap.put("translation", "ui_UI");	
+		 	    		wordMap.put("synonyms", "ui_UI");
+		 	    		wordMap.put("definition", "ui_UI");	
+		 	    		wordMap.put("uses", "ui_UI");
+		 	    		jsonSentence.put("", wordMap);		 	    		
+		 	    	}
+		 	    		
+		    	}
+			    //Close all resources
+			    words.close();
+			    
+			    logger.debug("New Sentence: " + sentence.trim() + "**");
+			    logger.debug("jsonSentence.toString(): " + jsonSentence.toString());
+	 	    		
+	    	}
+	    	sentences.close();
+	    
+	        logger.debug("@@" + paragraph.trim() + "@@" + paragraphs.delimiter() + "@@");	        
+
 	    }
-	    sc.close();
-		
+	    
+	    //Close all resources
+	    paragraphs.close();
 		return transformation.getTransformationText();
 		
 	}
