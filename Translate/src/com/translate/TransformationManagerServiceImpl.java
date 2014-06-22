@@ -61,6 +61,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	    	sentences.useDelimiter(s);
 	    	
 	    	JSONArray jsonParagraphArray = new JSONArray();
+	    	JSONObject jsonParagraphObj = new JSONObject();
 	    	JSONArray jsonSentencesArray = new JSONArray();
 	    	JSONObject jsonSentencesObj = new JSONObject();
 	    	
@@ -88,12 +89,12 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		logger.debug(word.trim() + "**");	
 		 	    		
 		 	    		Map<String, String> wordMap = new HashMap<String, String>();
-		 	    		wordMap.put("id", "ui_UI");		
+		 	    		/*wordMap.put("id", "ui_UI");*/		
 		 	    		wordMap.put("word", word.trim());
-		 	    		wordMap.put("translation", "ui_UI");	
+		 	    		/*wordMap.put("translation", "ui_UI");	
 		 	    		wordMap.put("synonyms", "ui_UI");
 		 	    		wordMap.put("definition", "ui_UI");	
-		 	    		wordMap.put("uses", "ui_UI");
+		 	    		wordMap.put("uses", "ui_UI");*/
 		 	    		jsonSentenceArray.add(wordMap);		 	    		
 		 	    	}
 		 	    		
@@ -101,14 +102,16 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 			    
 			    words.close();		
 			    jsonSentenceObj.put("sentence", jsonSentenceArray);
-			    jsonSentencesObj.put("sentences", jsonSentenceObj);	 
-			    
+			    jsonSentencesObj.accumulate("sentences", jsonSentenceObj);	 
+			    //logger.debug("jsonSentencesObj.toString(): " + jsonSentencesObj.toString());
 	    	}//End sentences.hasNext()
 	    	
 	    	sentences.close();
+	    	jsonParagraphObj.put("paragraph", jsonSentencesObj);
+	    	logger.debug("jsonParagraphObj.toString(): " + jsonParagraphObj.toString());
 	    	jsonParagraphArray.add(jsonSentencesArray);	         
 	        jsonParagraphsArray.add(jsonParagraphArray);
-	        logger.debug("jsonSentencesObj.toString(): " + jsonSentencesObj.toString());
+	        
 	        
 	    } //paragraphs.hasNext()
 	    
