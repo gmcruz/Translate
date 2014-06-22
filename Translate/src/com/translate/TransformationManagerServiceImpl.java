@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import javax.ejb.Stateless;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
@@ -49,6 +50,9 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		//Pattern p = Pattern.compile("				");
 		Pattern p = Pattern.compile("\\n\\n|\\r\\n|\\r");//TODO this seems to work best but there has to be a better way.
 		paragraphs.useDelimiter(p);
+		
+		JSONArray jsonParagraphsArray = new JSONArray();
+		
 	    while (paragraphs.hasNext()) {	    	
 	    	String paragraph = paragraphs.next();
 	    	
@@ -56,10 +60,15 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	    	Pattern s = Pattern.compile("\\.");
 	    	sentences.useDelimiter(s);
 	    	
+	    	JSONArray jsonParagraphArray = new JSONArray();
+	    	JSONArray jsonSentencesArray = new JSONArray();
+	    	JSONObject jsonSentencesObj = new JSONObject();
+	    	
 	    	while (sentences.hasNext()) {	    	
-	 	    	String sentence = sentences.next(); 	    	
+	 	    	String sentence = sentences.next(); 	 	    	
 	 	    	
-	 	    	JSONObject jsonSentence = new JSONObject();	
+	 	    	JSONObject jsonSentenceObj = new JSONObject();
+	 	    	JSONArray jsonSentenceArray = new JSONArray();
 	 	    	
 		    	//get the individual words
 		    	Scanner words = new Scanner(sentence);
@@ -85,22 +94,23 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		wordMap.put("synonyms", "ui_UI");
 		 	    		wordMap.put("definition", "ui_UI");	
 		 	    		wordMap.put("uses", "ui_UI");
-		 	    		jsonSentence.put("", wordMap);		 	    		
+		 	    		jsonSentenceArray.add(wordMap);		 	    		
 		 	    	}
 		 	    		
-		    	}
-			    //Close all resources
-			    words.close();
+		    	}//end of words.hasNext
 			    
-			    logger.debug("New Sentence: " + sentence.trim() + "**");
-			    logger.debug("jsonSentence.toString(): " + jsonSentence.toString());
-	 	    		
-	    	}
+			    words.close();		
+			    jsonSentenceObj.put("sentence", jsonSentenceArray);
+			    jsonSentencesObj.put("sentences", jsonSentenceObj);	 
+			    
+	    	}//End sentences.hasNext()
+	    	
 	    	sentences.close();
-	    
-	        logger.debug("@@" + paragraph.trim() + "@@" + paragraphs.delimiter() + "@@");	        
-
-	    }
+	    	jsonParagraphArray.add(jsonSentencesArray);	         
+	        jsonParagraphsArray.add(jsonParagraphArray);
+	        logger.debug("jsonSentencesObj.toString(): " + jsonSentencesObj.toString());
+	        
+	    } //paragraphs.hasNext()
 	    
 	    //Close all resources
 	    paragraphs.close();
