@@ -34,23 +34,18 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 		JSONObject jsonMainTransformation = new JSONObject();
 		JSONObject jsonLanguage = new JSONObject();	
-		JSONObject jsonParagraphs = new JSONObject();	
-		JSONObject jsonSentences = new JSONObject();	
 		
 		jsonLanguage.put("from", "dg_DG");//TODO
 		jsonLanguage.put("to", "ui_UI");//TODO		
 		
 		jsonMainTransformation.put("language", jsonLanguage);
 		
-		logger.debug("jsonMainTransformation.toString(): " + jsonMainTransformation.toString());
-		//transformation.setTransformationText(jsonMainTransformation.toString());
-		
 		//Get all the paragraphs first.
 		//Pattern p = Pattern.compile(" |-|\\.|\\r\\n|\\n");
 		//Pattern p = Pattern.compile("				");
 		Pattern p = Pattern.compile("\\n\\n|\\r\\n|\\r");//TODO this seems to work best but there has to be a better way.
 		paragraphs.useDelimiter(p);
-		
+				
 		JSONArray jsonParagraphsArray = new JSONArray();
 		
 	    while (paragraphs.hasNext()) {	    	
@@ -62,6 +57,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	    	
 	    	JSONArray jsonParagraphArray = new JSONArray();
 	    	JSONObject jsonParagraphObj = new JSONObject();
+	    	
 	    	JSONArray jsonSentencesArray = new JSONArray();
 	    	JSONObject jsonSentencesObj = new JSONObject();
 	    	
@@ -83,18 +79,38 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    	boolean foundPunctuations;
 		 	    	foundPunctuations = m.find();
 		 	    	if(foundPunctuations){	
-	 	    			logger.debug("||" + m.group() + "||**");
-	 	    			logger.debug(word.replaceAll(punctuations,"").trim() + "**");
-		 	    	} else{
-		 	    		logger.debug(word.trim() + "**");	
 		 	    		
+	 	    			logger.debug("Final Word: " + word.replaceAll(punctuations,"").trim());
+		 	    		Map<String, String> wordMapWord = new HashMap<String, String>();
+		 	    		wordMapWord.put("word", word.replaceAll(punctuations,"").trim());		 	    		
+		 	    		wordMapWord.put("id", "ID");		 	    		
+		 	    		wordMapWord.put("translation", "TRANS");	
+		 	    		wordMapWord.put("synonyms", "SYN");
+		 	    		wordMapWord.put("definition", "DEF");	
+		 	    		wordMapWord.put("uses", "USE");
+		 	    		jsonSentenceArray.add(wordMapWord);
+		 	    		
+		 	    		
+	 	    			logger.debug("Punctuation: " + m.group());
+		 	    		Map<String, String> wordMapPunc = new HashMap<String, String>();
+		 	    		wordMapPunc.put("id", "ID");		
+		 	    		wordMapPunc.put("word", m.group());
+		 	    		wordMapPunc.put("translation", "TRANS");	
+		 	    		wordMapPunc.put("synonyms", "SYN");
+		 	    		wordMapPunc.put("definition", "DEF");	
+		 	    		wordMapPunc.put("uses", "USE");
+		 	    		jsonSentenceArray.add(wordMapPunc);	    		
+		 	    		
+
+		 	    	} else{
+		 	    		logger.debug("Reg Word: " + word.trim());			 	    		
 		 	    		Map<String, String> wordMap = new HashMap<String, String>();
-		 	    		/*wordMap.put("id", "ui_UI");*/		
+		 	    		wordMap.put("id", "ID");		
 		 	    		wordMap.put("word", word.trim());
-		 	    		/*wordMap.put("translation", "ui_UI");	
-		 	    		wordMap.put("synonyms", "ui_UI");
-		 	    		wordMap.put("definition", "ui_UI");	
-		 	    		wordMap.put("uses", "ui_UI");*/
+		 	    		wordMap.put("translation", "TRANS");	
+		 	    		wordMap.put("synonyms", "SYN");
+		 	    		wordMap.put("definition", "DEF");	
+		 	    		wordMap.put("uses", "USE");
 		 	    		jsonSentenceArray.add(wordMap);		 	    		
 		 	    	}
 		 	    		
@@ -102,18 +118,23 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 			    
 			    words.close();		
 			    jsonSentenceObj.put("sentence", jsonSentenceArray);
-			    jsonSentencesObj.accumulate("sentences", jsonSentenceObj);	 
-			    //logger.debug("jsonSentencesObj.toString(): " + jsonSentencesObj.toString());
+			    jsonSentencesObj.accumulate("sentences", jsonSentenceObj);
 	    	}//End sentences.hasNext()
 	    	
 	    	sentences.close();
-	    	jsonParagraphObj.put("paragraph", jsonSentencesObj);
-	    	logger.debug("jsonParagraphObj.toString(): " + jsonParagraphObj.toString());
+	    	jsonParagraphArray.add(jsonSentencesObj);		 
+	    	jsonParagraphObj.put("paragraph", jsonParagraphArray);
+	    		    	
 	    	jsonParagraphArray.add(jsonSentencesArray);	         
-	        jsonParagraphsArray.add(jsonParagraphArray);
-	        
-	        
-	    } //paragraphs.hasNext()
+	        jsonParagraphsArray.add(jsonParagraphObj);    		
+	        		
+	        		
+	    } //paragraphs.hasNext()	   
+	    
+	    jsonMainTransformation.put("paragraphs", jsonParagraphsArray);
+	    
+	    logger.debug("JSON set to Ship: " + jsonMainTransformation.toString());
+		transformation.setTransformationText(jsonMainTransformation.toString());
 	    
 	    //Close all resources
 	    paragraphs.close();
@@ -955,4 +976,22 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 	}
 
+	
+	public static void main(String[] args){
+		
+		String textToProcess = "" + 
+				"Es wird Zeit, wir. Sie ist Bundeskanzlerin.\n\n" +  
+
+				"Aber weiter Kanzlerin: 1986 bekam Doktortitel.\n\n" +  
+
+				"Seither ist Angela Bundeskanzlerin. Sie tritt meist.";						
+		
+		TransformationManagerServiceImpl impl = new TransformationManagerServiceImpl();
+		impl.processTransformation(textToProcess, 140, 149);
+		
+		
+		
+		
+	}
+	
 }
