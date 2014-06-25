@@ -93,20 +93,27 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		wordMapWord.put("definition", "DEF");	
 		 	    		wordMapWord.put("uses", "USE");	 	    		
 		 	    		
+		 	    		logger.debug("word: " + word + " (" + (word.length()-1) + ")");
 	 	    			logger.debug("Punctuation: " + m.group());
+	 	    			logger.debug("Punctuation start: " + m.start());
+	 	    			
+	 	    			
 		 	    		Map<String, String> wordMapPunc = new HashMap<String, String>();
 		 	    		wordMapPunc.put("id", "ID");		
 		 	    		wordMapPunc.put("word", m.group());
 		 	    		wordMapPunc.put("punc", "true");
 		 	    		
 		 	    		//What was first the punctuation or the word
-		 	    		
-		 	    		jsonSentenceArray.add(wordMapWord);
-		 	    		
-		 	    		jsonSentenceArray.add(wordMapPunc);	    
-		 	    		
-		 	    		
-		 	    		
+		 	    		if((word.length()-1) == m.start()){
+			 	    		jsonSentenceArray.add(wordMapWord);		 	    		
+			 	    		jsonSentenceArray.add(wordMapPunc);		
+			 	    		logger.debug("FRONTAL: " + m.group());
+		 	    		}else{
+			 	    		jsonSentenceArray.add(wordMapPunc);		 	    			
+			 	    		jsonSentenceArray.add(wordMapWord);	
+			 	    		logger.debug("LASTEN: " + m.group());
+		 	    		}
+	       		
 		 	    		
 
 		 	    	} else{

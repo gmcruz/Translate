@@ -282,7 +282,8 @@
 													//Look ahead to what is next for punctuation
 													var next = valSentence.sentence[key+1];
 													var addPunc = "";
-																																		
+													
+													
 													if(next != undefined &amp;&amp; (next.word == "." || next.word == "," || next.word == "?" || next.word == "!" || next.word == ";" || next.word == ":"  || next.word == "-")){//TODO change to a regex later
 														if(sentenceLength == (key + 1) &amp;&amp; next.word == "."){
 															//But if it is a period then we want to put the sentence meaning.												
