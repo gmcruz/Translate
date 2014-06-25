@@ -70,9 +70,13 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		    	//get the individual words
 		    	Scanner words = new Scanner(sentence);
 		    	Pattern w = Pattern.compile(" ");
-		    	words.useDelimiter(w);
-	 	    	String punctuations = "[()<>/;\\*%$,?!:-]";
-	 	    	Pattern paragraphDelimPattern = Pattern.compile(punctuations);	
+		    	words.useDelimiter(w);		    	
+		    	
+	 	    	String punctuations = "\\p{P}";	 	    	
+	 	    	Pattern paragraphDelimPattern = Pattern.compile(punctuations);
+	 	    	
+	 	    	logger.debug("pat: " + paragraphDelimPattern.pattern());
+	 	    	
 		    	while (words.hasNext()) {	    	
 		 	    	String word = words.next(); 	    	
 		 	    	Matcher m = paragraphDelimPattern.matcher(word);	 	    	
@@ -84,22 +88,25 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		Map<String, String> wordMapWord = new HashMap<String, String>();
 		 	    		wordMapWord.put("word", word.replaceAll(punctuations,"").trim());		 	    		
 		 	    		wordMapWord.put("id", "ID");		 	    		
-		 	    		wordMapWord.put("translation", "TRANS");	
+		 	    		wordMapWord.put("translation", word.replaceAll(punctuations,"").trim());	
 		 	    		wordMapWord.put("synonyms", "SYN");
 		 	    		wordMapWord.put("definition", "DEF");	
-		 	    		wordMapWord.put("uses", "USE");
-		 	    		jsonSentenceArray.add(wordMapWord);
-		 	    		
+		 	    		wordMapWord.put("uses", "USE");	 	    		
 		 	    		
 	 	    			logger.debug("Punctuation: " + m.group());
 		 	    		Map<String, String> wordMapPunc = new HashMap<String, String>();
 		 	    		wordMapPunc.put("id", "ID");		
 		 	    		wordMapPunc.put("word", m.group());
-		 	    		wordMapPunc.put("translation", "TRANS");	
-		 	    		wordMapPunc.put("synonyms", "SYN");
-		 	    		wordMapPunc.put("definition", "DEF");	
-		 	    		wordMapPunc.put("uses", "USE");
-		 	    		jsonSentenceArray.add(wordMapPunc);	    		
+		 	    		wordMapPunc.put("punc", "true");
+		 	    		
+		 	    		//What was first the punctuation or the word
+		 	    		
+		 	    		jsonSentenceArray.add(wordMapWord);
+		 	    		
+		 	    		jsonSentenceArray.add(wordMapPunc);	    
+		 	    		
+		 	    		
+		 	    		
 		 	    		
 
 		 	    	} else{
@@ -107,7 +114,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		Map<String, String> wordMap = new HashMap<String, String>();
 		 	    		wordMap.put("id", "ID");		
 		 	    		wordMap.put("word", word.trim());
-		 	    		wordMap.put("translation", "TRANS");	
+		 	    		wordMap.put("translation", word.trim());	
 		 	    		wordMap.put("synonyms", "SYN");
 		 	    		wordMap.put("definition", "DEF");	
 		 	    		wordMap.put("uses", "USE");
@@ -980,18 +987,16 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	public static void main(String[] args){
 		
 		String textToProcess = "" + 
-				"Es wird Zeit, wir. Sie ist Bundeskanzlerin.\n\n" +  
+				"Es „Demokratischen Aufbruch“ wird Zeit, wir. Sie Mr. Mcdonalds ist Bundeskanzlerin.\n\n" +  
 
 				"Aber weiter Kanzlerin: 1986 bekam Doktortitel.\n\n" +  
 
-				"Seither ist Angela Bundeskanzlerin. Sie tritt meist.";						
+				"Seither ist Angela Bundeskanzlerin. Sie tritt beim  meist.";						
 		
 		TransformationManagerServiceImpl impl = new TransformationManagerServiceImpl();
 		impl.processTransformation(textToProcess, 140, 149);
 		
-		
-		
-		
+				
 	}
 	
 }
