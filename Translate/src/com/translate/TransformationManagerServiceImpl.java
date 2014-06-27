@@ -95,8 +95,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 		 	    		logger.debug("word: " + word + " (" + (word.length()-1) + ")");
 	 	    			logger.debug("Punctuation: " + m.group());
-	 	    			logger.debug("Punctuation start: " + m.start());
-	 	    			
+	 	    			logger.debug("Punctuation start: " + m.start());	 	    			
 	 	    			
 		 	    		Map<String, String> wordMapPunc = new HashMap<String, String>();
 		 	    		wordMapPunc.put("id", "ID");		
@@ -105,35 +104,54 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 		 	    		//What was first the punctuation or the word
 		 	    		if((word.length()-1) == m.start()){
-			 	    		jsonSentenceArray.add(wordMapWord);		 	    		
-			 	    		jsonSentenceArray.add(wordMapPunc);		
-			 	    		logger.debug("FRONTAL: " + m.group());
-		 	    		}else{
-			 	    		jsonSentenceArray.add(wordMapPunc);		 	    			
 			 	    		jsonSentenceArray.add(wordMapWord);	
-			 	    		logger.debug("LASTEN: " + m.group());
-		 	    		}
-	       		
-		 	    		
+			 	    		wordMapPunc.put("place", "rear");
+			 	    		jsonSentenceArray.add(wordMapPunc);		
+			 	    		logger.debug("REAR Punctuation: " + m.group() + "; complete word: " + word);
+		 	    		}else{
+		 	    			wordMapPunc.put("place", "front");
+		 	    			jsonSentenceArray.add(wordMapPunc);			 	    		
+			 	    		jsonSentenceArray.add(wordMapWord);				 	    		
+			 	    		logger.debug("FRONT Punctuation: " + m.group()+ "; complete word: " + word);
+		 	    		}		 	    		
 
-		 	    	} else{
+		 	    	} else if(isNumeric(word.trim())){
+		 	    		
+		 	    		logger.debug("Numerical word: " + word.trim());			 	    		
+		 	    		Map<String, String> wordMap = new HashMap<String, String>();		 	    		
+		 	    		wordMap.put("word", word.trim());	
+		 	    		jsonSentenceArray.add(wordMap);		
+		 	    		
+		 	    	}
+		 	    	else{
+		 	    	
 		 	    		logger.debug("Reg Word: " + word.trim());			 	    		
 		 	    		Map<String, String> wordMap = new HashMap<String, String>();
 		 	    		wordMap.put("id", "ID");		
 		 	    		wordMap.put("word", word.trim());
-		 	    		wordMap.put("translation", word.trim());	
+		 	    		wordMap.put("translation", word.trim());
 		 	    		wordMap.put("synonyms", "SYN");
 		 	    		wordMap.put("definition", "DEF");	
 		 	    		wordMap.put("uses", "USE");
-		 	    		jsonSentenceArray.add(wordMap);		 	    		
+		 	    		jsonSentenceArray.add(wordMap);	
+		 	    		
 		 	    	}
 		 	    		
 		    	}//end of words.hasNext
 			    
 			    words.close();	
+			    
+			    //Add the period to finish the sentence
+			    Map<String, String> wordMapPunc = new HashMap<String, String>();
+ 	    		wordMapPunc.put("id", "ID");		
+ 	    		wordMapPunc.put("word", ".");
+ 	    		wordMapPunc.put("punc", "true");
+ 	    		jsonSentenceArray.add(wordMapPunc);	
+			    
 			    jsonSentenceObj.put("sentence", jsonSentenceArray);
-			    jsonSentenceObj.put("meaning", "value " + paragraphDelimPattern.pattern());			    
+			    jsonSentenceObj.put("meaning", "NOTAVAILABLE");			    
 			    jsonSentencesObj.accumulate("sentences", jsonSentenceObj);
+			    
 	    	}//End sentences.hasNext()
 	    	
 	    	sentences.close();
@@ -157,7 +175,14 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 	}
 	
-	
+	public static boolean isNumeric(String str) {
+		try {
+			double d = Double.parseDouble(str);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
 	
 	public String getTempJson(){
 		String json;		
