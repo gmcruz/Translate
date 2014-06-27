@@ -130,8 +130,9 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 		    	}//end of words.hasNext
 			    
-			    words.close();		
+			    words.close();	
 			    jsonSentenceObj.put("sentence", jsonSentenceArray);
+			    jsonSentenceObj.put("meaning", "value " + paragraphDelimPattern.pattern());			    
 			    jsonSentencesObj.accumulate("sentences", jsonSentenceObj);
 	    	}//End sentences.hasNext()
 	    	
