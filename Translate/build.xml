@@ -102,6 +102,7 @@
 	   	 
 	   	  <webinf dir="."> 
 	   	     <include name="faces-config.xml"/>
+	   	     <include name="beans.xml" />
 	   	  </webinf>	   
 	   	
 	   </war>
