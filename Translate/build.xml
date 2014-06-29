@@ -89,9 +89,14 @@
    			<fileset dir="${resrc}/css">
    				<include name="*.*"/>
    			</fileset>
-   		</copy>			
+   		</copy>		
+   		<copy todir="${html}/resources/css/com/translate">
+     		<fileset dir="${resrc}/css/com/translate">
+   				<include name="*.*"/>
+   			</fileset> 			
+   		</copy>	   			
 				
-	   <delete file="${warfile}"/>
+	   <delete file="${warfile}"/>	   
 		
 	   <war destfile="${warfile}" webxml="web.xml" >
 	      

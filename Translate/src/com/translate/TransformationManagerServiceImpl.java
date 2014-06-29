@@ -26,8 +26,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	
 	@Override
 	public String processTransformation(String textToProcess, int fromLang, int toLang) {
-		
-		//Transformation transformation = new Transformation();		
+				
 		transformation.setFromLanguageId(fromLang);
 		transformation.setToLanguageId(toLang);
 				
@@ -38,8 +37,8 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		JSONObject jsonMainTransformation = new JSONObject();
 		JSONObject jsonLanguage = new JSONObject();	
 		
-		jsonLanguage.put("from", "dg_DG");//TODO
-		jsonLanguage.put("to", "ui_UI");//TODO		
+		jsonLanguage.put("from", "lt_LT");//TODO
+		jsonLanguage.put("to", "ja_JP");//TODO		
 		
 		jsonMainTransformation.put("language", jsonLanguage);
 		
