@@ -24,22 +24,20 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 
 	@Inject Transformation transformation;
 	
-	@Override
-	public String processTransformation(String textToProcess, int fromLang, int toLang) {
-				
+	public String processTransformation(String textToProcess, String fromLang, String toLang) {
+
+		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);
+		
 		transformation.setFromLanguageId(fromLang);
 		transformation.setToLanguageId(toLang);
-				
-		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);		
 		
 		Scanner paragraphs = new Scanner(textToProcess);
 		
 		JSONObject jsonMainTransformation = new JSONObject();
 		JSONObject jsonLanguage = new JSONObject();	
 		
-		jsonLanguage.put("from", "lt_LT");//TODO
-		jsonLanguage.put("to", "ja_JP");//TODO		
-		
+		jsonLanguage.put("from", fromLang);
+		jsonLanguage.put("to", toLang);		
 		jsonMainTransformation.put("language", jsonLanguage);
 		
 		//Get all the paragraphs first.
@@ -86,14 +84,9 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    	foundPunctuations = m.find();
 		 	    	if(foundPunctuations){	
 		 	    		
-	 	    			logger.debug("Final Word: " + word.replaceAll(punctuations,"").trim());
-		 	    		Map<String, String> wordMapWord = new HashMap<String, String>();
-		 	    		wordMapWord.put("word", word.replaceAll(punctuations,"").trim());		 	    		
-		 	    		wordMapWord.put("id", "ID");		 	    		
-		 	    		wordMapWord.put("translation", word.replaceAll(punctuations,"").trim());	
-		 	    		wordMapWord.put("synonyms", "SYN");
-		 	    		wordMapWord.put("definition", "DEF");	
-		 	    		wordMapWord.put("uses", "USE");	 	    		
+	 	    			logger.debug("Final Word: " + word.replaceAll(punctuations,"").trim());	 	    			
+	 	    			
+		 	    		Map<String, String> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang);
 		 	    		
 		 	    		logger.debug("word: " + word + " (" + (word.length()-1) + ")");
 	 	    			logger.debug("Punctuation: " + m.group());
@@ -126,15 +119,8 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 		 	    	}
 		 	    	else{
-		 	    	
-		 	    		logger.debug("Reg Word: " + word.trim());			 	    		
-		 	    		Map<String, String> wordMap = new HashMap<String, String>();
-		 	    		wordMap.put("id", "ID");		
-		 	    		wordMap.put("word", word.trim());
-		 	    		wordMap.put("translation", word.trim());
-		 	    		wordMap.put("synonyms", "SYN");
-		 	    		wordMap.put("definition", "DEF");	
-		 	    		wordMap.put("uses", "USE");
+		 	    			 	    			 	    		
+		 	    		Map<String, String> wordMap = transformFinalWord(word.trim(), fromLang, toLang);		 	    		
 		 	    		jsonSentenceArray.add(wordMap);	
 		 	    		
 		 	    	}
@@ -177,6 +163,22 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 	}
 	
+	public Map<String, String> transformFinalWord(String word, String fromLang, String toLang){
+		
+		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");		
+		
+ 		Map<String, String> wordMap = new HashMap<String, String>();
+ 		wordMap.put("id", "ID");		
+ 		wordMap.put("word", word.trim());
+ 		wordMap.put("translation", "jinwoo");
+ 		wordMap.put("synonyms", "SYN");
+ 		wordMap.put("definition", "DEF");	
+ 		wordMap.put("uses", "USE");
+		
+		return wordMap;
+		
+	};
+	
 	public static boolean isNumeric(String str) {
 		try {
 			double d = Double.parseDouble(str);
@@ -196,7 +198,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 				"Seither ist Angela Bundeskanzlerin. Sie tritt beim  meist.";						
 		
 		TransformationManagerServiceImpl impl = new TransformationManagerServiceImpl();
-		impl.processTransformation(textToProcess, 140, 149);
+		impl.processTransformation(textToProcess, "de_DE", "en_US");
 		
 				
 	}
