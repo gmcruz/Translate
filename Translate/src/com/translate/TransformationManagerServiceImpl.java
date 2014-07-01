@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -14,6 +15,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
+import com.translate.dataaccess.WordMappingDataAccess;
 import com.translate.domain.Transformation;
 
 
@@ -24,9 +26,15 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 
 	@Inject Transformation transformation;
 	
+	@EJB WordMappingDataAccess wmDAO;
+	
 	public String processTransformation(String textToProcess, String fromLang, String toLang) {
 
 		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);
+		
+		String dsName = "wordmappings_" + fromLang + "_" + toLang;
+		
+		logger.debug("dsName:" + dsName);
 		
 		transformation.setFromLanguageId(fromLang);
 		transformation.setToLanguageId(toLang);
@@ -86,7 +94,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 	 	    			logger.debug("Final Word: " + word.replaceAll(punctuations,"").trim());	 	    			
 	 	    			
-		 	    		Map<String, String> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang);
+		 	    		Map<String, String> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang, dsName);
 		 	    		
 		 	    		logger.debug("word: " + word + " (" + (word.length()-1) + ")");
 	 	    			logger.debug("Punctuation: " + m.group());
@@ -120,7 +128,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    	}
 		 	    	else{
 		 	    			 	    			 	    		
-		 	    		Map<String, String> wordMap = transformFinalWord(word.trim(), fromLang, toLang);		 	    		
+		 	    		Map<String, String> wordMap = transformFinalWord(word.trim(), fromLang, toLang, dsName);		 	    		
 		 	    		jsonSentenceArray.add(wordMap);	
 		 	    		
 		 	    	}
@@ -163,9 +171,11 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 	}
 	
-	public Map<String, String> transformFinalWord(String word, String fromLang, String toLang){
+	public Map<String, String> transformFinalWord(String word, String fromLang, String toLang, String ds){
 		
-		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");		
+		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ", " + ds + ")");		
+		
+		wmDAO.getSingleWordMapping(word, fromLang, toLang, ds);
 		
  		Map<String, String> wordMap = new HashMap<String, String>();
  		wordMap.put("id", "ID");		
