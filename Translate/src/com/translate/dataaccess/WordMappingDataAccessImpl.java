@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
-import com.translate.domain.WordMapping;
+import com.translate.domain.wordmappings_de_DE_en_US;
 
 @Stateless
 public class WordMappingDataAccessImpl implements WordMappingDataAccess{
@@ -20,16 +20,19 @@ public class WordMappingDataAccessImpl implements WordMappingDataAccess{
 	private EntityManager em;
 
 	@Override
-	public WordMapping getSingleWordMapping(String word, String fromLang, String toLang, String ds) {
+	public wordmappings_de_DE_en_US getSingleWordMapping(String word, String fromLang, String toLang, String ds) {
 		logger.debug("getSingleWordMapping(" + word + ", " + fromLang + ", " + toLang + ", " + ds);
 		
-		/*Query q = em.createQuery("SELECT t FROM wordmappings_de_DE_en_US t");	
-		@SuppressWarnings("unchecked")
+		Query q = em.createQuery("SELECT t FROM wordmappings_de_DE_en_US t");	
+		logger.debug("GC em.createQuery(" + q.getResultList().size());
+		
+		
+		/*@SuppressWarnings("unchecked")
 		List<Object> tempList = q.getResultList();	*/
 		
 		
-		WordMapping wm = new WordMapping();
-		wm.setWordMappingText(word);
+		wordmappings_de_DE_en_US wm = new wordmappings_de_DE_en_US();
+	//	wm.setWordMappingText(word);
 		wm.setOriginLangId(fromLang);
 		wm.setToLangId(toLang);
 		

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 import com.translate.dataaccess.WordMappingDataAccess;
 import com.translate.domain.Transformation;
-import com.translate.domain.WordMapping;
+import com.translate.domain.wordmappings_de_DE_en_US;
 
 
 @Stateless
@@ -176,16 +176,25 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ", " + ds + ")");		
 		
-		WordMapping wm = wmDAO.getSingleWordMapping(word, fromLang, toLang, ds);
+		wordmappings_de_DE_en_US wm = wmDAO.getSingleWordMapping(word, fromLang, toLang, ds);
 		
  		Map<String, String> wordMap = new HashMap<String, String>();
+ 		wordMap.put("id", "Integer.toString(wm.getId())");		
+ 		wordMap.put("word", "wm.getWordMappingText().trim()");
+ 		wordMap.put("translation", "wm.getWordMappingTranslation().trim()");
+ 		wordMap.put("synonyms", "wm.getSynonyms()");
+ 		wordMap.put("antonyms", "wm.getAntonyms()");
+ 		wordMap.put("definition", "wm.getDefinition()");	
+ 		wordMap.put("uses", "wm.getUses()");
+		
+ 		/*Map<String, String> wordMap = new HashMap<String, String>();
  		wordMap.put("id", Integer.toString(wm.getId()));		
  		wordMap.put("word", wm.getWordMappingText().trim());
  		wordMap.put("translation", wm.getWordMappingTranslation().trim());
  		wordMap.put("synonyms", wm.getSynonyms());
  		wordMap.put("antonyms", wm.getAntonyms());
  		wordMap.put("definition", wm.getDefinition());	
- 		wordMap.put("uses", wm.getUses());
+ 		wordMap.put("uses", wm.getUses());*/
 		
 		return wordMap;
 		
