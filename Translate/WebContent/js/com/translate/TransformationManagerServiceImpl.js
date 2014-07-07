@@ -17,6 +17,10 @@
 		$("#fromlanguageOptions").change(function () {				    
 		    var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
 		});		
+
+		$("#tolanguageOptions").change(function () {				    
+		    var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
+		});
 		
 //TODO TO BE FINSIHED				
 		$("#addTranslationSubmit").click(function(){				
@@ -58,13 +62,13 @@
 				$.each( data.locale, function( key, valLocale ) {							
 						
 					var fromOption = new Option(this.language, this.id);
-					if(valLocale.localeId == fromLang){
+					if(valLocale.id == fromLang){
 						fromOption.selected = true;	
 					}
 					fromOptions.append(fromOption);							
 
 					var toOption = new Option(this.language, this.id);
-					if(valLocale.localeId == toLang){
+					if(valLocale.id == toLang){
 						toOption.selected = true;	
 					}	
 					toOptions.append(toOption);								
@@ -197,10 +201,10 @@
 											}
 											//Punctuation just show as is.
 											else if(valWord.punc != undefined){
-												//dont push out as it has been hanlded by the peek ahead.												
+												//don't push out as it has been handled by the peek ahead.												
 											}
 											//ask for help in getting it translated.
-											else if(valWord.empty != undefined && valWord.empty == true){
+											else if((valWord.empty != undefined && valWord.empty == true) || valWord.translation == "N_A"){
 												items.push( '<td><div class="elemWord handCursor noTranslationHelp" onclick="newTranslationFn(' + valWord.id + ',\'' + fromLangSet + '\',\'' + toLangSet + '\',\'' + valWord.word + '\');">' + addPuncFront + valWord.word + addPunc + '</div><div class="invisible">'+valWord.id+'</div></td>' );
 											}
 											else if(valWord.show != undefined && valWord.show == false){
