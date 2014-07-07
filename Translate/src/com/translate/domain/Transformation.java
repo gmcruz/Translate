@@ -11,32 +11,32 @@ public class Transformation implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	String fromLanguageId = "";
-	String toLanguageId = "";
+	int fromLanguageId = 0;
+	int toLanguageId = 0;
 	String transformationText = ""; 
 	
 	public Transformation() {}
 	
-	public Transformation(String fromLanguageId, String toLanguageId, String transformationText){
+	public Transformation(int fromLanguageId, int toLanguageId, String transformationText){
 		super();		
 		this.fromLanguageId = fromLanguageId; 
 		this.toLanguageId = toLanguageId; 
 		this.transformationText = transformationText;
 	}
 
-	public String getFromLanguageId() {
+	public int getFromLanguageId() {
 		return fromLanguageId;
 	}
 
-	public void setFromLanguageId(String fromLanguageId) {
+	public void setFromLanguageId(int fromLanguageId) {
 		this.fromLanguageId = fromLanguageId;
 	}	
 	
-	public String getToLanguageId() {
+	public int getToLanguageId() {
 		return toLanguageId;
 	}
 
-	public void setToLanguageId(String toLanguageId) {
+	public void setToLanguageId(int toLanguageId) {
 		this.toLanguageId = toLanguageId;
 	}	
 	

@@ -2,11 +2,11 @@ package com.translate.dataaccess;
 
 import javax.ejb.Local;
 
-import com.translate.domain.wordmappings_de_DE_en_US;
+import com.translate.domain.Word;
 
 @Local
 public interface WordMappingDataAccess {
 	
-	public wordmappings_de_DE_en_US getSingleWordMapping(String word, String fromLang, String toLang, String ds);
+	public Word getSingleWordMapping(String word, int fromLang, int toLang);
 	
 }

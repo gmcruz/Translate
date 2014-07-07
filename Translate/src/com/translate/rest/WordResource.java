@@ -41,7 +41,7 @@ public class WordResource {
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response createWordTranslation(Word word){
 		
-		word.setDateCreated(new Date());
+
 		wordService.createWord(word);
 		
 		logger.debug("in createWord(Word word): " + word.toString());	

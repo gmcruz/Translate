@@ -9,7 +9,7 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
-import com.translate.domain.wordmappings_de_DE_en_US;
+import com.translate.domain.Word;
 
 @Stateless
 public class WordMappingDataAccessImpl implements WordMappingDataAccess{
@@ -20,23 +20,35 @@ public class WordMappingDataAccessImpl implements WordMappingDataAccess{
 	private EntityManager em;
 
 	@Override
-	public wordmappings_de_DE_en_US getSingleWordMapping(String word, String fromLang, String toLang, String ds) {
-		logger.debug("getSingleWordMapping(" + word + ", " + fromLang + ", " + toLang + ", " + ds);
+	public Word getSingleWordMapping(String word, int fromLang, int toLang) {
+		logger.debug("getSingleWordMapping(" + word + ", " + fromLang + ", " + toLang);
 		
-		Query q = em.createQuery("SELECT t FROM wordmappings_de_DE_en_US t");	
-		logger.debug("GC em.createQuery(" + q.getResultList().size());
+		Query qw = em.createQuery("SELECT w FROM Word w WHERE w.localeid = :localeid AND w.word = :word");	
+		qw.setParameter("localeid", fromLang);
+		qw.setParameter("word", word);
+		@SuppressWarnings("unchecked")
+		List<Object> tempListqw = qw.getResultList();	
 		
+		logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :localeid AND w.word = :word " + qw.getResultList().size());
 		
-		/*@SuppressWarnings("unchecked")
-		List<Object> tempList = q.getResultList();	*/
+		if(qw.getResultList().size() > 0){			
+			logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :localeid AND w.word = :word  (0): " + qw.getResultList().get(0).toString());
+			
+			Word wo = (Word) qw.getResultList().get(0);
+			
+			Query qwm = em.createQuery("SELECT wm FROM WordMapping wm WHERE wm.wordid = :wordid");				
+			qwm.setParameter("wordid", wo.getId());
+			@SuppressWarnings("unchecked")
+			List<Object> tempListqwm = qwm.getResultList();	
+			logger.debug("em.createQuery(SELECT wm FROM WordMapping wm WHERE wm.wordid = :wordid  (0): " + qwm.getResultList().get(0).toString());
+			
+		}
 		
+		Word wrd = new Word();
+		wrd.setWord(word);
+		wrd.setLocaleid(fromLang);
 		
-		wordmappings_de_DE_en_US wm = new wordmappings_de_DE_en_US();
-	//	wm.setWordMappingText(word);
-		wm.setOriginLangId(fromLang);
-		wm.setToLangId(toLang);
-		
-		return wm;
+		return wrd;
 		
 	}
 	

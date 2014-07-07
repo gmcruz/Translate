@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 import com.translate.dataaccess.WordMappingDataAccess;
 import com.translate.domain.Transformation;
-import com.translate.domain.wordmappings_de_DE_en_US;
+import com.translate.domain.Word;
 
 
 @Stateless
@@ -29,7 +29,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	
 	@EJB WordMappingDataAccess wmDAO;
 	
-	public String processTransformation(String textToProcess, String fromLang, String toLang) {
+	public String processTransformation(String textToProcess, int fromLang, int toLang) {
 
 		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);
 		
@@ -95,7 +95,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 	 	    			logger.debug("Final Word: " + word.replaceAll(punctuations,"").trim());	 	    			
 	 	    			
-		 	    		Map<String, String> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang, dsName);
+		 	    		Map<String, String> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang);
 		 	    		
 		 	    		logger.debug("word: " + word + " (" + (word.length()-1) + ")");
 	 	    			logger.debug("Punctuation: " + m.group());
@@ -129,7 +129,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    	}
 		 	    	else{
 		 	    			 	    			 	    		
-		 	    		Map<String, String> wordMap = transformFinalWord(word.trim(), fromLang, toLang, dsName);		 	    		
+		 	    		Map<String, String> wordMap = transformFinalWord(word.trim(), fromLang, toLang);		 	    		
 		 	    		jsonSentenceArray.add(wordMap);	
 		 	    		
 		 	    	}
@@ -172,29 +172,20 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 	}
 	
-	public Map<String, String> transformFinalWord(String word, String fromLang, String toLang, String ds){
+	public Map<String, String> transformFinalWord(String word, int fromLang, int toLang){
 		
-		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ", " + ds + ")");		
+		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");		
 		
-		wordmappings_de_DE_en_US wm = wmDAO.getSingleWordMapping(word, fromLang, toLang, ds);
+		Word wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);
 		
  		Map<String, String> wordMap = new HashMap<String, String>();
- 		wordMap.put("id", "Integer.toString(wm.getId())");		
- 		wordMap.put("word", "wm.getWordMappingText().trim()");
- 		wordMap.put("translation", "wm.getWordMappingTranslation().trim()");
- 		wordMap.put("synonyms", "wm.getSynonyms()");
- 		wordMap.put("antonyms", "wm.getAntonyms()");
- 		wordMap.put("definition", "wm.getDefinition()");	
- 		wordMap.put("uses", "wm.getUses()");
-		
- 		/*Map<String, String> wordMap = new HashMap<String, String>();
  		wordMap.put("id", Integer.toString(wm.getId()));		
- 		wordMap.put("word", wm.getWordMappingText().trim());
+ 		wordMap.put("word", wm.getWord().trim());
  		wordMap.put("translation", wm.getWordMappingTranslation().trim());
  		wordMap.put("synonyms", wm.getSynonyms());
  		wordMap.put("antonyms", wm.getAntonyms());
  		wordMap.put("definition", wm.getDefinition());	
- 		wordMap.put("uses", wm.getUses());*/
+ 		wordMap.put("uses", wm.getUses());
 		
 		return wordMap;
 		
@@ -219,7 +210,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 				"Seither ist Angela Bundeskanzlerin. Sie tritt beim  meist.";						
 		
 		TransformationManagerServiceImpl impl = new TransformationManagerServiceImpl();
-		impl.processTransformation(textToProcess, "de_DE", "en_US");
+		impl.processTransformation(textToProcess, 149, 140);
 		
 				
 	}

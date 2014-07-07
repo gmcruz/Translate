@@ -6,7 +6,7 @@
 		var fromLang;
 		var toLang;	
 									
-		var toFromLanguages = setTransformation($("#textToProcess").val(), "de_DE", "en_US");	//TODO Initial Values must do something here.
+		var toFromLanguages = setTransformation($("#textToProcess").val(), "149", "140");	//TODO Initial Values must do something here.
 		fromLang = toFromLanguages["fromLang"];
 		toLang = toFromLanguages["toLang"];
 		
@@ -57,13 +57,13 @@
 			if (data.hasOwnProperty("locale")) {						
 				$.each( data.locale, function( key, valLocale ) {							
 						
-					var fromOption = new Option(this.language, this.localeId);
+					var fromOption = new Option(this.language, this.id);
 					if(valLocale.localeId == fromLang){
 						fromOption.selected = true;	
 					}
 					fromOptions.append(fromOption);							
 
-					var toOption = new Option(this.language, this.localeId);
+					var toOption = new Option(this.language, this.id);
 					if(valLocale.localeId == toLang){
 						toOption.selected = true;	
 					}	
@@ -127,7 +127,7 @@
 		
 	    var unicodePunctuation = XRegExp("^\\p{P}+$");
 
-	  //  alert(unicodePunctuation.test("?.,;!¡¿。�·")); // true
+	  //  alert(unicodePunctuation.test("?.,;!¡¿。�·")); // true
 		
 		 $.ajax({
 	          	//in order to be able to set a variable indie json to be seen outside.

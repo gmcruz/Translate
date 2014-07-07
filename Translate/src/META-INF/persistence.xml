@@ -11,8 +11,7 @@
 		<class>com.translate.domain.Translation</class>
 		<class>com.translate.domain.Word</class>		
 		<class>com.translate.domain.Locale</class>		
-		<class>com.translate.domain.WordMapping</class>		
-		<class>com.translate.domain.wordmappings_de_DE_en_US</class>	
+		<class>com.translate.domain.WordMapping</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>		           
             <property name="eclipselink.logging.level" value="FINEST" />

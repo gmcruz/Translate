@@ -1,18 +1,18 @@
 package com.translate.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
+@Table(name="word")
 public class Word implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -20,26 +20,21 @@ public class Word implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
-	int contentId;
+	int localeid;
 	String word;
-	int languageId;
-	@Temporal(TemporalType.TIMESTAMP)
-	Date timeMiliStart;
-	@Temporal(TemporalType.TIMESTAMP)
-	Date timeMiliEnd;
-	@Temporal(TemporalType.TIMESTAMP)
-	Date dateCreated;
-
+	@Transient String wordMappingTranslation = "henry"; 
+	@Transient String synonyms = "all,synonyms,go,here"; 
+	@Transient String antonyms = "all,antonyms,here"; 
+	@Transient String definition = "Henry winkler the Fonz"; 
+	@Transient String uses = "The Fonz is cool, henry Winkler played the Fonz";
+	
 	//for JPA
 	public Word(){}
 	
-	public Word(int contentId, String word, int languageId, Date timeMiliStart, Date timeMiliEnd, Date dateCreated){
+	public Word(int localeid, String word){
 		super();
-		this.contentId = contentId;
-		this.languageId = languageId;
-		this.timeMiliStart = timeMiliStart;
-		this.timeMiliEnd = timeMiliEnd;
-		this.dateCreated = dateCreated;
+		this.localeid = localeid;
+		this.word = word;
 	}
 	
 	public int getId() {
@@ -50,14 +45,14 @@ public class Word implements Serializable{
 		this.id = id;
 	}
 	
-	public int getContentId() {
-		return contentId;
+	public int getLocaleid() {
+		return localeid;
 	}
-	
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+
+	public void setLocaleid(int localeid) {
+		this.localeid = localeid;
 	}
-	
+
 	public String getWord() {
 		return word;
 	}
@@ -65,58 +60,51 @@ public class Word implements Serializable{
 	public void setWord(String word) {
 		this.word = word;
 	}
-	
-	public int getLanguageId() {
-		return languageId;
+
+	public String getWordMappingTranslation() {
+		return wordMappingTranslation;
 	}
+
+	public void setWordMappingTranslation(String wordMappingTranslation) {
+		this.wordMappingTranslation = wordMappingTranslation;
+	}	
 	
-	public void setLanguageId(int languageId) {
-		this.languageId = languageId;
+	public String getSynonyms() {
+		return synonyms;
 	}
-	
-	public Date getTimeMiliStart() {
-		return timeMiliStart;
+
+	public void setSynonyms(String synonyms) {
+		this.synonyms = synonyms;
 	}
-	
-	public void setTimeMiliStart(Date timeMiliStart) {
-		this.timeMiliStart = timeMiliStart;
+
+	public String getAntonyms() {
+		return antonyms;
 	}
-	
-	public Date getTimeMiliEnd() {
-		return timeMiliEnd;
+
+	public void setAntonyms(String antonyms) {
+		this.antonyms = antonyms;
 	}
-	
-	public void setTimeMiliEnd(Date timeMiliEnd) {
-		this.timeMiliEnd = timeMiliEnd;
+
+	public String getDefinition() {
+		return definition;
 	}
-	
-	public Date getDateCreated() {
-		return dateCreated;
+
+	public void setDefinition(String definition) {
+		this.definition = definition;
 	}
-	
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+
+	public String getUses() {
+		return uses;
+	}
+
+	public void setUses(String uses) {
+		this.uses = uses;
 	}
 	
 	public String toString(){
-		return "Word Object - id: " + this.id + " word:" + this.word + " contentId:" + this.contentId + " languageId:" + this.languageId + " timeMiliStart:" + this.timeMiliStart + " timeMiliEnd:" + this.timeMiliEnd + " dateCreated:" + this.dateCreated;
+		return "Word Object - id: " + this.id + " word:" + this.word + " localeid:" + this.localeid;
 	}
 	
 }
 
 
-
-
-/*
- CREATE TABLE `word` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `contentId` int(11) NOT NULL,
-  `word` varchar(1024) NOT NULL,
-  `languageId` int(11) NOT NULL,
-  `timeMiliStart` datetime(3) DEFAULT NULL,
-  `timeMiliEnd` datetime(3) DEFAULT NULL,
-  `dateCreated` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
- 
- * */

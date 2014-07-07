@@ -46,7 +46,7 @@ public class TransformResource {
 	@POST	
 	@Consumes({MediaType.APPLICATION_FORM_URLENCODED,MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public String postTransformation(@FormParam("textToProcess") String textToProcess, @FormParam("fromLang") String fromLang, @FormParam("toLang") String toLang){
+	public String postTransformation(@FormParam("textToProcess") String textToProcess, @FormParam("fromLang") int fromLang, @FormParam("toLang") int toLang){
 		
 		logger.debug("POST GC CALLED THE fromLang: " + fromLang);
 		logger.debug("POST GC CALLED THE toLang: " + toLang);
