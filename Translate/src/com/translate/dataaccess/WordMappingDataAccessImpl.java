@@ -1,5 +1,6 @@
 package com.translate.dataaccess;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,7 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 
 import com.translate.domain.Word;
+import com.translate.domain.WordMapping;
 
 @Stateless
 public class WordMappingDataAccessImpl implements WordMappingDataAccess{
@@ -21,34 +23,55 @@ public class WordMappingDataAccessImpl implements WordMappingDataAccess{
 
 	@Override
 	public Word getSingleWordMapping(String word, int fromLang, int toLang) {
-		logger.debug("getSingleWordMapping(" + word + ", " + fromLang + ", " + toLang);
+		Word returnWord = new Word();
+		returnWord.setWord(word);		
+		
+		logger.debug("CALL-START getSingleWordMapping(" + word + ", " + fromLang + ", " + toLang);
 		
 		Query qw = em.createQuery("SELECT w FROM Word w WHERE w.localeid = :localeid AND w.word = :word");	
 		qw.setParameter("localeid", fromLang);
 		qw.setParameter("word", word);
-		@SuppressWarnings("unchecked")
-		List<Object> tempListqw = qw.getResultList();	
-		
-		logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :localeid AND w.word = :word " + qw.getResultList().size());
-		
+								
 		if(qw.getResultList().size() > 0){			
-			logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :localeid AND w.word = :word  (0): " + qw.getResultList().get(0).toString());
+			logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :" + fromLang + " AND w.word = :word FOUND NUMBER OF RECORDS(" + qw.getResultList().size() + ")");
 			
 			Word wo = (Word) qw.getResultList().get(0);
 			
 			Query qwm = em.createQuery("SELECT wm FROM WordMapping wm WHERE wm.wordid = :wordid");				
 			qwm.setParameter("wordid", wo.getId());
 			@SuppressWarnings("unchecked")
-			List<Object> tempListqwm = qwm.getResultList();	
-			logger.debug("em.createQuery(SELECT wm FROM WordMapping wm WHERE wm.wordid = :wordid  (0): " + qwm.getResultList().get(0).toString());
+			List<WordMapping> tempListqwm = qwm.getResultList();
+						
+			List<String> listWmids = new ArrayList<String>(); 			
+			for (WordMapping next : tempListqwm) {
+				int wmId = next.getTowordid();
+				logger.debug("wmId next.getTowordid():"+wmId);
+				listWmids.add(Integer.toString(wmId));
+			}			
+		
+			logger.debug("em.createQuery(SELECT wm FROM WordMapping wm WHERE wm.wordid = :" + wo.getId() + "  FOUND NUMBER OF RECORDS(" + qwm.getResultList().size() + ")");
+			
+			Query getFinalTranslation = em.createQuery("SELECT w FROM Word w WHERE w.localeid = :localeid AND w.id IN :listWmids");
+			getFinalTranslation.setParameter("localeid", toLang);
+			getFinalTranslation.setParameter("listWmids", listWmids);			
+			
+			if(getFinalTranslation.getResultList().size() > 0){		
+				logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :" + getFinalTranslation.getParameterValue("localeid") + " AND w.id IN :" + getFinalTranslation.getParameterValue("listWmids") + ": " + getFinalTranslation.getResultList().get(0).toString());
+				Word treturnWord = (Word) getFinalTranslation.getResultList().get(0);	
+				logger.debug("treturnWord: " + treturnWord.toString());
+				returnWord.setWordMappingTranslation(treturnWord.getWord());
+				
+				logger.debug("returnWord.setWordMappingTranslation("+treturnWord.getWordMappingTranslation()+") : " + returnWord.getWordMappingTranslation());
+				
+			}
 			
 		}
 		
-		Word wrd = new Word();
-		wrd.setWord(word);
-		wrd.setLocaleid(fromLang);
+		logger.debug("returnWord.getWord(" + returnWord.getWordMappingTranslation() + ")");
 		
-		return wrd;
+		logger.debug("CALL-END getSingleWordMapping(" + word + ", " + fromLang + ", " + toLang);
+		
+		return returnWord;
 		
 	}
 	

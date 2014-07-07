@@ -36,23 +36,22 @@ public class WordMapping implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getOriginLangId() {
+
+	public int getWordid() {
 		return wordid;
 	}
 
-	public void setOriginLangId(int wordid) {
+	public void setWordid(int wordid) {
 		this.wordid = wordid;
-	}	
-	
-	public int getToLangId() {
+	}
+
+	public int getTowordid() {
 		return towordid;
 	}
 
-	public void setToLangId(int towordid) {
+	public void setTowordid(int towordid) {
 		this.towordid = towordid;
-	}	
-	
-	
+	}
 
 	public String toString(){			
 		return "wordid: " + this.wordid + ", towordid: " + this.towordid;

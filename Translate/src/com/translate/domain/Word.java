@@ -22,7 +22,7 @@ public class Word implements Serializable{
 	int id;
 	int localeid;
 	String word;
-	@Transient String wordMappingTranslation = "henry"; 
+	@Transient String wordMappingTranslation = "N_A"; 
 	@Transient String synonyms = "all,synonyms,go,here"; 
 	@Transient String antonyms = "all,antonyms,here"; 
 	@Transient String definition = "Henry winkler the Fonz"; 

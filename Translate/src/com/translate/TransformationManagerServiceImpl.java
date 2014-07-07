@@ -178,6 +178,8 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 		Word wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);
 		
+		logger.debug("wm.getWordMappingTranslation().trim() : " + wm.getWordMappingTranslation().trim() + "["+word.trim()+"]");
+		
  		Map<String, String> wordMap = new HashMap<String, String>();
  		wordMap.put("id", Integer.toString(wm.getId()));		
  		wordMap.put("word", wm.getWord().trim());
