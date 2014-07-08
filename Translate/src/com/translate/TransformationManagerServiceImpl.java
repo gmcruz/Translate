@@ -15,6 +15,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
+import com.translate.dataaccess.WordDataAccess;
 import com.translate.dataaccess.WordMappingDataAccess;
 import com.translate.domain.Transformation;
 import com.translate.domain.Word;
@@ -28,6 +29,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	@Inject Transformation transformation;
 	
 	@EJB WordMappingDataAccess wmDAO;
+	@EJB WordDataAccess wDAO;
 	
 	public String processTransformation(String textToProcess, int fromLang, int toLang) {
 
@@ -174,14 +176,17 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	
 	public Map<String, String> transformFinalWord(String word, int fromLang, int toLang){
 		
-		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");		
+		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");	
+		
+		Word w = wDAO.getWordDAOByString(word);
+		logger.debug("CALLED transformFinalWord( > wDAO.getWordDAOByString(" + w.toString());
 		
 		Word wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);
 		
-		logger.debug("wm.getWordMappingTranslation().trim() : " + wm.getWordMappingTranslation().trim() + "["+word.trim()+"]");
+		logger.debug("CALLED transformFinalWord( > wmDAO.getSingleWordMapping(" + wm.toString());		
 		
  		Map<String, String> wordMap = new HashMap<String, String>();
- 		wordMap.put("id", Integer.toString(wm.getId()));		
+ 		wordMap.put("id", Integer.toString(w.getId()));		
  		wordMap.put("word", wm.getWord().trim());
  		wordMap.put("translation", wm.getWordMappingTranslation().trim());
  		wordMap.put("synonyms", wm.getSynonyms());

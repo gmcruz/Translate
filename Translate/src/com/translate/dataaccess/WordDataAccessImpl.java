@@ -45,6 +45,18 @@ public class WordDataAccessImpl implements WordDataAccess {
 		Word word = em.find(Word.class, id);
 		em.remove(word);		
 	}
+		
+	@Override
+	public Word getWordDAOByString(String word) {
+		Word wo = new Word();;
+		Query qw = em.createQuery("SELECT w FROM Word w WHERE w.word = :word");	
+		qw.setParameter("word", word);
+		if(qw.getResultList().size() > 0){			
+			wo = (Word) qw.getResultList().get(0);
+		}
+		
+		return wo;
+	}
 	
 }
 

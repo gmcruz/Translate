@@ -12,5 +12,6 @@ public interface WordDataAccess {
 	public void createWordDAO(Word word);
 	public Word getWordDAOById(int id);
 	public void updateWordDAO(Word word);
-	public void deleteWordByIdDAO(int id);	
+	public void deleteWordByIdDAO(int id);
+	public Word getWordDAOByString(String word);
 }

@@ -39,32 +39,35 @@ public class WordMappingDataAccessImpl implements WordMappingDataAccess{
 			
 			Query qwm = em.createQuery("SELECT wm FROM WordMapping wm WHERE wm.wordid = :wordid");				
 			qwm.setParameter("wordid", wo.getId());
-			@SuppressWarnings("unchecked")
-			List<WordMapping> tempListqwm = qwm.getResultList();
-						
-			List<String> listWmids = new ArrayList<String>(); 			
-			for (WordMapping next : tempListqwm) {
-				int wmId = next.getTowordid();
-				logger.debug("wmId next.getTowordid():"+wmId);
-				listWmids.add(Integer.toString(wmId));
+			
+			if(qwm.getResultList().size() > 0){	
+			
+				@SuppressWarnings("unchecked")
+				List<WordMapping> tempListqwm = qwm.getResultList();
+							
+				List<String> listWmids = new ArrayList<String>(); 			
+				for (WordMapping next : tempListqwm) {
+					int wmId = next.getTowordid();
+					logger.debug("wmId next.getTowordid():"+wmId);
+					listWmids.add(Integer.toString(wmId));
+				}			
+			
+				logger.debug("em.createQuery(SELECT wm FROM WordMapping wm WHERE wm.wordid = :" + wo.getId() + "  FOUND NUMBER OF RECORDS(" + qwm.getResultList().size() + ")");
+				
+				Query getFinalTranslation = em.createQuery("SELECT w FROM Word w WHERE w.localeid = :localeid AND w.id IN :listWmids");
+				getFinalTranslation.setParameter("localeid", toLang);
+				getFinalTranslation.setParameter("listWmids", listWmids);			
+				
+				if(getFinalTranslation.getResultList().size() > 0){		
+					logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :" + getFinalTranslation.getParameterValue("localeid") + " AND w.id IN :" + getFinalTranslation.getParameterValue("listWmids") + ": " + getFinalTranslation.getResultList().get(0).toString());
+					Word treturnWord = (Word) getFinalTranslation.getResultList().get(0);	
+					logger.debug("treturnWord: " + treturnWord.toString());
+					returnWord.setWordMappingTranslation(treturnWord.getWord());
+					
+					logger.debug("returnWord.setWordMappingTranslation("+treturnWord.getWordMappingTranslation()+") : " + returnWord.getWordMappingTranslation());
+					
+				}
 			}			
-		
-			logger.debug("em.createQuery(SELECT wm FROM WordMapping wm WHERE wm.wordid = :" + wo.getId() + "  FOUND NUMBER OF RECORDS(" + qwm.getResultList().size() + ")");
-			
-			Query getFinalTranslation = em.createQuery("SELECT w FROM Word w WHERE w.localeid = :localeid AND w.id IN :listWmids");
-			getFinalTranslation.setParameter("localeid", toLang);
-			getFinalTranslation.setParameter("listWmids", listWmids);			
-			
-			if(getFinalTranslation.getResultList().size() > 0){		
-				logger.debug("em.createQuery(SELECT w FROM Word w WHERE w.localeid = :" + getFinalTranslation.getParameterValue("localeid") + " AND w.id IN :" + getFinalTranslation.getParameterValue("listWmids") + ": " + getFinalTranslation.getResultList().get(0).toString());
-				Word treturnWord = (Word) getFinalTranslation.getResultList().get(0);	
-				logger.debug("treturnWord: " + treturnWord.toString());
-				returnWord.setWordMappingTranslation(treturnWord.getWord());
-				
-				logger.debug("returnWord.setWordMappingTranslation("+treturnWord.getWordMappingTranslation()+") : " + returnWord.getWordMappingTranslation());
-				
-			}
-			
 		}
 		
 		logger.debug("returnWord.getWord(" + returnWord.getWordMappingTranslation() + ")");

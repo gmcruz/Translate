@@ -102,7 +102,7 @@ public class Word implements Serializable{
 	}
 	
 	public String toString(){
-		return "Word Object - id: " + this.id + " word:" + this.word + " localeid:" + this.localeid;
+		return "Word Object - id:" + this.id + " word:" + this.word + " localeid:" + this.localeid + " wordMappingTranslation:" + this.wordMappingTranslation + " synonyms:" + this.synonyms + " antonyms:" + this.antonyms + " definition:" + this.definition + " uses:" + this.uses;			
 	}
 	
 }

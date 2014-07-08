@@ -28,14 +28,13 @@
 			var fromLang = $("#newTranslationFromLang").val();
 			var toLang = $("#newTranslationToLang").val();
 			var word = $("#newTranslation").val();				  				  	
-		  	var sendInfo = {
-		  		"contentId":1,
+		  	var sendInfo = {		  		
 		  		"word":word,
-		  		"languageId":1,
-		  		"timeMiliStart":"1972-10-03T21:16:31.347+01:00",
-		  		"timeMiliEnd":"1997-07-17T19:20:30.45+01:00"
+		  		"localeid":toLang,
+		  		"maptoid":id,
+		  		"uses":"f"+id
 	        };
-
+console.log("sendInfo: " + sendInfo);
 	        $.ajax({
 	            type: "POST",
 	            url: domainName + "/TranslateModule/resource/words/post",
@@ -113,6 +112,7 @@
 	};
 	
 	function newTranslationFn(id, fromLang, toLang, word) {
+		console.log("newTranslationFn("+id+", "+fromLang+", "+toLang+", "+word+")");
 		clearNewTranslationPopupForm();								
 		$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});				
 		$("#fromLangTranslationId").val(id);
