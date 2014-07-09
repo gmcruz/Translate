@@ -10,4 +10,5 @@ public interface WordManagerServiceLocal {
 	public Word getWordById(int id);
 	public void updateWord(Word word);
 	public void removeWordById(int id);	
+	public Word getWordByString(String word);
 }

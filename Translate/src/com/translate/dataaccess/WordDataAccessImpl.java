@@ -25,7 +25,8 @@ public class WordDataAccessImpl implements WordDataAccess {
 
 	@Override
 	public void createWordDAO(Word word) {
-		em.persist(word);		
+		em.persist(word);
+		em.flush();
 	}	
 	
 	@Override

@@ -20,7 +20,7 @@ public class WordManagerServiceImpl implements WordManagerServiceLocal {
 	@Override
 	public void createWord(Word word) {
 		logger.debug("wordDAO.createWordDAO(word): " + word.toString());
-		//wordDAO.createWordDAO(word);
+		wordDAO.createWordDAO(word);
 	}
 
 	@Override
@@ -36,6 +36,11 @@ public class WordManagerServiceImpl implements WordManagerServiceLocal {
 	@Override
 	public void removeWordById(int id) {
 		wordDAO.deleteWordByIdDAO(id);		
+	}
+	
+	@Override
+	public Word getWordByString(String word) {
+		return wordDAO.getWordDAOByString(word);
 	}
 
 }

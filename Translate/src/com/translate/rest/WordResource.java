@@ -47,10 +47,10 @@ public class WordResource {
 	@POST	
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response createWordTranslation(@FormParam("fromWord") String fromWord, 
-											@FormParam("word") String word, 
-											@FormParam("localeid") int localeid, 
-											@FormParam("maptoid") int maptoid, 
-											@FormParam("fromlocaleid") int fromlocaleid){
+										  @FormParam("word") String word, 
+										  @FormParam("localeid") int localeid, 
+										  @FormParam("maptoid") int maptoid, 
+										  @FormParam("fromlocaleid") int fromlocaleid){
 		
 		logger.debug("/post (prior to createWordTranslation): " + word);
 		
@@ -60,16 +60,29 @@ public class WordResource {
 		
 		newWord.setLocaleid(localeid);
 		newWord.setWord(word);
+
+		logger.debug("in createWordTranslation(64..): " + newWord.toString());			
+		logger.debug("in createWordTranslation(65..old): " + oldWord.toString());
 		
 		//1) Find out if the origin word exists if not create.
+		if(wordService.getWordById(oldWord.getId()) instanceof Word){
+			logger.debug("in createWordTranslation("+word+")     -    wordService.getWordById("+oldWord.getId()+") instanceof Word");
+		}else{
+			logger.debug("in createWordTranslation("+word+")     -    wordService.getWordById("+oldWord.getId()+") NOT instanceof Word");
+			wordService.createWord(oldWord);
+		};
 		
 		//2) Check if translation already exists in toLang and make the mapping, if not create and map.
-
-		
-		wordService.createWord(newWord);			
-		logger.debug("in createWordTranslation(..): " + newWord.toString());	
-
-		wordService.createWord(oldWord);			
+		if(oldWord.getId() > 0){
+			if(wordService.getWordByString(newWord.getWord()) instanceof Word){
+				logger.debug("in createWordTranslation("+word+")     -    wordService.getWordDAOByString("+newWord.getId()+") instanceof Word");
+			}else{
+				logger.debug("in createWordTranslation("+word+")     -    wordService.getWordDAOByString("+newWord.getId()+") NOT instanceof Word");
+				wordService.createWord(newWord);
+			};
+		}
+			
+		logger.debug("in createWordTranslation(..): " + newWord.toString());			
 		logger.debug("in createWordTranslation(..old): " + oldWord.toString());
 		
 		String result = "Word created (XML JSON) **: " + newWord.toString();
