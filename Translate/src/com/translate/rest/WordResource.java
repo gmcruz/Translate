@@ -2,12 +2,15 @@ package com.translate.rest;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,6 +28,12 @@ public class WordResource {
 	
 	@EJB
 	private WordManagerServiceLocal wordService;
+
+	@Inject
+	Word oldWord;
+
+	@Inject
+	Word newWord;
 	
 	@GET
 	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
@@ -37,15 +46,33 @@ public class WordResource {
 	@Path("/post")
 	@POST	
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-	public Response createWordTranslation(Word word){
+	public Response createWordTranslation(@FormParam("fromWord") String fromWord, 
+											@FormParam("word") String word, 
+											@FormParam("localeid") int localeid, 
+											@FormParam("maptoid") int maptoid, 
+											@FormParam("fromlocaleid") int fromlocaleid){
 		
-		logger.debug("/post (prior to create): " + word.toString());
+		logger.debug("/post (prior to createWordTranslation): " + word);
 		
-		wordService.createWord(word);
+		oldWord.setId(maptoid);
+		oldWord.setWord(fromWord);
+		oldWord.setLocaleid(fromlocaleid);
 		
-		logger.debug("in createWord(Word word): " + word.toString());	
+		newWord.setLocaleid(localeid);
+		newWord.setWord(word);
 		
-		String result = "Word created (XML JSON) **: " + word.toString();
+		//1) Find out if the origin word exists if not create.
+		
+		//2) Check if translation already exists in toLang and make the mapping, if not create and map.
+
+		
+		wordService.createWord(newWord);			
+		logger.debug("in createWordTranslation(..): " + newWord.toString());	
+
+		wordService.createWord(oldWord);			
+		logger.debug("in createWordTranslation(..old): " + oldWord.toString());
+		
+		String result = "Word created (XML JSON) **: " + newWord.toString();
 		return Response.status(201).entity(result).build();
 		
 	}

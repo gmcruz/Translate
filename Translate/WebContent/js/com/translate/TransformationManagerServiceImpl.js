@@ -27,20 +27,15 @@
 			var id = $("#fromLangTranslationId").val();
 			var fromLang = $("#newTranslationFromLang").val();
 			var toLang = $("#newTranslationToLang").val();
-			var word = $("#newTranslation").val();				  				  	
-		  	var sendInfo = {		  		
-		  		"word":word,
-		  		"localeid":toLang,
-		  		"maptoid":id,
-		  		"uses":"f"+id
-	        };
-console.log("sendInfo: " + sendInfo);
+			var word = $("#newTranslation").val();
+			var fromWord = $("#fromTranslationWord").val();
+
 	        $.ajax({
 	            type: "POST",
 	            url: domainName + "/TranslateModule/resource/words/post",
 	            dataType: "json",
 	            contentType: "application/json; charset=UTF-8",
-	            data: JSON.stringify(sendInfo),
+	            data: { fromlocaleid: fromLang, fromWord: fromWord, word: word, localeid: toLang, maptoid: id } ,
 	            success: function (msg) { }			            
 	        });
 	        closeNewTranslationPopup();
@@ -121,6 +116,7 @@ console.log("sendInfo: " + sendInfo);
 		$("#newTranslation").focus();
 		$("#newTranslationPopup").slideFadeToggle('1'); 
 		$("#wordToTranslate").text(word + " =");
+		$("#fromTranslationWord").val(word);
 	};
 
 	

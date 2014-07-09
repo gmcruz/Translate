@@ -27,10 +27,11 @@ public class Word implements Serializable{
 	@Transient String antonyms = "all,antonyms,here"; 
 	@Transient String definition = "Henry winkler the Fonz"; 
 	@Transient String uses = "The Fonz is cool, henry Winkler played the Fonz";
+	@Transient int mapToId;
 	
 	//for JPA
 	public Word(){}
-	
+
 	public Word(int localeid, String word){
 		super();
 		this.localeid = localeid;
@@ -100,9 +101,17 @@ public class Word implements Serializable{
 	public void setUses(String uses) {
 		this.uses = uses;
 	}
+		
+	public int getMapToId() {
+		return mapToId;
+	}
+
+	public void setMapToId(int mapToId) {
+		this.mapToId = mapToId;
+	}	
 	
 	public String toString(){
-		return "Word Object - id:" + this.id + " word:" + this.word + " localeid:" + this.localeid + " wordMappingTranslation:" + this.wordMappingTranslation + " synonyms:" + this.synonyms + " antonyms:" + this.antonyms + " definition:" + this.definition + " uses:" + this.uses;			
+		return "Word Object - id:" + this.id + " word:" + this.word + " localeid:" + this.localeid + " wordMappingTranslation:" + this.wordMappingTranslation + " synonyms:" + this.synonyms + " antonyms:" + this.antonyms + " definition:" + this.definition + " uses:" + this.uses + " mapToId:" + this.mapToId;
 	}
 	
 }

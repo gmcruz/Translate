@@ -19,8 +19,6 @@ public class WordManagerServiceImpl implements WordManagerServiceLocal {
 	
 	@Override
 	public void createWord(Word word) {
-		//1) Find out if the origin word exists if not create.
-		//2) Check if translation already exists in toLang and make the mapping, if not create and map.
 		logger.debug("wordDAO.createWordDAO(word): " + word.toString());
 		//wordDAO.createWordDAO(word);
 	}
