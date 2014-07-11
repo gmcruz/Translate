@@ -13,5 +13,8 @@ public interface WordDataAccess {
 	public Word getWordDAOById(int id);
 	public void updateWordDAO(Word word);
 	public void deleteWordByIdDAO(int id);
-	public Word getWordDAOByString(String word);
+	public Word getWordDAOByString(String word, int localeid);
+	void refreshWordEMDAO(Word word);	
+	void mergeWordEMDAO(Word word);	
+	void flushWordEMDAO();
 }

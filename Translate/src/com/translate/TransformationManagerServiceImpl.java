@@ -35,10 +35,6 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 
 		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);
 		
-		String dsName = "wordmappings_" + fromLang + "_" + toLang;
-		
-		logger.debug("dsName:" + dsName);
-		
 		transformation.setFromLanguageId(fromLang);
 		transformation.setToLanguageId(toLang);
 		
@@ -93,9 +89,12 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    	Matcher m = paragraphDelimPattern.matcher(word);	 	    	
 		 	    	boolean foundPunctuations;
 		 	    	foundPunctuations = m.find();
+		 	    	
+		 	    	logger.debug("word to be computed:[" + word + "]");	 	    			
+		 	    	
 		 	    	if(foundPunctuations){	
 		 	    		
-	 	    			logger.debug("Final Word: " + word.replaceAll(punctuations,"").trim());	 	    			
+	 	    			logger.debug("calling transformFinalWord(:" + word.replaceAll(punctuations,"").trim());	 	    			
 	 	    			
 		 	    		Map<String, String> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang);
 		 	    		
@@ -130,7 +129,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 		 	    	}
 		 	    	else{
-		 	    			 	    			 	    		
+		 	    		logger.debug("[NO PUNC] calling transformFinalWord(:" + word.replaceAll(punctuations,"").trim());	 	    				 	    			 	    		
 		 	    		Map<String, String> wordMap = transformFinalWord(word.trim(), fromLang, toLang);		 	    		
 		 	    		jsonSentenceArray.add(wordMap);	
 		 	    		
@@ -178,7 +177,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");	
 		
-		Word w = wDAO.getWordDAOByString(word);
+		Word w = wDAO.getWordDAOByString(word, fromLang);
 		logger.debug("CALLED transformFinalWord( > wDAO.getWordDAOByString(" + w.toString());
 		
 		Word wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);

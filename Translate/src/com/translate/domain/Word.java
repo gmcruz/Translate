@@ -2,6 +2,7 @@ package com.translate.domain;
 
 import java.io.Serializable;
 
+import javax.faces.bean.RequestScoped;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@RequestScoped
 @XmlRootElement
 @Entity
 @Table(name="word")

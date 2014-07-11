@@ -30,7 +30,7 @@ public class WordResource {
 	private WordManagerServiceLocal wordService;
 
 	@Inject
-	Word oldWord;
+	Word originWord;
 
 	@Inject
 	Word newWord;
@@ -52,38 +52,55 @@ public class WordResource {
 										  @FormParam("maptoid") int maptoid, 
 										  @FormParam("fromlocaleid") int fromlocaleid){
 		
-		logger.debug("/post (prior to createWordTranslation): " + word);
+		logger.debug("/post (called as): public Response createWordTranslation(fromWord:" + fromWord + " word:" + word + " localeid:" + localeid + " maptoid:" + maptoid + " fromlocaleid:"+ fromlocaleid + ")");	
 		
-		oldWord.setId(maptoid);
-		oldWord.setWord(fromWord);
-		oldWord.setLocaleid(fromlocaleid);
+		originWord.setId(maptoid);
+		originWord.setWord(fromWord);
+		originWord.setLocaleid(fromlocaleid);
 		
 		newWord.setLocaleid(localeid);
 		newWord.setWord(word);
 
-		logger.debug("in createWordTranslation(64..): " + newWord.toString());			
-		logger.debug("in createWordTranslation(65..old): " + oldWord.toString());
-		
 		//1) Find out if the origin word exists if not create.
-		if(wordService.getWordById(oldWord.getId()) instanceof Word){
-			logger.debug("in createWordTranslation("+word+")     -    wordService.getWordById("+oldWord.getId()+") instanceof Word");
-		}else{
-			logger.debug("in createWordTranslation("+word+")     -    wordService.getWordById("+oldWord.getId()+") NOT instanceof Word");
-			wordService.createWord(oldWord);
+		boolean originWordExists = false;
+		if(originWord.getId() > 0 && wordService.getWordById(originWord.getId()) != null){
+			logger.debug("in createWordTranslation("+word+")     -    "+ originWord.getId()+" > 0 && wordService.getWordById("+originWord.getId()+") != null");
+			wordService.mergeWord(originWord);
+			originWordExists = true;
+		}			
+		if(!originWordExists){
+			Word tempOriginWord = wordService.getWordByString(originWord.getWord(), originWord.getLocaleid());
+			if(tempOriginWord instanceof Word && tempOriginWord.getId() > 0){
+				originWordExists = true;
+				originWord = tempOriginWord;
+				logger.debug("in createWordTranslation(" + word + ")     -    !originWordExists" + tempOriginWord.toString());
+			}	
+		}			
+		if(!originWordExists){			
+			wordService.createWord(originWord);
+			logger.debug("in createWordTranslation(" + word + ")     -    !originWordExists wordService.createWord(originWord) > AFTER: " + originWord.toString());
 		};
 		
 		//2) Check if translation already exists in toLang and make the mapping, if not create and map.
-		if(oldWord.getId() > 0){
-			if(wordService.getWordByString(newWord.getWord()) instanceof Word){
-				logger.debug("in createWordTranslation("+word+")     -    wordService.getWordDAOByString("+newWord.getId()+") instanceof Word");
-			}else{
-				logger.debug("in createWordTranslation("+word+")     -    wordService.getWordDAOByString("+newWord.getId()+") NOT instanceof Word");
-				wordService.createWord(newWord);
-			};
-		}
+		boolean newWordExists = false;			
+		
+		Word tempNewWord = wordService.getWordByString(newWord.getWord(), newWord.getLocaleid());
+		if(tempNewWord instanceof Word && tempNewWord.getId() > 0){
+			newWordExists = true;
+			newWord = tempNewWord;
+			logger.debug("in createWordTranslation(" + word + ")     -    tempNewWord instanceof Word && " + tempNewWord.getId() + " > 0 " + tempNewWord.toString());
+		}	
+					
+		if(!newWordExists){			
+			wordService.createWord(newWord);
+			logger.debug("in createWordTranslation(" + word + ")     -    !newWordExists wordService.createWord(newWord) > AFTER: " + newWord.toString());
+		};
 			
-		logger.debug("in createWordTranslation(..): " + newWord.toString());			
-		logger.debug("in createWordTranslation(..old): " + oldWord.toString());
+		logger.debug("in createWordTranslation(..newWord): " + newWord.toString());			
+		logger.debug("in createWordTranslation(..originWord): " + originWord.toString());
+		
+		
+		//3) Now you have the newWrod and the originWord complete in Word objects it is time to map them together.
 		
 		String result = "Word created (XML JSON) **: " + newWord.toString();
 		return Response.status(201).entity(result).build();
