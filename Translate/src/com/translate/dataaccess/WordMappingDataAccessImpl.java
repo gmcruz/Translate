@@ -77,6 +77,21 @@ public class WordMappingDataAccessImpl implements WordMappingDataAccess{
 		return returnWord;
 		
 	}
+
+	@Override
+	public void createWordMappingDAO(Word word, Word toWord) {
+		
+		logger.debug("CALL-START createWordMappingDAO(" + word.getId() + ", " + toWord.getId() + ")");
+		
+		WordMapping wm = new WordMapping();
+		wm.setWordid(word.getId());
+		wm.setTowordid(toWord.getId());
+		
+		em.persist(wm);
+		em.flush();
+				
+		logger.debug("CALL-END createWordMappingDAO(" + word.getId() + ", " + toWord.getId() + ") : (AFTER em.flush()) " + wm.toString());
+	}
 	
 
 	

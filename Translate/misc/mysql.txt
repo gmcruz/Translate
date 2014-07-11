@@ -1,3 +1,21 @@
+DELETE FROM world.word where id > 212;
+DELETE FROM world.wordmapping where id > 636;
+
+SELECT * FROM world.word where id > 205;
+
+SELECT * FROM world.wordmapping WHERE wordid IN (209,224);
+
+
+
+
+
+
+
+
+
+
+
+
 CREATE TABLE `word` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `localeid` int(11) NOT NULL,

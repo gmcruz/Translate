@@ -21,8 +21,7 @@
 		$("#tolanguageOptions").change(function () {				    
 		    var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
 		});
-		
-//TODO TO BE FINSIHED				
+				
 		$("#addTranslationSubmit").click(function(){				
 			var id = $("#fromLangTranslationId").val();
 			var fromLang = $("#newTranslationFromLang").val();

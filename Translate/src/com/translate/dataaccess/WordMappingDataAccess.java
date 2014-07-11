@@ -8,5 +8,6 @@ import com.translate.domain.Word;
 public interface WordMappingDataAccess {
 	
 	public Word getSingleWordMapping(String word, int fromLang, int toLang);
+	public void createWordMappingDAO(Word word, Word toWord);
 	
 }

@@ -10,13 +10,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
 import com.translate.WordManagerServiceLocal;
+import com.translate.dataaccess.WordMappingDataAccess;
 import com.translate.domain.Word;
 
 
@@ -28,6 +28,9 @@ public class WordResource {
 	
 	@EJB
 	private WordManagerServiceLocal wordService;
+	
+	@EJB
+	private WordMappingDataAccess wmdai;
 
 	@Inject
 	Word originWord;
@@ -62,45 +65,53 @@ public class WordResource {
 		newWord.setWord(word);
 
 		//1) Find out if the origin word exists if not create.
-		boolean originWordExists = false;
-		if(originWord.getId() > 0 && wordService.getWordById(originWord.getId()) != null){
-			logger.debug("in createWordTranslation("+word+")     -    "+ originWord.getId()+" > 0 && wordService.getWordById("+originWord.getId()+") != null");
-			wordService.mergeWord(originWord);
-			originWordExists = true;
-		}			
-		if(!originWordExists){
-			Word tempOriginWord = wordService.getWordByString(originWord.getWord(), originWord.getLocaleid());
-			if(tempOriginWord instanceof Word && tempOriginWord.getId() > 0){
+			boolean originWordExists = false;
+			if(originWord.getId() > 0 && wordService.getWordById(originWord.getId()) != null){
+				logger.debug("in createWordTranslation("+word+")     -    "+ originWord.getId()+" > 0 && wordService.getWordById("+originWord.getId()+") != null");
+				wordService.mergeWord(originWord);
 				originWordExists = true;
-				originWord = tempOriginWord;
-				logger.debug("in createWordTranslation(" + word + ")     -    !originWordExists" + tempOriginWord.toString());
-			}	
-		}			
-		if(!originWordExists){			
-			wordService.createWord(originWord);
-			logger.debug("in createWordTranslation(" + word + ")     -    !originWordExists wordService.createWord(originWord) > AFTER: " + originWord.toString());
-		};
+			}			
+			if(!originWordExists){
+				Word tempOriginWord = wordService.getWordByString(originWord.getWord(), originWord.getLocaleid());
+				if(tempOriginWord instanceof Word && tempOriginWord.getId() > 0){
+					originWordExists = true;
+					originWord = tempOriginWord;
+					logger.debug("in createWordTranslation(" + word + ")     -    !originWordExists" + tempOriginWord.toString());
+				}	
+			}			
+			if(!originWordExists){			
+				wordService.createWord(originWord);
+				logger.debug("in createWordTranslation(" + word + ")     -    !originWordExists wordService.createWord(originWord) > AFTER: " + originWord.toString());
+			};
 		
-		//2) Check if translation already exists in toLang and make the mapping, if not create and map.
-		boolean newWordExists = false;			
-		
-		Word tempNewWord = wordService.getWordByString(newWord.getWord(), newWord.getLocaleid());
-		if(tempNewWord instanceof Word && tempNewWord.getId() > 0){
-			newWordExists = true;
-			newWord = tempNewWord;
-			logger.debug("in createWordTranslation(" + word + ")     -    tempNewWord instanceof Word && " + tempNewWord.getId() + " > 0 " + tempNewWord.toString());
-		}	
-					
-		if(!newWordExists){			
-			wordService.createWord(newWord);
-			logger.debug("in createWordTranslation(" + word + ")     -    !newWordExists wordService.createWord(newWord) > AFTER: " + newWord.toString());
-		};
 			
-		logger.debug("in createWordTranslation(..newWord): " + newWord.toString());			
-		logger.debug("in createWordTranslation(..originWord): " + originWord.toString());
+		//2) Check if translation already exists in toLang and make the mapping, if not create and map.
+			boolean newWordExists = false;			
+			
+			Word tempNewWord = wordService.getWordByString(newWord.getWord(), newWord.getLocaleid());
+			if(tempNewWord instanceof Word && tempNewWord.getId() > 0){
+				newWordExists = true;
+				newWord = tempNewWord;
+				logger.debug("in createWordTranslation(" + word + ")     -    tempNewWord instanceof Word && " + tempNewWord.getId() + " > 0 " + tempNewWord.toString());
+			}	
+						
+			if(!newWordExists){			
+				wordService.createWord(newWord);
+				logger.debug("in createWordTranslation(" + word + ")     -    !newWordExists wordService.createWord(newWord) > AFTER: " + newWord.toString());
+			};
+				
+			logger.debug("in createWordTranslation(..newWord): " + newWord.toString());			
+			logger.debug("in createWordTranslation(..originWord): " + originWord.toString());
+			
+					
+			
+		//3) Now you have the newWord and the originWord complete in Word objects it is time to map them together.
+			//Only map if both the words are now objects that are persisted 
+			if(originWord.getId() > 0 && newWord.getId() > 0){
+				logger.debug("in createWordTranslation() GOING TO MAP THESE IDS: " + originWord.getId() + " > 0 && " + newWord.getId() + " > 0 ");
+				wmdai.createWordMappingDAO(originWord, newWord);
+			}
 		
-		
-		//3) Now you have the newWrod and the originWord complete in Word objects it is time to map them together.
 		
 		String result = "Word created (XML JSON) **: " + newWord.toString();
 		return Response.status(201).entity(result).build();
