@@ -12,7 +12,11 @@
 		
 		$(".showMeaning").tooltip({
 			show: {effect: "slideDown", delay: 250}
-		});		
+		});	
+		
+		$("#siteLanguage").change(function () {				    
+			//#{languageSwitcher.changeLanguage($("#siteLanguage option:selected").val())};	
+		});
 						
 		$("#fromlanguageOptions").change(function () {				    
 		    var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
@@ -38,6 +42,9 @@
 	            success: function (msg) { }			            
 	        });
 	        closeNewTranslationPopup();
+	        
+	        var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
+			
 		});	 
 							
 		//Change the language select boxes languages.
@@ -111,11 +118,11 @@
 		$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});				
 		$("#fromLangTranslationId").val(id);
         $("#newTranslationFromLang").val(fromLang);
-        $("#newTranslationToLang").val(toLang);
-		$("#newTranslation").focus();
+        $("#newTranslationToLang").val(toLang);		
 		$("#newTranslationPopup").slideFadeToggle('1'); 
 		$("#wordToTranslate").text(word + " =");
 		$("#fromTranslationWord").val(word);
+		$("#newTranslation").focus();
 	};
 
 	
