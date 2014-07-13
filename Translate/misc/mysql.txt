@@ -1,3 +1,39 @@
+
+
+DROP TABLE `world`.`user`;
+CREATE TABLE `world`.`user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,  
+  `username` varchar(75) NOT NULL,
+  `password` varchar(75) NOT NULL,
+  `person_id` int(11) NOT NULL,  
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
+
+INSERT INTO `world`.`user`(`username`,`password`,`person_id`)
+VALUES("gcruz","33Casey", 100);
+INSERT INTO `world`.`user`(`username`,`password`,`person_id`)
+VALUES("luser","33Luser", 101);
+
+
+DROP TABLE `world`.`person`;
+CREATE TABLE `world`.`person` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,  
+  `fname` varchar(25) NOT NULL,
+  `mname` varchar(25) NOT NULL,
+  `lname` varchar(25) NOT NULL,
+  `dob` datetime(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
+
+INSERT INTO `world`.`person`(`fname`,`mname`,`lname`,`dob`)
+VALUES("Guillermo","F","Cruz","2010-11-14 14:12:13");
+INSERT INTO `world`.`person`(`fname`,`mname`,`lname`,`dob`)
+VALUES("Lower","E","User","2012-10-17 14:12:13");
+
+
+
+
+
 DELETE FROM world.word where id > 212;
 DELETE FROM world.wordmapping where id > 636;
 

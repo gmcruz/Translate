@@ -12,6 +12,8 @@
 		<class>com.translate.domain.Word</class>		
 		<class>com.translate.domain.Locale</class>		
 		<class>com.translate.domain.WordMapping</class>
+		<class>com.translate.domain.User</class>
+		<class>com.translate.domain.Person</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>		           
             <property name="eclipselink.logging.level" value="ALL" />

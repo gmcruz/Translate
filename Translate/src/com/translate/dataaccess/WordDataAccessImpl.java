@@ -19,7 +19,7 @@ public class WordDataAccessImpl implements WordDataAccess {
 	@PersistenceContext
 	private EntityManager em;
 	
-	//TODO need to get this at the method level so each getWordDAOByString call will produce a new word objectr for the request.
+	//TODO need to get this at the method level so each getWordDAOByString call will produce a new word object for the request.
 	//@Inject
 	//Word wordByString;
 	
