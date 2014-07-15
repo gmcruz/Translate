@@ -1,5 +1,8 @@
 package com.translate;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -216,7 +219,21 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 				"Seither ist Angela Bundeskanzlerin. Sie tritt beim  meist.";						
 		
 		TransformationManagerServiceImpl impl = new TransformationManagerServiceImpl();
-		impl.processTransformation(textToProcess, 149, 140);
+		//impl.processTransformation(textToProcess, 149, 140);
+		
+		
+		String password = "33tempo";
+		MessageDigest md;
+		try {
+			md = java.security.MessageDigest.getInstance("SHA-256");		
+			md.update(password.getBytes("UTF-8"));		
+			byte[] passwordDigest = md.digest();
+			String encodedPasswordHash = new sun.misc.BASE64Encoder().encode(passwordDigest);
+			System.out.println(encodedPasswordHash);
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+		
 		
 				
 	}

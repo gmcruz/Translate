@@ -19,11 +19,14 @@
    </context-param>
  
  
-   <!--  Security Setup for the Entire System 
-   <login-config>
-   		<auth-method>BASIC</auth-method>
-   		<realm-name>Please login in</realm-name>
-   </login-config>
+   <!--  Security Setup for the Entire System -->
+	<login-config>
+	   <auth-method>FORM</auth-method>
+	   <form-login-config>
+	      <form-login-page>/login.jsf</form-login-page>
+	      <form-error-page>/failed-login.jsf</form-error-page>
+	   </form-login-config>
+	</login-config>
    
    <security-constraint>
    	<web-resource-collection>
@@ -34,7 +37,7 @@
    	<auth-constraint>
    		<role-name>admin</role-name>
    	</auth-constraint>   	
-   </security-constraint>-->
+   </security-constraint>
  
 
 	<!-- for REST -->
