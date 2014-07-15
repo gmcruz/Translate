@@ -222,7 +222,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		//impl.processTransformation(textToProcess, 149, 140);
 		
 		
-		String password = "33tempo";
+		String password = "33Luser";
 		MessageDigest md;
 		try {
 			md = java.security.MessageDigest.getInstance("SHA-256");		
