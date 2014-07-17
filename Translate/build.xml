@@ -106,8 +106,10 @@
 	      <fileset dir="${html}"/>  <!-- html files -->	   	
 	   	 
 	   	  <webinf dir="."> 
+	     	 <include name="glassfish-web.xml"/>
 	   	     <include name="faces-config.xml"/>
 	   	     <include name="beans.xml" />
+	   	 	 <include name="glassfish-resources.xml"/>
 	   	  </webinf>	   
 	   	
 	   </war>

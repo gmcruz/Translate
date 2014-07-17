@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html lang="#{languageSwitcher.language}"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -14,11 +13,11 @@
 		
 		<title>Transformation Page</title>
 		
-		<script src="js/jquery-1.11.1.min.js"></script>
-		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-		<script src="js/xregexp-all-min.js"></script>
+		<script src="../js/jquery-1.11.1.min.js"></script>
+		<script src="../js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script src="../js/xregexp-all-min.js"></script>
 			
-		<link rel="stylesheet" type="text/css" href="resources/css/main.css" />		
+		<link rel="stylesheet" type="text/css" href="../resources/css/main.css" />		
 				
 	</h:head>
 	<h:body>
@@ -38,7 +37,7 @@
                		<!-- MAIN CONTENT BELOW -->
 
 
-					<form method="post" action="j_security_check">
+					<form method="POST" action="j_security_check">
 						<p><label>Username:</label> <input type="text" name="j_username" /></p>
 						<p><label>Password:</label> <input type="password" name="j_password" /></p>
 						<input type="submit" value="Login" />
