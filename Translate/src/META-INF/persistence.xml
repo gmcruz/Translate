@@ -4,7 +4,7 @@
 	
 	
 	<persistence-unit name="worlddb" transaction-type="JTA">
-		<jta-data-source>java:app/jdbc/worldDb2</jta-data-source><!-- jdbc/worldDb -->
+		<jta-data-source>jdbc/worldDb</jta-data-source>
 		<!-- <class>com.translate.domain.Content</class>
 		<class>com.translate.domain.Language</class>-->
 		<class>com.translate.domain.Base</class>
@@ -16,8 +16,8 @@
 		<class>com.translate.domain.Person</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>		           
-            <property name="eclipselink.logging.level" value="ALL" />
-            <property name="eclipselink.logging.level.sql" value="ALL" />
+            <property name="eclipselink.logging.level" value="INFO" />
+            <property name="eclipselink.logging.level.sql" value="INFO" />
             <property name="eclipselink.logging.parameters" value="true"/>
             <property name="eclipselink.ddl-generation" value="create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode" value="database" />

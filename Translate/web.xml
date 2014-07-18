@@ -22,7 +22,7 @@
    <!--  Security Setup for the Entire System -->
  	<login-config>
 	   <auth-method>FORM</auth-method>	    
-       <realm-name>jdbcRuuealm</realm-name>
+       <realm-name>jdbcRealm</realm-name>
 	   <form-login-config>
 	      <form-login-page>/login.jsf</form-login-page>
 	      <form-error-page>/login-failed.jsf</form-error-page>

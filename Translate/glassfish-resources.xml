@@ -2,6 +2,28 @@
 <!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
 <resources>
 
+
+<!-- 
+THIS IS NOT GOOD BECUASE YOU CANT GET THE REALM CREATED IN THE ADMIN CONSOLE TO LOOK AT IT. 
+SO YOU EITHER HAVE TO DO IT ALL IN ADMIN OR ALL IN .XML DESCRIPTOR FILES. THE PROBLEM IS THAT I 
+HAVE YET TO FIND OUT HOW TO DEFINE A REALM IN DESCRIPTORS. 
+NOTE: INCLUDING IT IS LIKE SO IN BUILD.XML
+	   <war destfile="${warfile}" webxml="web.xml" >
+	   	 
+	   	  <webinf dir="."> 
+	     	 <include name="glassfish-web.xml"/>
+	   	     <include name="faces-config.xml"/>
+	   	     <include name="beans.xml" />
+	   	 	 <include name="glassfish-resources.xml"/>
+	   	  </webinf>	   
+	   	
+	   </war>
+THEN:
+	<persistence-unit name="worlddb" transaction-type="JTA">
+		<jta-data-source>java:app/jdbc/worldDb2</jta-data-source>	   
+-->
+
+
   <jdbc-resource enabled="true" jndi-name="jdbc/worldDb2" object-type="user" pool-name="WorldPool">
     <description/>
   </jdbc-resource>
@@ -36,7 +58,6 @@
     <property name="URL" value="jdbc:mysql://:3306/world"/>
     <property name="user" value="testo"/>
     <property name="password" value="testo"/>
-    <property name="database" value="world"/>    
   </jdbc-connection-pool>
   
 </resources>
