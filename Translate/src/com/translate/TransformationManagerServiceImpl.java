@@ -222,14 +222,20 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		//impl.processTransformation(textToProcess, 149, 140);
 		
 		
-		String password = "33Casey";
-		MessageDigest md;
+		String password = "33Luser";		
 		try {
-			md = java.security.MessageDigest.getInstance("SHA-256");		
-			md.update(password.getBytes("UTF-8"));		
-			byte[] passwordDigest = md.digest();
-			String encodedPasswordHash = new sun.misc.BASE64Encoder().encode(passwordDigest);
-			System.out.println(encodedPasswordHash);
+			
+	        MessageDigest md2 = MessageDigest.getInstance("SHA-256");
+	        md2.update(password.getBytes()); 
+	        byte byteData[] = md2.digest();	 
+	        
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < byteData.length; i++) {
+	         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	 
+	        System.out.println(sb.toString());	 
+	        
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
@@ -239,3 +245,5 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	}
 	
 }
+
+
