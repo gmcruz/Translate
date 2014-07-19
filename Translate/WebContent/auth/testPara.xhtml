@@ -35,54 +35,51 @@
 				<h:outputText value="#{msg['translations.all']}" />			
 			</div>
 			<div id="content">
-				<!-- <div id="mainsidebar"></div> -->
+				<div id="mainsidebar"><div class="testTextPut"> <button type="button" id="testTextButton">Test Text</button></div></div> 
 				<ui:insert name="content">
                		<!-- MAIN CONTENT BELOW -->
                		
+               		
+               		
+               		
+               		
+               		
 				  		<div id="container">
 							<label>from:</label><select id="fromlanguageOptions"/>&nbsp;&nbsp;&nbsp;<label>to:</label><select id="tolanguageOptions"/>
-							<table id="contentElem" class="cf"/>		
-						</div>
-						
-						<div id="newTranslationPopup" class="messagepop">
-						    <form method="post" id="new_userTranslationform" action="#">
-						        <div>
-						        	<div><label id="labelNewTranslation" for="newTranslation"><h:outputText value="#{msg['add.translation']}" /></label></div>
-						        	<span id="wordToTranslate" class="wordToHelpTranslate" />		        	
-						        	<input type="text" size="10" name="newTranslation" id="newTranslation" />
-						        </div>		        	
-						        <p>
-						        	<button type="button" id="addTranslationSubmit">Submit</button>  
-						        	<button type="button" onclick="closeNewTranslationPopup()">Cancel</button>  
-						        </p>
-						        <input type="hidden" name="fromLangTranslationId" id="fromLangTranslationId" />
-						        <input type="hidden" name="newTranslationFromLang" id="newTranslationFromLang" />
-						        <input type="hidden" name="newTranslationToLang" id="newTranslationToLang" />
-						        <input type="hidden" name="fromTranslationWord" id="fromTranslationWord" />
-						    </form>
-						</div>
-						
- <!--						
-						
-						<div id="translationText">
-							<label>text to process:</label><br></br><textarea id="textToProcess" cols="90" rows="15">
-Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. 
+							<p id="transformTextareaShowP"><button type="button" id="transformTextareaShowButton" >New Transformation</button></p>
+							<table id="contentElem" class="cf"/>
 
-Die erste Klasse besucht es dann in einer Grundschule. 
-							</textarea>			
-						</div>             		
- --> 
+							<div id="newTransformationTextarea">
+								<label>text to process:</label><br></br>
+								<textarea id="textToProcess" cols="75" rows="15"></textarea>
+								<p>
+									<button type="button" id="transformSubmit">Submit</button>
+								</p>
+							</div>
+
+					</div>
+						
+					<div id="newTranslationPopup" class="messagepop">
+					    <form method="post" id="new_userTranslationform" action="#">
+					        <div>
+					        	<div><label id="labelNewTranslation" for="newTranslation"><h:outputText value="#{msg['add.translation']}" /></label></div>
+					        	<span id="wordToTranslate" class="wordToHelpTranslate" />		        	
+					        	<input type="text" size="10" name="newTranslation" id="newTranslation" />
+					        </div>		        	
+					        <p>
+					        	<button type="button" id="addTranslationSubmit">Submit</button>  
+					        	<button type="button" onclick="closeNewTranslationPopup()">Cancel</button>  
+					        </p>
+					        <input type="hidden" name="fromLangTranslationId" id="fromLangTranslationId" />
+					        <input type="hidden" name="newTranslationFromLang" id="newTranslationFromLang" />
+					        <input type="hidden" name="newTranslationToLang" id="newTranslationToLang" />
+					        <input type="hidden" name="fromTranslationWord" id="fromTranslationWord" />
+					    </form>
+					</div>
+						
  
  
-		<div>
-			<label>text to process:</label><br></br><textarea id="textToProcess" cols="90" rows="15">
-Zunächst muss ich sagen, dass es in Deutschland eine Schulpflicht gibt. Jedes Kind muss also eine Schule besuchen. In jedem Bundesland ist die Schulpflicht geregelt. Meistens sind es neun Jahre, die ein Kind in die Schule gehen muss.
 
-In Deutschland gibt es ungefähr 36000 öffentliche Schulen und nur 2600 private Schulen. Private Schulen sind solche Schulen, für die die Eltern etwas zahlen müssen. Öffentliche Schulen werden vom Staat oder Bundesland betrieben und sind kostenlos.
-
-Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. Die erste Klasse besucht es dann in einer Grundschule. Meistens dauert die Grundschule vier Jahre lang, in einigen Fällen aber auch sechs Jahre lang.
-			</textarea>			
-		</div>
 
  
                		
@@ -95,107 +92,24 @@ Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens 
 				</p>
 			</div>
 		</div>
+		
+		
+		
+		
+<div id="testArea">
+<textarea id="testText" cols="75" rows="15">
+Zunächst muss ich sagen, dass es in Deutschland eine Schulpflicht gibt. Jedes Kind muss also eine Schule besuchen. In jedem Bundesland ist die Schulpflicht geregelt. Meistens sind es neun Jahre, die ein Kind in die Schule gehen muss.
+	
+In Deutschland gibt es ungefähr 36000 öffentliche Schulen und nur 2600 private Schulen. Private Schulen sind solche Schulen, für die die Eltern etwas zahlen müssen. Öffentliche Schulen werden vom Staat oder Bundesland betrieben und sind kostenlos.
+	
+Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. Die erste Klasse besucht es dann in einer Grundschule. Meistens dauert die Grundschule vier Jahre lang, in einigen Fällen aber auch sechs Jahre lang.</textarea>
+</div>		
+		
+		
+		
+		
 	</h:body>
 </f:view>
 </html>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-
-	<head>
-
-		<title>Transformation Page</title>
-		
-		<script src="js/jquery-1.11.1.min.js"></script>
-		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-		<script src="js/xregexp-all-min.js"></script>
-		<script src="js/com/translate/TransformationManagerServiceImpl.js"></script>
-				
-		<link rel="stylesheet" type="text/css" href="resources/css/main.css" />		
-		<link rel="stylesheet" type="text/css" href="resources/css/com/translate/TransformationManagerServiceImpl.css" />	
-
-	</head>
-
-	<body>			
-		
-		<div id="container">
-			<label>from:</label><select id="fromlanguageOptions"/>&nbsp;&nbsp;&nbsp;<label>to:</label><select id="tolanguageOptions"/>
-			<table id="contentElem" class="cf"/>		
-		</div>
-		
-		<div id="newTranslationPopup" class="messagepop">
-		    <form method="post" id="new_userTranslationform" action="#">
-		        <div>
-		        	<div><label id="labelNewTranslation" for="newTranslation"><h:outputText value="#{msg['add.translation']}" /></label></div>
-		        	<span id="wordToTranslate" class="wordToHelpTranslate" />		        	
-		        	<input type="text" size="10" name="newTranslation" id="newTranslation" />
-		        </div>		        	
-		        <p>
-		        	<button type="button" id="addTranslationSubmit">Submit</button>  
-		        	<button type="button" onclick="closeNewTranslationPopup()">Cancel</button>  
-		        </p>
-		        <input type="hidden" name="fromLangTranslationId" id="fromLangTranslationId" />
-		        <input type="hidden" name="newTranslationFromLang" id="newTranslationFromLang" />
-		        <input type="hidden" name="newTranslationToLang" id="newTranslationToLang" />
-		        <input type="hidden" name="fromTranslationWord" id="fromTranslationWord" />
-		    </form>
-		</div>
-		<div id="translationText">
-			<label>text to process:</label><br></br><textarea id="textToProcess" cols="90" rows="15">
-Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. 
-
-Die erste Klasse besucht es dann in einer Grundschule. 
-			</textarea>			
-		</div>
-
-</body>
-
-</html>
-
-
--->
-
-
-<!-- 
-		<div>
-			<label>text to process:</label><br></br><textarea id="textToProcess" cols="90" rows="15">
-Zunächst muss ich sagen, dass es in Deutschland eine Schulpflicht gibt. Jedes Kind muss also eine Schule besuchen. In jedem Bundesland ist die Schulpflicht geregelt. Meistens sind es neun Jahre, die ein Kind in die Schule gehen muss.
-
-In Deutschland gibt es ungefähr 36000 öffentliche Schulen und nur 2600 private Schulen. Private Schulen sind solche Schulen, für die die Eltern etwas zahlen müssen. Öffentliche Schulen werden vom Staat oder Bundesland betrieben und sind kostenlos.
-
-Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. Die erste Klasse besucht es dann in einer Grundschule. Meistens dauert die Grundschule vier Jahre lang, in einigen Fällen aber auch sechs Jahre lang.
-			</textarea>			
-		</div>
-
-
-
-Adding this for test change again
-/*Get the keys of a javascript object.*/
-var keys = [];
-for(var k in obj) keys.push(k);
-console.log("total " + keys.length + " keys: " + keys);
- -->

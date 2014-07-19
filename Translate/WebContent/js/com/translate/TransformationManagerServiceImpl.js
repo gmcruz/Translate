@@ -3,21 +3,42 @@
 	
 	$(document).ready(function(){				
 		
-		var fromLang;
-		var toLang;	
-									
-		var toFromLanguages = setTransformation($("#textToProcess").val(), "149", "140");	//TODO Initial Values must do something here.
-		fromLang = toFromLanguages["fromLang"];
-		toLang = toFromLanguages["toLang"];
+		//Set the languages from the start. This will change as more translations are put into the DB.
+		var fromLang = 149;
+		var toLang = 140;	
+		
+		
+		
+		
+		//TODO ONLY TESTING SHOULD GO HERE TEMPORARILY
+		$("#testArea").hide();			
+		$("#testTextButton").click(function () {
+			$("#textToProcess").val( $("#testText").val() );
+		});			
+		
+		
+		
+		
+		
+		
+		$("#transformTextareaShowP").hide();
 		
 		$(".showMeaning").tooltip({
 			show: {effect: "slideDown", delay: 250}
 		});	
+
+		$("#transformTextareaShowButton").click(function () {
+			$("#contentElem").html("");		
+			$("#newTransformationTextarea").show();
+			$("#transformTextareaShowP").hide();
+		});			
 		
-		$("#siteLanguage").change(function () {				    
-			//#{languageSwitcher.changeLanguage($("#siteLanguage option:selected").val())};	
-		});
-						
+		$("#transformSubmit").click(function () {				    
+		    var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());
+		    $("#newTransformationTextarea").hide();
+		    $("#transformTextareaShowP").show();
+		});	
+		
 		$("#fromlanguageOptions").change(function () {				    
 		    var toFromLanguages = setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
 		});		
@@ -136,7 +157,7 @@
 	  //  alert(unicodePunctuation.test("?.,;!¡¿。�·")); // true
 		
 		 $.ajax({
-	          	//in order to be able to set a variable indie json to be seen outside.
+	          	//aysnc in order to be able to set a variable in the json to be seen outside.
 	            async: false,
 			 	type: "POST",
 	            url: domainName + "/TranslateModule/resource/transformations/post",
@@ -229,17 +250,16 @@
 											
 										});
 									});
-									items.push( "</tr>" );
-									items.push( "<tr><td><br/></td></tr>" );
-									items.push( "<tr><td><br/></td></tr>" );
-									
+									items.push( '</tr>' );
+									items.push( '<tr><td><br/></td></tr>' );
+									items.push( '<tr><td><br/></td></tr>' );									
 								});
 
 							}
 
 						});
 						
-						$("#contentElem").html("").html( items.join( "" ) );									
+						$("#contentElem").html("").html( items.join( "" ) );
 
 					}			            	
 	            	
@@ -252,7 +272,8 @@
 				  "toLang": toLangSet
 				}
 		//Change the language select boxes languages.
-		changeSelectLanguages(fromLangSet, toLangSet);						
+		changeSelectLanguages(fromLangSet, toLangSet);		
+		
 		return toFromLanguages;
 		
 	}
