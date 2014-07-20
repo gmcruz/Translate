@@ -74,25 +74,47 @@
 		
 	}); //Finishes $(document).ready(function(){
 		
-		
+	
+	
 	function changeSelectLanguages(fromLang, toLang){//TODO does this need to happen multiple times?
 		var fromOptions = $("#fromlanguageOptions");
 		var toOptions = $("#tolanguageOptions");
 		$.getJSON( domainName+"/TranslateModule/resource/locales/active", function( data ) {													
 			if (data.hasOwnProperty("locale")) {						
 				$.each( data.locale, function( key, valLocale ) {							
-						
-					var fromOption = new Option(this.language, this.id);
-					if(valLocale.id == fromLang){
-						fromOption.selected = true;	
+					console.log("$.each( data.locale : " + valLocale.language + " : " + valLocale.id);
+					
+					var existsInFrom = false;
+					$("#fromlanguageOptions option").each(function(from){
+						if($(this).val() == valLocale.id){
+							existsInFrom = true;
+							$(this).selected = true;
+							return false;
+						}
+					});					
+					if(!existsInFrom){
+						var fromOption = new Option(this.language, this.id);
+						if(valLocale.id == fromLang){
+							fromOption.selected = true;	
+						}
+						fromOptions.append(fromOption);		
 					}
-					fromOptions.append(fromOption);							
 
-					var toOption = new Option(this.language, this.id);
-					if(valLocale.id == toLang){
-						toOption.selected = true;	
-					}	
-					toOptions.append(toOption);								
+					var existsInTo = false;
+					$("#tolanguageOptions option").each(function(to){
+						if($(this).val() == valLocale.id){
+							existsInTo = true;
+							$(this).selected = true;	
+							return false;
+						}
+					});					
+					if(!existsInTo){
+						var toOption = new Option(this.language, this.id);
+						if(valLocale.id == toLang){
+							toOption.selected = true;	
+						}
+						toOptions.append(toOption);		
+					}								
 					
 				})
 			}	
