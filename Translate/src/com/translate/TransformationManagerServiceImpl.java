@@ -1,15 +1,16 @@
 package com.translate;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -25,6 +26,7 @@ import com.translate.domain.Word;
 
 
 @Stateless
+@DeclareRoles({"user", "admin"})
 public class TransformationManagerServiceImpl implements TransformationManagerServiceLocal {
 
 	private Logger logger = Logger.getLogger(TransformationManagerServiceImpl.class);
@@ -34,9 +36,12 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	@EJB WordMappingDataAccess wmDAO;
 	@EJB WordDataAccess wDAO;
 	
+	@Resource
+	SessionContext sessionContext;
+	
 	public String processTransformation(String textToProcess, int fromLang, int toLang) {
 
-		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);
+		logger.debug("fromLang: " + fromLang + ", toLang:" + toLang);		
 		
 		transformation.setFromLanguageId(fromLang);
 		transformation.setToLanguageId(toLang);
@@ -99,16 +104,16 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 	 	    			logger.debug("calling transformFinalWord(:" + word.replaceAll(punctuations,"").trim());	 	    			
 	 	    			
-		 	    		Map<String, String> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang);
+		 	    		Map<String, Object> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang);
 		 	    		
 		 	    		logger.debug("word: " + word + " (" + (word.length()-1) + ")");
 	 	    			logger.debug("Punctuation: " + m.group());
 	 	    			logger.debug("Punctuation start: " + m.start());	 	    			
 	 	    			
-		 	    		Map<String, String> wordMapPunc = new HashMap<String, String>();
+		 	    		Map<String, Object> wordMapPunc = new HashMap<String, Object>();
 		 	    		wordMapPunc.put("id", "ID");		
 		 	    		wordMapPunc.put("word", m.group());
-		 	    		wordMapPunc.put("punc", "true");
+		 	    		wordMapPunc.put("punc", true);
 		 	    		
 		 	    		//What was first the punctuation or the word
 		 	    		if((word.length()-1) == m.start()){
@@ -126,14 +131,14 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    	} else if(isNumeric(word.trim())){
 		 	    		
 		 	    		logger.debug("Numerical word: " + word.trim());			 	    		
-		 	    		Map<String, String> wordMap = new HashMap<String, String>();		 	    		
+		 	    		Map<String, Object> wordMap = new HashMap<String, Object>();		 	    		
 		 	    		wordMap.put("word", word.trim());	
 		 	    		jsonSentenceArray.add(wordMap);		
 		 	    		
 		 	    	}
 		 	    	else{
 		 	    		logger.debug("[NO PUNC] calling transformFinalWord(:" + word.replaceAll(punctuations,"").trim());	 	    				 	    			 	    		
-		 	    		Map<String, String> wordMap = transformFinalWord(word.trim(), fromLang, toLang);		 	    		
+		 	    		Map<String, Object> wordMap = transformFinalWord(word.trim(), fromLang, toLang);		 	    		
 		 	    		jsonSentenceArray.add(wordMap);	
 		 	    		
 		 	    	}
@@ -143,10 +148,10 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 			    words.close();	
 			    
 			    //Add the period to finish the sentence
-			    Map<String, String> wordMapPunc = new HashMap<String, String>();
+			    Map<String, Object> wordMapPunc = new HashMap<String, Object>();
  	    		wordMapPunc.put("id", "ID");		
  	    		wordMapPunc.put("word", ".");
- 	    		wordMapPunc.put("punc", "true");
+ 	    		wordMapPunc.put("punc", true);
  	    		jsonSentenceArray.add(wordMapPunc);	
 			    
 			    jsonSentenceObj.put("sentence", jsonSentenceArray);
@@ -176,7 +181,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 	}
 	
-	public Map<String, String> transformFinalWord(String word, int fromLang, int toLang){
+	public Map<String, Object> transformFinalWord(String word, int fromLang, int toLang){
 		
 		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");	
 		
@@ -187,7 +192,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 		logger.debug("CALLED transformFinalWord( > wmDAO.getSingleWordMapping(" + wm.toString());		
 		
- 		Map<String, String> wordMap = new HashMap<String, String>();
+ 		Map<String, Object> wordMap = new HashMap<String, Object>();
  		wordMap.put("id", Integer.toString(w.getId()));		
  		wordMap.put("word", wm.getWord().trim());
  		wordMap.put("translation", wm.getWordMappingTranslation().trim());
@@ -195,6 +200,8 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
  		wordMap.put("antonyms", wm.getAntonyms());
  		wordMap.put("definition", wm.getDefinition());	
  		wordMap.put("uses", wm.getUses());
+ 		wordMap.put("allowChange", sessionContext.isCallerInRole("admin") ? true : false);
+ 		
 		
 		return wordMap;
 		
@@ -219,7 +226,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 				"Seither ist Angela Bundeskanzlerin. Sie tritt beim  meist.";						
 		
 		TransformationManagerServiceImpl impl = new TransformationManagerServiceImpl();
-		//impl.processTransformation(textToProcess, 149, 140);
+		impl.processTransformation(textToProcess, 149, 140);
 		
 		
 		String password = "33Luser";		

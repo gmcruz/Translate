@@ -105,7 +105,7 @@
       	  <lib dir="${lib}"/>
 	      <fileset dir="${html}"/>  <!-- html files -->	   	
 	   	 
-	   	  <webinf dir="."> 
+	   	  <webinf dir="."> 	   		 
 	     	 <include name="glassfish-web.xml"/>
 	   	     <include name="faces-config.xml"/>
 	   	     <include name="beans.xml" />	   	 	

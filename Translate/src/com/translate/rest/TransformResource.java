@@ -9,7 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 import org.apache.log4j.Logger;
 
@@ -25,6 +27,8 @@ public class TransformResource {
 	@EJB
 	private TransformationManagerServiceLocal transformationService;
 	
+	@Context
+	SecurityContext securityContext;
 	
 	@GET
 	@Produces({"application/json", "application/xml"})
@@ -48,10 +52,7 @@ public class TransformResource {
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public String postTransformation(@FormParam("textToProcess") String textToProcess, @FormParam("fromLang") int fromLang, @FormParam("toLang") int toLang){
 		
-		logger.debug("POST GC CALLED THE fromLang: " + fromLang);
-		logger.debug("POST GC CALLED THE toLang: " + toLang);
-		logger.debug("POST GC CALLED THE textToProcess: " + textToProcess);	
-		
+		logger.debug("POST GC CALLED THE fromLang: " + fromLang + " toLang: " + toLang + " textToProcess: " + textToProcess);
 		return transformationService.processTransformation(textToProcess, fromLang, toLang);
 
 	}
