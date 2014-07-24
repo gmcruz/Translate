@@ -200,7 +200,9 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
  		wordMap.put("antonyms", wm.getAntonyms());
  		wordMap.put("definition", wm.getDefinition());	
  		wordMap.put("uses", wm.getUses());
- 		wordMap.put("allowChange", sessionContext.isCallerInRole("admin") ? true : false);
+ 		if(w.getId() == 0 || wm.getWordMappingTranslation().trim() == "N_A"){
+ 			wordMap.put("allowChange", (sessionContext.isCallerInRole("admin") || sessionContext.isCallerInRole("user")) ? true : false);
+ 		}
  		
 		
 		return wordMap;

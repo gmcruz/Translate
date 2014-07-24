@@ -241,7 +241,7 @@
 											}
 											
 											//numbers or other words who do not have translations like names or city names etc....
-											if(valWord.id == undefined && valWord.translation == undefined){
+											if((valWord.id == undefined && valWord.translation == undefined) || (valWord.allowChange != undefined && !valWord.allowChange)){
 												items.push( '<td><div class="elemWord">' + valWord.word + addPunc + '</div><div class="elemTranslation">&nbsp;</div></td>' );
 											}
 											//Punctuation just show as is.
