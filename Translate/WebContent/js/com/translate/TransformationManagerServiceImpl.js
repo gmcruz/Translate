@@ -82,7 +82,6 @@
 		$.getJSON( domainName+"/TranslateModule/resource/locales/active", function( data ) {													
 			if (data.hasOwnProperty("locale")) {						
 				$.each( data.locale, function( key, valLocale ) {							
-					console.log("$.each( data.locale : " + valLocale.language + " : " + valLocale.id);
 					
 					var existsInFrom = false;
 					$("#fromlanguageOptions option").each(function(from){
