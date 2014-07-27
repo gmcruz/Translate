@@ -45,7 +45,7 @@ public class UserResource {
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response createUser(User user){
 		
-		logger.debug("/post (called as): public Response createUser(User:" + user.toString() + ")");	
+		logger.info("/post (called as): public Response createUser(User:" + user.toString() + ")");	
 						
 		userService.createUser(user);
 						

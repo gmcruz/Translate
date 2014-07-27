@@ -1,15 +1,18 @@
 package com.translate.domain;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -26,9 +29,10 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	String username = "";
-	@Transient
+	//@Transient
 	String password = "";
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
 	Person person = null;
 
 	//for JPA
@@ -42,6 +46,13 @@ public class User implements Serializable {
 		this.person = p;
 	}	
 
+	public User(String username, String password, Person p){
+		super();		
+		this.username = username;
+		this.password = password;
+		this.person = p;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -59,15 +70,38 @@ public class User implements Serializable {
 	}
 
 	public String getPassword() {
-		//TODO user logged in only gets the correct word
-		Pattern p = Pattern.compile("[a-zA-Z0-9]");
-		Matcher m = p.matcher(this.password);
-		String hiddenText = m.replaceAll("*")+"*****";
-		return hiddenText;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		String SHA256_password = null;
+		
+		if(password.length() < 10){
+		
+			try {
+				
+		        MessageDigest md2 = MessageDigest.getInstance("SHA-256");
+		        md2.update(password.getBytes()); 
+		        byte byteData[] = md2.digest();	 
+		        
+		        StringBuffer sb = new StringBuffer();
+		        for (int i = 0; i < byteData.length; i++) {
+		         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		        }
+		 
+		        SHA256_password = sb.toString();	 
+		        
+			} catch (Exception e) {			
+				e.printStackTrace();
+			}		
+			
+			this.password = SHA256_password;
+		
+		}
+		else{
+			this.password = password;
+		}
+		
 	}
 
 	public Person getPerson() {
@@ -80,7 +114,7 @@ public class User implements Serializable {
 	
 	
 	public String toString(){
-		String str = "User Obj - id: " + getId() + " " + " username: " + getUsername() + " " + " password: " + getPassword() + " (Person param) getPerson().toString()";
+		String str = "User Obj - id: " + getId() + " " + " username: " + getUsername() + " " + " password: " + getPassword() + " " + getPerson().toString();
 		return str;  
 	}
 	
@@ -89,6 +123,7 @@ public class User implements Serializable {
 		Date dob = new Date();
 		Person p = new Person(555, "Guillermo", "Cruz", "Themex", dob);
 		User u = new User(234, "gcruz", "passw", p);
+		u.setPassword("abcdefghi");
 		System.out.println(u.toString());
 	}
 	

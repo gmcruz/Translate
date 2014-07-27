@@ -228,7 +228,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 				"Seither ist Angela Bundeskanzlerin. Sie tritt beim  meist.";						
 		
 		TransformationManagerServiceImpl impl = new TransformationManagerServiceImpl();
-		impl.processTransformation(textToProcess, 149, 140);
+		//impl.processTransformation(textToProcess, 149, 140);
 		
 		
 		String password = "33Luser";		
@@ -242,8 +242,9 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 	        for (int i = 0; i < byteData.length; i++) {
 	         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
 	        }
-	 
+	        String pass = sb.toString();
 	        System.out.println(sb.toString());	 
+	        System.out.println(password.getBytes());
 	        
 		} catch (Exception e) {			
 			e.printStackTrace();

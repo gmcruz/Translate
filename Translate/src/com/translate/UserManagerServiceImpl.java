@@ -9,7 +9,7 @@ import com.translate.dataaccess.UserDataAccessInterface;
 import com.translate.domain.User;
 
 @Stateless
-public class UserManagerServiceImpl implements UserManagerServiceLocal {
+public class UserManagerServiceImpl implements UserManagerServiceLocal, UserManagerServiceRemote {
 	
 	@EJB
 	UserDataAccessInterface userDAO;

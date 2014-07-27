@@ -11,13 +11,13 @@
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
-		<title>Transformation Page</title>
+		<title>Create New Account</title>
 		
-		<script src="../js/jquery-1.11.1.min.js"></script>
-		<script src="../js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-		<script src="../js/xregexp-all-min.js"></script>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script src="js/xregexp-all-min.js"></script>
 			
-		<link rel="stylesheet" type="text/css" href="../resources/css/main.css" />		
+		<link rel="stylesheet" type="text/css" href="resources/css/main.css" />		
 				
 	</h:head>
 	<h:body>
@@ -35,15 +35,33 @@
 				<!-- <div id="mainsidebar"></div> -->
 				<ui:insert name="content">
                		<!-- MAIN CONTENT BELOW -->
+    
+			        <h1>Create a new account detail:</h1>
 
+					<h:form>
+						<p>
+							<label>First Name: </label>
+							<h:inputText value="#{userService.fname}" />
+						</p>
+						<p>
+							<label>Last Name: </label>
+							<h:inputText value="#{userService.lname}" />
+						</p>
+						<p>
+							<label>Email Address: </label>
+							<h:inputText value="#{userService.username}" />
+						</p>
+						<p>
+							<label>Password: </label>
+							<h:inputText value="#{userService.password}" />
+						</p>
+						<p>
+							<label>Re-enter Password: </label>
+							<h:inputText value="#{userService.reenterpassword}" />
+						</p>
+						<h:commandButton value="Submit Details"	action="#{userService.createUser}" />
+					</h:form>
 
-					<form method="POST" action="j_security_check">
-						<p><label>Username:</label> <input type="text" name="j_username" value="gcruz" /></p>
-						<p><label>Password:</label> <input type="password" name="j_password" value="33Casey" /></p>
-						<input type="submit" value="Login" />
-					</form>
-					
-					<h:link value="Create Account" outcome="CreateAccount" />
 
 					<!-- MAIN CONTENT ABOVE -->
             	</ui:insert>

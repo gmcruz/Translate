@@ -1,11 +1,11 @@
 package com.translate;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import com.translate.domain.User;
 
-@Local
-public interface UserManagerServiceLocal {
+@Remote
+public interface UserManagerServiceRemote {
 	public abstract void createUser(User user);
 	public abstract User getUserById(int id);
 	public abstract void updateUser(User user);

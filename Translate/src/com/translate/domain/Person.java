@@ -38,8 +38,15 @@ public class Person implements Serializable{
 		this.lname = lname;
 		this.mname = mname;
 		this.dob = dob;
+	}		
+
+	public Person(String fname, String lname, String mname, Date dob){
+		super();
+		this.fname = fname;
+		this.lname = lname;
+		this.mname = mname;
+		this.dob = dob;
 	}
-		
 	
 	public int getId() {
 		return id;
