@@ -1,11 +1,16 @@
 package com.translate.backingbeans;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
 import com.translate.UserManagerServiceLocal;
+import com.translate.domain.User;
 
 
 @ManagedBean(name="userService")
@@ -21,9 +26,13 @@ public class UserService {
 	String username = null;	
 	String password = null;
 	String reenterpassword = null;
+
 	
 	public String createUser(){
-		logger.info("fname: " + fname + " lname: " + lname + " username: " + username +  " password: " + password);
+		logger.info("fname: " + fname + " lname: " + lname + " username: " + username +  " password: " + password + " reenterpassword: " + reenterpassword);
+		User createNewUser = new User(fname, lname, username, password, reenterpassword);		
+		userManagerService.createUser(createNewUser);
+		login();
 		return "UserCreated";
 	}
 
@@ -67,6 +76,28 @@ public class UserService {
 		this.reenterpassword = reenterpassword;
 	}
 	
-	
+	public String login () {
+	    FacesContext context = FacesContext.getCurrentInstance();
+	    HttpServletRequest request = (HttpServletRequest) 
+	        context.getExternalContext().getRequest();
+	    try {
+	      request.login(this.username, this.password);
+	    } catch (ServletException e) {
+	      context.addMessage(null, new FacesMessage("Login failed."));
+	      return "error";
+	    }
+	    return "login-failed";
+	  }
+
+	public void logout() {
+	    FacesContext context = FacesContext.getCurrentInstance();
+	    HttpServletRequest request = (HttpServletRequest) 
+	        context.getExternalContext().getRequest();
+	    try {
+	      request.logout();
+	    } catch (ServletException e) {
+	      context.addMessage(null, new FacesMessage("Logout failed."));
+	    }
+	  }
 	
 }

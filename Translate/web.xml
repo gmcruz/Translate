@@ -38,6 +38,10 @@
         <role-name>user</role-name>
     </security-role>
     
+    <session-config>
+    	<session-timeout>30</session-timeout>
+	</session-config>
+    
    <!-- SECURITY CONSTRAINT for Web Pages --> 
    <security-constraint> 
    	<web-resource-collection>

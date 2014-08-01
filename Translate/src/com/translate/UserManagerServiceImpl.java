@@ -2,17 +2,24 @@ package com.translate;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
 import com.translate.dataaccess.UserDataAccessInterface;
+import com.translate.dataaccess.User_GroupDataAccessInterface;
 import com.translate.domain.User;
+import com.translate.domain.User_Group;
 
 @Stateless
 public class UserManagerServiceImpl implements UserManagerServiceLocal, UserManagerServiceRemote {
 	
 	@EJB
 	UserDataAccessInterface userDAO;
+
+	@EJB
+	User_GroupDataAccessInterface user_groupDAO;
+	
 	
 	private Logger logger = Logger.getLogger(UserManagerServiceImpl.class);
 		
@@ -20,6 +27,8 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 	public void createUser(User user) {
 		logger.debug("userDAO.createUserDAO(user): " + user.toString());
 		userDAO.createUserDAO(user);
+		User_Group newUserGroup = new User_Group(user.getUsername(), "user");
+		user_groupDAO.createUser_GroupDAO(newUserGroup);
 	}
 	
 	@Override

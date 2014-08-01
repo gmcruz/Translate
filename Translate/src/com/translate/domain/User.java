@@ -3,8 +3,6 @@ package com.translate.domain;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -28,8 +25,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
-	String username = "";
-	//@Transient
+	String username = "";	
 	String password = "";
 	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -41,16 +37,36 @@ public class User implements Serializable {
 	public User(int id, String username, String password, Person p){
 		super();
 		this.id = id;
+		//you must set password thru this setter it hashes.
+		this.setPassword(password);
 		this.username = username;
-		this.password = password;
 		this.person = p;
 	}	
 
 	public User(String username, String password, Person p){
 		super();		
+		//you must set password thru this setter it hashes.
+		this.setPassword(password);
 		this.username = username;
-		this.password = password;
 		this.person = p;
+	}
+
+	
+	public User(String fname, String lname, String username, String password, String reenterpassword){		
+		super();	
+		
+		//This is not the first line of defense but we must make sure.
+		if(!password.equals(reenterpassword)){
+			throw new IllegalArgumentException("Password and re-enter password do not match.");
+		}		
+		
+		//you must set password thru this setter it hashes.
+		this.setPassword(password);
+		this.username = username;
+		
+		this.person = new Person();
+		this.person.setFname(fname);
+		this.person.setLname(lname);			
 	}
 	
 	public int getId() {
