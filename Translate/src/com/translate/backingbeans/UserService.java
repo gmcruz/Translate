@@ -1,6 +1,7 @@
 package com.translate.backingbeans;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -13,6 +14,7 @@ import com.translate.UserManagerServiceLocal;
 import com.translate.domain.User;
 
 
+@Stateless
 @ManagedBean(name="userService")
 public class UserService {
 
