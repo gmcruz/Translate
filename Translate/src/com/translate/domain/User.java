@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -26,6 +27,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
 	String username = "";	
+	@Size(min=8)
 	String password = "";
 	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -92,7 +94,7 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		String SHA256_password = null;
 		
-		if(password.length() < 10){
+		if(password.length() < 13){
 		
 			try {
 				

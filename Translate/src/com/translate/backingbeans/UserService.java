@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.translate.UserManagerServiceLocal;
 import com.translate.domain.User;
+import com.translate.util.randomString;
 
 
 @Stateless
@@ -23,12 +24,20 @@ public class UserService {
 	@EJB
 	private UserManagerServiceLocal userManagerService;
 	
-	String fname = null;
+	//FOR DEVELOPEMENT PURPOSES
+	String fname = randomString.generateRandomString().toLowerCase();
+	String lname = randomString.generateRandomString().toLowerCase();
+	String username = fname + "@" + lname;	
+	String password = fname + lname;
+	String reenterpassword = fname + lname;
+
+	/*String fname = null;
 	String lname = null;
 	String username = null;	
 	String password = null;
-	String reenterpassword = null;
-
+	String reenterpassword = null;*/
+	
+	
 	
 	public String createUser(){
 		logger.info("fname: " + fname + " lname: " + lname + " username: " + username +  " password: " + password + " reenterpassword: " + reenterpassword);
