@@ -105,7 +105,30 @@ In Deutschland gibt es ungefähr 36000 öffentliche Schulen und nur 2600 private
 Mit sechs Jahren kommt ein deutsches Kind in die Schule. Vorher war es meistens im Kindergarten. Die erste Klasse besucht es dann in einer Grundschule. Meistens dauert die Grundschule vier Jahre lang, in einigen Fällen aber auch sechs Jahre lang.</textarea>
 </div>		
 		
-		
+	  <script type="text/javascript" class="showcase">
+$(function(){
+    $.contextMenu({
+        selector: '.context-menu-one', 
+        callback: function(key, options) {
+            var m = "clicked: " + key;
+            console.log(m); 
+        },
+        items: {
+            "edit": {name: "Edit", icon: "edit"},
+            "cut": {name: "Cut", icon: "cut"},
+            "copy": {name: "Copy", icon: "copy"},
+            "paste": {name: "Paste", icon: "paste"},
+            "delete": {name: "Delete", icon: "delete"},
+            "sep1": "---------",
+            "quit": {name: "Quit", icon: "quit"}
+        }
+    });
+    
+    $('.context-menu-one').on('click', function(e){
+        console.log('clicked', this);
+    })
+});
+    </script>	
 		
 		
 	</h:body>

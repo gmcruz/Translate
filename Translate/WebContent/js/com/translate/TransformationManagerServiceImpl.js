@@ -1,6 +1,7 @@
 
 	var domainName = "http://127.0.0.1";
 	
+	
 	$(document).ready(function(){				
 		
 		//Set the languages from the start. This will change as more translations are put into the DB.
@@ -167,6 +168,18 @@
 		$("#newTranslation").focus();
 	};
 
+	function knownWordFn(id, fromLang, word) {
+		console.log("knownWordFn("+id+", "+fromLang+", "+word+")");
+		/*clearNewTranslationPopupForm();								
+		$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});				
+		$("#fromLangTranslationId").val(id);
+        $("#newTranslationFromLang").val(fromLang);
+        $("#newTranslationToLang").val(toLang);		
+		$("#newTranslationPopup").slideFadeToggle('1'); 
+		$("#wordToTranslate").text(word + " =");
+		$("#fromTranslationWord").val(word);
+		$("#newTranslation").focus();*/
+	};
 	
 	function setTransformation(requestedTextToProcess, requestedFromLang, requestedToLang){
 		
@@ -263,9 +276,9 @@
 												}													
 												items.push( '<td><div class="elemWord">' + addPuncFront + tempRef[0].word + addPunc + '</div><div class="' + typeClass + '">' + tempRef[0].translation + '</div></td>' );
 											}
-											//Regular word to process
+											//Regular word to process   onclick="knownWordFn(' + valWord.id + ',\'' + fromLangSet + '\',\'' + valWord.word + '\');"
 											else if(valWord.ref == undefined){
-												items.push( '<td><div class="elemWord">' + addPuncFront + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
+												items.push( '<td><div class="elemWord context-menu-one box menu-1">' + addPuncFront + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
 											}	
 											items.push( "</td>" );
 											

@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.translate.util.hashString;
+
 @XmlRootElement
 @Entity
 @Table(name="user")
@@ -26,11 +28,12 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
+	@Size(min=6)
 	String username = "";	
 	@Size(min=8)
 	String password = "";
-	@OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @JoinColumn(name="person_id", referencedColumnName="id")
 	Person person = null;
 
 	//for JPA
@@ -92,34 +95,12 @@ public class User implements Serializable {
 	}
 
 	public void setPassword(String password) {
-		String SHA256_password = null;
-		
-		if(password.length() < 13){
-		
-			try {
-				
-		        MessageDigest md2 = MessageDigest.getInstance("SHA-256");
-		        md2.update(password.getBytes()); 
-		        byte byteData[] = md2.digest();	 
-		        
-		        StringBuffer sb = new StringBuffer();
-		        for (int i = 0; i < byteData.length; i++) {
-		         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-		        }
-		 
-		        SHA256_password = sb.toString();	 
-		        
-			} catch (Exception e) {			
-				e.printStackTrace();
-			}		
-			
-			this.password = SHA256_password;
-		
+		if(password.length() < 13){					
+			this.password = hashString.hash(password);		
 		}
 		else{
 			this.password = password;
-		}
-		
+		}		
 	}
 
 	public Person getPerson() {

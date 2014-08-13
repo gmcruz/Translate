@@ -40,7 +40,7 @@ public class UserService {
 	
 	
 	public String createUser(){
-		logger.info("fname: " + fname + " lname: " + lname + " username: " + username +  " password: " + password + " reenterpassword: " + reenterpassword);
+		logger.debug("fname: " + fname + " lname: " + lname + " username: " + username +  " password: " + password + " reenterpassword: " + reenterpassword);
 		User createNewUser = new User(fname, lname, username, password, reenterpassword);		
 		userManagerService.createUser(createNewUser);
 		login();
