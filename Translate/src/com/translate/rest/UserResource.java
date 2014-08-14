@@ -3,6 +3,7 @@ package com.translate.rest;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -52,6 +53,19 @@ public class UserResource {
 		String result = "User created (XML JSON) **: " + user.toString();
 		return Response.status(201).entity(result).build();
 		
+	}
+	
+	
+	
+	@Path("/knownword")
+	@POST	
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public String userKnownWord(@FormParam("localeid") int localeid, @FormParam("wordid") int wordid, @FormParam("word") String word){
+		  
+		logger.debug("POST GC CALLED userKnownWord() localeid:" + localeid + " wordid: " + wordid + " word: " + word);
+		return "userService.processTransformation(localeid, wordid, word)";
+
 	}
 	
 	

@@ -167,18 +167,20 @@
 		$("#fromTranslationWord").val(word);
 		$("#newTranslation").focus();
 	};
-
-	function knownWordFn(id, fromLang, word) {
-		console.log("knownWordFn("+id+", "+fromLang+", "+word+")");
-		/*clearNewTranslationPopupForm();								
-		$("#newTranslationPopup").css( {position:"absolute", top:event.pageY, left: event.pageX});				
-		$("#fromLangTranslationId").val(id);
-        $("#newTranslationFromLang").val(fromLang);
-        $("#newTranslationToLang").val(toLang);		
-		$("#newTranslationPopup").slideFadeToggle('1'); 
-		$("#wordToTranslate").text(word + " =");
-		$("#fromTranslationWord").val(word);
-		$("#newTranslation").focus();*/
+	
+	//Don't show this word anymore for the logged in user.
+	function knownWordFn(fromLang, wordid, word) {
+		console.log("knownWordFn("+fromLang+", "+wordid+", "+word+")");
+        $.ajax({
+        	async: false,
+        	type: "POST",
+            url: domainName + "/TranslateModule/resource/users/knownword",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: { localeid: fromLang, wordid: wordid, word: word } ,
+            success: function (msg) { }			            
+        });
+		
 	};
 	
 	function setTransformation(requestedTextToProcess, requestedFromLang, requestedToLang){
@@ -278,7 +280,7 @@
 											}
 											//Regular word to process   onclick="knownWordFn(' + valWord.id + ',\'' + fromLangSet + '\',\'' + valWord.word + '\');"
 											else if(valWord.ref == undefined){
-												items.push( '<td><div class="elemWord context-menu-one box menu-1">' + addPuncFront + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
+												items.push( '<td><div class="elemWord context-menu-one box menu-1" divWordId="' + valWord.id + '" divWord="' + valWord.word + '" fromLang="' + fromLangSet + '">' + addPuncFront + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
 											}	
 											items.push( "</td>" );
 											
@@ -318,15 +320,16 @@
 		$.contextMenu({
 			selector : '.context-menu-one',
 			callback : function(key, options) {
-				
-				
-				
-				var m = "clicked: " + key;
-				console.log(m);
+				if(key == "known"){
+					knownWordFn(this.attr("fromLang"), this.attr("divWordId"), this.attr("divWord"));
+				}
+				else if(key == "show"){
+					
+				}				
 			},
 			items : {
 				"known" : {	name : "Dont show", icon : "" },
-				"return" : { name : "Bring back", icon : "" },
+				"show" : { name : "Bring back", icon : "" },
 				"seperator" : "---------",
 				"quit" : { name : "Quit", icon : ""	}
 			}
