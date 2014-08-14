@@ -9,7 +9,11 @@
 		padding: 5px 5px;
 		margin: 15px 15px;
 	} 
-				
+	.changed{				
+		border-style: dotted;
+		border-width: 3px;
+		color: blue;					
+	}			
 	#contentElem {				
 		border-style: dotted;
 		border-width: 0px;

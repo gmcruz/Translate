@@ -311,3 +311,29 @@
 		return toFromLanguages;
 		
 	}
+		
+
+	//jquery custom function found on http://medialize.github.io/jQuery-contextMenu/demo.html
+	$(function() {
+		$.contextMenu({
+			selector : '.context-menu-one',
+			callback : function(key, options) {
+				
+				
+				
+				var m = "clicked: " + key;
+				console.log(m);
+			},
+			items : {
+				"known" : {	name : "Dont show", icon : "" },
+				"return" : { name : "Bring back", icon : "" },
+				"seperator" : "---------",
+				"quit" : { name : "Quit", icon : ""	}
+			}
+		});
+	
+		$('.context-menu-one').on('click', function(e) {
+			console.log('clicked', this);
+		})
+	});
+	      
