@@ -67,4 +67,10 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 		userDAO.flushUserEMDAO();		
 	}
 
+	@Override
+	public void setKnownWord(int localeid, int wordid, String word) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

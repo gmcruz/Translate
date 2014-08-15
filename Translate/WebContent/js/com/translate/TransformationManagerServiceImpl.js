@@ -178,7 +178,11 @@
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             data: { localeid: fromLang, wordid: wordid, word: word } ,
-            success: function (msg) { }			            
+            success: function (msg) {
+            	
+            	console.log(msg);
+            	
+            }			            
         });
 		
 	};

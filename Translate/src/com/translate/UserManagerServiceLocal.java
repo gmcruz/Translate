@@ -14,4 +14,5 @@ public interface UserManagerServiceLocal {
 	public abstract void refreshUser(User user);
 	public abstract void mergeUser(User user);
 	public abstract void flushUser();
+	public abstract void setKnownWord(int localeid, int wordid, String word);
 }

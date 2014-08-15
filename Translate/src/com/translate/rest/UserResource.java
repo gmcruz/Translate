@@ -1,6 +1,8 @@
 package com.translate.rest;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -26,6 +28,10 @@ public class UserResource {
 	
 	@EJB
 	private UserManagerServiceLocal userService;
+	
+	@Resource 
+	private SessionContext context;
+	
 	
 	@GET
 	@Produces({MediaType.APPLICATION_XML,MediaType.APPLICATION_JSON})
@@ -63,7 +69,11 @@ public class UserResource {
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public String userKnownWord(@FormParam("localeid") int localeid, @FormParam("wordid") int wordid, @FormParam("word") String word){
 		  
-		logger.debug("POST GC CALLED userKnownWord() localeid:" + localeid + " wordid: " + wordid + " word: " + word);
+		logger.debug("POST GC CALLED userKnownWord() localeid:" + localeid + " wordid: " + wordid + " word: " + word + " USERGC: " + context.getCallerPrincipal().getName());
+
+		   		
+		userService.setKnownWord(localeid, wordid, word);
+		
 		return "userService.processTransformation(localeid, wordid, word)";
 
 	}
