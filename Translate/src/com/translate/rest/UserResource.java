@@ -69,10 +69,13 @@ public class UserResource {
 	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public String userKnownWord(@FormParam("localeid") int localeid, @FormParam("wordid") int wordid, @FormParam("word") String word){
 		  
-		logger.debug("POST GC CALLED userKnownWord() localeid:" + localeid + " wordid: " + wordid + " word: " + word + " USERGC: " + context.getCallerPrincipal().getName());
-
-		   		
-		userService.setKnownWord(localeid, wordid, word);
+		logger.debug("POST GC CALLED userKnownWord() localeid:" + localeid + " wordid: " + wordid + " word: " + word);
+		
+		User currentUser = userService.getUserByUsername(context.getCallerPrincipal().getName());
+		
+		logger.debug("POST GC CALLED userKnownWord() --> userService.setKnownWord(" + currentUser.getId() + ", " + localeid + ", " + wordid + ")");
+				
+		userService.setKnownWord(currentUser.getId(), localeid, wordid);
 		
 		return "userService.processTransformation(localeid, wordid, word)";
 

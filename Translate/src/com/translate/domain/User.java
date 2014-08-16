@@ -113,7 +113,14 @@ public class User implements Serializable {
 	
 	
 	public String toString(){
-		String str = "User Obj - id: " + getId() + " " + " username: " + getUsername() + " " + " password: " + getPassword() + " " + getPerson().toString();
+		String str = "User Obj - id: " + getId() + " " + " username: " + getUsername() + " " + " password: " + getPassword();
+		
+		if(this.person == null){
+			str = str + " (The person object is not available)";
+		}else{
+			str = str + " " + getPerson().toString();
+		}
+		
 		return str;  
 	}
 	

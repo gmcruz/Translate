@@ -2,13 +2,14 @@ package com.translate;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import org.apache.log4j.Logger;
 
 import com.translate.dataaccess.UserDataAccessInterface;
+import com.translate.dataaccess.UserKnownWordDataAccessInterface;
 import com.translate.dataaccess.User_GroupDataAccessInterface;
 import com.translate.domain.User;
+import com.translate.domain.UserKnownWord;
 import com.translate.domain.User_Group;
 
 @Stateless
@@ -16,7 +17,10 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 	
 	@EJB
 	UserDataAccessInterface userDAO;
-
+	
+	@EJB
+	UserKnownWordDataAccessInterface userKnownWordDAO;
+	
 	@EJB
 	User_GroupDataAccessInterface user_groupDAO;
 	
@@ -66,11 +70,11 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 	public void flushUser() {		
 		userDAO.flushUserEMDAO();		
 	}
-
+	
 	@Override
-	public void setKnownWord(int localeid, int wordid, String word) {
-		// TODO Auto-generated method stub
-		
+	public void setKnownWord(int userid, int localeid, int wordid) {
+		UserKnownWord userKnownWord = new UserKnownWord(userid, localeid, wordid);
+		userKnownWordDAO.createUserKnownWordDAO(userKnownWord);		
 	}
 
 }

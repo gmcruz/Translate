@@ -2,6 +2,7 @@ package com.translate;
 
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -19,9 +20,12 @@ import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
 
+import com.translate.dataaccess.UserKnownWordDataAccessInterface;
 import com.translate.dataaccess.WordDataAccess;
 import com.translate.dataaccess.WordMappingDataAccess;
 import com.translate.domain.Transformation;
+import com.translate.domain.User;
+import com.translate.domain.UserKnownWord;
 import com.translate.domain.Word;
 
 
@@ -31,10 +35,20 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 
 	private Logger logger = Logger.getLogger(TransformationManagerServiceImpl.class);
 
-	@Inject Transformation transformation;
+	@Inject 
+	Transformation transformation;
 	
-	@EJB WordMappingDataAccess wmDAO;
-	@EJB WordDataAccess wDAO;
+	@EJB 
+	WordMappingDataAccess wmDAO;
+	
+	@EJB 
+	WordDataAccess wDAO;
+	
+	@EJB
+	UserKnownWordDataAccessInterface ukwDAO;
+	
+	@EJB
+	private UserManagerServiceLocal userService;
 	
 	@Resource
 	SessionContext sessionContext;
@@ -55,6 +69,15 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		jsonLanguage.put("to", toLang);		
 		jsonMainTransformation.put("language", jsonLanguage);
 		
+		
+		//Find out what words are known to this logged n user.
+		User currentUser = userService.getUserByUsername(sessionContext.getCallerPrincipal().getName());
+		List<UserKnownWord> knownWords = ukwDAO.getAllUsersKnownByLocaleDAO(currentUser.getId(), fromLang);
+		
+		for(UserKnownWord ukw : knownWords){
+			logger.debug("Known Word ID: " + ukw.getWordid());
+		}
+				
 		//Get all the paragraphs first.
 		//Pattern p = Pattern.compile(" |-|\\.|\\r\\n|\\n");
 		//Pattern p = Pattern.compile("				");
@@ -104,7 +127,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    		
 	 	    			logger.debug("calling transformFinalWord(:" + word.replaceAll(punctuations,"").trim());	 	    			
 	 	    			
-		 	    		Map<String, Object> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang);
+		 	    		Map<String, Object> wordMapWord = transformFinalWord(word.replaceAll(punctuations,"").trim(), fromLang, toLang, knownWords);
 		 	    		
 		 	    		logger.debug("word: " + word + " (" + (word.length()-1) + ")");
 	 	    			logger.debug("Punctuation: " + m.group());
@@ -138,7 +161,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		 	    	}
 		 	    	else{
 		 	    		logger.debug("[NO PUNC] calling transformFinalWord(:" + word.replaceAll(punctuations,"").trim());	 	    				 	    			 	    		
-		 	    		Map<String, Object> wordMap = transformFinalWord(word.trim(), fromLang, toLang);		 	    		
+		 	    		Map<String, Object> wordMap = transformFinalWord(word.trim(), fromLang, toLang, knownWords);		 	    		
 		 	    		jsonSentenceArray.add(wordMap);	
 		 	    		
 		 	    	}
@@ -181,29 +204,53 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 	}
 	
-	public Map<String, Object> transformFinalWord(String word, int fromLang, int toLang){
+	public Map<String, Object> transformFinalWord(String word, int fromLang, int toLang, List<UserKnownWord> knownWords){
 		
 		logger.debug("CALLED transformFinalWord(" + word.trim() + ", " + fromLang + ", " + toLang + ")");	
 		
 		Word w = wDAO.getWordDAOByString(word, fromLang);
 		logger.debug("CALLED transformFinalWord( > wDAO.getWordDAOByString(" + w.toString());
 		
-		Word wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);
+		Word wm;
+		boolean known = false;
+		for(UserKnownWord ukw : knownWords){
+			if(ukw.getWordid() == w.getId()){
+				logger.debug("Known Word ID: " + ukw.getWordid());
+				known = true;
+				break;
+			}	
+		}		
 		
-		logger.debug("CALLED transformFinalWord( > wmDAO.getSingleWordMapping(" + wm.toString());		
+		Map<String, Object> wordMap = new HashMap<String, Object>();
 		
- 		Map<String, Object> wordMap = new HashMap<String, Object>();
- 		wordMap.put("id", Integer.toString(w.getId()));		
- 		wordMap.put("word", wm.getWord().trim());
- 		wordMap.put("translation", wm.getWordMappingTranslation().trim());
- 		wordMap.put("synonyms", wm.getSynonyms());
- 		wordMap.put("antonyms", wm.getAntonyms());
- 		wordMap.put("definition", wm.getDefinition());	
- 		wordMap.put("uses", wm.getUses());
- 		if(w.getId() == 0 || wm.getWordMappingTranslation().trim() == "N_A"){
- 			wordMap.put("allowChange", (sessionContext.isCallerInRole("admin") || sessionContext.isCallerInRole("user")) ? true : false);
- 		}
+		if(known){
+			wm = new Word();
+			
+	 		wordMap.put("id", Integer.toString(w.getId()));		
+	 		wordMap.put("word", w.getWord().trim());
+	 		wordMap.put("translation", "");
+	 		wordMap.put("synonyms", "");
+	 		wordMap.put("antonyms", "");
+	 		wordMap.put("definition", "");	
+	 		wordMap.put("uses", "");
+	 		wordMap.put("allowChange", false); 		
+		}else{		
+			wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);			
+		
+			logger.debug("CALLED transformFinalWord( > wmDAO.getSingleWordMapping(" + wm.toString());		
+	 		
+	 		wordMap.put("id", Integer.toString(w.getId()));		
+	 		wordMap.put("word", wm.getWord().trim());
+	 		wordMap.put("translation", wm.getWordMappingTranslation().trim());
+	 		wordMap.put("synonyms", wm.getSynonyms());
+	 		wordMap.put("antonyms", wm.getAntonyms());
+	 		wordMap.put("definition", wm.getDefinition());	
+	 		wordMap.put("uses", wm.getUses());
+	 		if(w.getId() == 0 || wm.getWordMappingTranslation().trim() == "N_A"){
+	 			wordMap.put("allowChange", (sessionContext.isCallerInRole("admin") || sessionContext.isCallerInRole("user")) ? true : false);
+	 		}
  		
+		}
 		
 		return wordMap;
 		
