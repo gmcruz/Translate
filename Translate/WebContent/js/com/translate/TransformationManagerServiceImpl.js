@@ -178,13 +178,33 @@
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             data: { localeid: fromLang, wordid: wordid, word: word } ,
-            success: function (msg) {
-            	
-            	console.log(msg);
-            	
+            success: function (msg) {            	
+            	//console.log(msg);            	
+            }			            
+        });
+        
+        setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
+		        
+	};
+	
+	
+	//User has asked to re-show this word for whatever reason.
+	function unKnownWordFn(fromLang, wordid, word) {
+		console.log("unKnownWordFn("+fromLang+", "+wordid+", "+word+")");
+        $.ajax({
+        	async: false,
+        	type: "POST",
+            url: domainName + "/TranslateModule/resource/users/unknownword",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: { localeid: fromLang, wordid: wordid, word: word } ,
+            success: function (msg) {            	
+            	//console.log(msg);            	
             }			            
         });
 		
+        setTransformation($("#textToProcess").val(), $("#fromlanguageOptions option:selected").val(), $("#tolanguageOptions option:selected").val());	
+        
 	};
 	
 	function setTransformation(requestedTextToProcess, requestedFromLang, requestedToLang){
@@ -194,7 +214,7 @@
 		
 	    var unicodePunctuation = XRegExp("^\\p{P}+$");
 
-	  //  alert(unicodePunctuation.test("?.,;!¡¿。�·")); // true
+	  //TODO MAYBE  alert(unicodePunctuation.test("?.,;!¡¿。�·")); // true
 		
 		 $.ajax({
 	          	//aysnc in order to be able to set a variable in the json to be seen outside.
@@ -284,7 +304,7 @@
 											}
 											//Regular word to process   onclick="knownWordFn(' + valWord.id + ',\'' + fromLangSet + '\',\'' + valWord.word + '\');"
 											else if(valWord.ref == undefined){
-												items.push( '<td><div class="elemWord context-menu-one box menu-1" divWordId="' + valWord.id + '" divWord="' + valWord.word + '" fromLang="' + fromLangSet + '">' + addPuncFront + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
+												items.push( '<td><div class="elemWord context-menu-one box menu-1" divWordId="' + valWord.id + '" divWord="' + valWord.word + '" fromLang="' + fromLangSet + '" toLang="' + toLangSet + '">' + addPuncFront + valWord.word + addPunc + '</div><div class="elemTranslation">' + valWord.translation + '</div></td>' );
 											}	
 											items.push( "</td>" );
 											
@@ -325,10 +345,10 @@
 			selector : '.context-menu-one',
 			callback : function(key, options) {
 				if(key == "known"){
-					knownWordFn(this.attr("fromLang"), this.attr("divWordId"), this.attr("divWord"));
+					knownWordFn(this.attr("toLang"), this.attr("divWordId"), this.attr("divWord"));
 				}
 				else if(key == "show"){
-					
+					unKnownWordFn(this.attr("toLang"), this.attr("divWordId"), this.attr("divWord"));
 				}				
 			},
 			items : {

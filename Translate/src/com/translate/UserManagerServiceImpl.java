@@ -1,6 +1,8 @@
 package com.translate;
 
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 
 import org.apache.log4j.Logger;
@@ -23,6 +25,9 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 	
 	@EJB
 	User_GroupDataAccessInterface user_groupDAO;
+	
+	@Resource
+	SessionContext sessionContext;
 	
 	
 	private Logger logger = Logger.getLogger(UserManagerServiceImpl.class);
@@ -77,4 +82,12 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 		userKnownWordDAO.createUserKnownWordDAO(userKnownWord);		
 	}
 
+	@Override
+	public void setUnknownWord(int userid, int localeid, int wordid) {
+		UserKnownWord userKnownWord = new UserKnownWord(userid, localeid, wordid);
+		userKnownWord = userKnownWordDAO.bringUpFromPersistenceEMDAO(userKnownWord);
+		logger.info("ABOUT TO BE DELETED: " + userKnownWord.toString() + " by: " + sessionContext.getCallerPrincipal().getName());
+		userKnownWordDAO.deleteUserKnownWordByIdDAO(userKnownWord.getId());	
+	}
+	
 }

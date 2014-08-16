@@ -77,7 +77,26 @@ public class UserResource {
 				
 		userService.setKnownWord(currentUser.getId(), localeid, wordid);
 		
-		return "userService.processTransformation(localeid, wordid, word)";
+		return "Word set to known.";
+
+	}
+	
+	
+	@Path("/unknownword")
+	@POST	
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public String userUnknownWord(@FormParam("localeid") int localeid, @FormParam("wordid") int wordid, @FormParam("word") String word){
+		  
+		logger.debug("POST GC CALLED userUnknownWord() localeid:" + localeid + " wordid: " + wordid + " word: " + word);
+		
+		User currentUser = userService.getUserByUsername(context.getCallerPrincipal().getName());
+		
+		logger.debug("POST GC CALLED userUnknownWord() --> userService.setUnknownWord(" + currentUser.getId() + ", " + localeid + ", " + wordid + ")");
+				
+		userService.setUnknownWord(currentUser.getId(), localeid, wordid);
+		
+		return "Word set to un-known.";
 
 	}
 	

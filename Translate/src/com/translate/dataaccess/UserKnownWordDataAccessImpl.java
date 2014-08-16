@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.apache.log4j.Logger;
 
 import com.translate.domain.UserKnownWord;
+import com.translate.domain.Word;
 
 @Stateless
 public class UserKnownWordDataAccessImpl implements UserKnownWordDataAccessInterface {
@@ -20,12 +21,18 @@ public class UserKnownWordDataAccessImpl implements UserKnownWordDataAccessInter
 	private EntityManager em;
 			
 	@Override
-	public List<UserKnownWord> getAllUsersKnownByLocaleDAO(int userid, int localeid) {		
+	public List<UserKnownWord> getAllUsersKnownByLocaleDAO(int userid, int localeid) {	
+		
+		logger.debug("CALL-START getAllUsersKnownByLocaleDAO(int " + userid + ", int " + localeid + ")");		
+		
 		Query q = em.createQuery("SELECT ukw FROM UserKnownWord ukw WHERE ukw.userid = :userid AND ukw.localeid = :localeid");
 		q.setParameter("userid", userid);
 		q.setParameter("localeid", localeid);
 		@SuppressWarnings("unchecked")
 		List<UserKnownWord> tempList = q.getResultList();
+		
+		logger.debug("SELECT ukw FROM UserKnownWord ukw WHERE ukw.userid = " + userid + " AND ukw.localeid = " + localeid + " RETURNED # RECORDS: " + q.getResultList().size());
+		
 		return tempList;
 	}
 	
@@ -67,4 +74,23 @@ public class UserKnownWordDataAccessImpl implements UserKnownWordDataAccessInter
 		em.flush();
 	}
 
+	@Override
+	public UserKnownWord bringUpFromPersistenceEMDAO(UserKnownWord userKnownWord) {
+		
+		logger.debug("CALL-START bringUpFromPersistenceEMDAO(UserKnownWord userKnownWord)");
+		
+		Query qw = em.createQuery("SELECT ukw FROM UserKnownWord ukw WHERE ukw.userid = :userid AND ukw.localeid = :localeid AND ukw.wordid = :wordid");	
+		qw.setParameter("userid", userKnownWord.getUserid());
+		qw.setParameter("localeid", userKnownWord.getLocaleid());
+		qw.setParameter("wordid", userKnownWord.getWordid());
+								
+		if(qw.getResultList().size() > 0){
+			userKnownWord = (UserKnownWord) qw.getResultList().get(0);
+			logger.debug(userKnownWord.toString());			
+		}	
+		
+		return userKnownWord;
+		
+	}
+	
 }

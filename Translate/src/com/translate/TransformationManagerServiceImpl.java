@@ -69,10 +69,10 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		jsonLanguage.put("to", toLang);		
 		jsonMainTransformation.put("language", jsonLanguage);
 		
-		
+		logger.debug("BEFORE ukwDAO.getAllUsersKnownByLocaleDAO: fromLang-" + fromLang + " toLang-" + toLang);
 		//Find out what words are known to this logged n user.
 		User currentUser = userService.getUserByUsername(sessionContext.getCallerPrincipal().getName());
-		List<UserKnownWord> knownWords = ukwDAO.getAllUsersKnownByLocaleDAO(currentUser.getId(), fromLang);
+		List<UserKnownWord> knownWords = ukwDAO.getAllUsersKnownByLocaleDAO(currentUser.getId(), toLang);
 		
 		for(UserKnownWord ukw : knownWords){
 			logger.debug("Known Word ID: " + ukw.getWordid());
@@ -81,7 +81,7 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		//Get all the paragraphs first.
 		//Pattern p = Pattern.compile(" |-|\\.|\\r\\n|\\n");
 		//Pattern p = Pattern.compile("				");
-		Pattern p = Pattern.compile("\\n\\n|\\r\\n|\\r");//TODO this seems to work best but there has to be a better way.
+		Pattern p = Pattern.compile("\\n\\n|\\r\\n|\\r|\\r\\n\\n|@@");//TODO this seems to work best but there has to be a better way.
 		paragraphs.useDelimiter(p);
 				
 		JSONArray jsonParagraphsArray = new JSONArray();
@@ -223,34 +223,25 @@ public class TransformationManagerServiceImpl implements TransformationManagerSe
 		
 		Map<String, Object> wordMap = new HashMap<String, Object>();
 		
-		if(known){
-			wm = new Word();
-			
-	 		wordMap.put("id", Integer.toString(w.getId()));		
-	 		wordMap.put("word", w.getWord().trim());
-	 		wordMap.put("translation", "");
-	 		wordMap.put("synonyms", "");
-	 		wordMap.put("antonyms", "");
-	 		wordMap.put("definition", "");	
-	 		wordMap.put("uses", "");
-	 		wordMap.put("allowChange", false); 		
-		}else{		
-			wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);			
-		
-			logger.debug("CALLED transformFinalWord( > wmDAO.getSingleWordMapping(" + wm.toString());		
-	 		
-	 		wordMap.put("id", Integer.toString(w.getId()));		
-	 		wordMap.put("word", wm.getWord().trim());
-	 		wordMap.put("translation", wm.getWordMappingTranslation().trim());
-	 		wordMap.put("synonyms", wm.getSynonyms());
-	 		wordMap.put("antonyms", wm.getAntonyms());
-	 		wordMap.put("definition", wm.getDefinition());	
-	 		wordMap.put("uses", wm.getUses());
-	 		if(w.getId() == 0 || wm.getWordMappingTranslation().trim() == "N_A"){
-	 			wordMap.put("allowChange", (sessionContext.isCallerInRole("admin") || sessionContext.isCallerInRole("user")) ? true : false);
-	 		}
+		wm = wmDAO.getSingleWordMapping(word, fromLang, toLang);			
+	
+		logger.debug("CALLED transformFinalWord( > wmDAO.getSingleWordMapping(" + wm.toString());		
  		
-		}
+ 		wordMap.put("id", Integer.toString(w.getId()));		
+ 		wordMap.put("word", wm.getWord().trim());
+ 		wordMap.put("synonyms", wm.getSynonyms());
+ 		wordMap.put("antonyms", wm.getAntonyms());
+ 		wordMap.put("definition", wm.getDefinition());	
+ 		wordMap.put("uses", wm.getUses());
+ 		if(w.getId() == 0 || wm.getWordMappingTranslation().trim() == "N_A"){
+ 			wordMap.put("allowChange", (sessionContext.isCallerInRole("admin") || sessionContext.isCallerInRole("user")) ? true : false);
+ 		}
+ 		
+ 		if(known){
+ 			wordMap.put("translation", "&nbsp;");
+ 		}else{
+ 			wordMap.put("translation", wm.getWordMappingTranslation().trim());
+ 		}
 		
 		return wordMap;
 		

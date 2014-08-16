@@ -22,4 +22,6 @@ public interface UserKnownWordDataAccessInterface {
 
 	public abstract void flushUserKnownWordEMDAO();
 
+	public abstract UserKnownWord bringUpFromPersistenceEMDAO(UserKnownWord userKnownWord);
+	
 }

@@ -15,4 +15,5 @@ public interface UserManagerServiceLocal {
 	public abstract void mergeUser(User user);
 	public abstract void flushUser();
 	public abstract void setKnownWord(int userid, int localeid, int wordid);
+	public abstract void setUnknownWord(int userid, int localeid, int wordid);
 }
