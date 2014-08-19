@@ -11,13 +11,13 @@
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
-		<title>Transformation Page</title>
+		<title>Account Created</title>
 		
-		<script src="../js/jquery-1.11.1.min.js"></script>
-		<script src="../js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-		<script src="../js/xregexp-all-min.js"></script>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script src="js/xregexp-all-min.js"></script>
 			
-		<link rel="stylesheet" type="text/css" href="../resources/css/main.css" />		
+		<link rel="stylesheet" type="text/css" href="resources/css/main.css" />		
 				
 	</h:head>
 	<h:body>
@@ -35,17 +35,9 @@
 				<!-- <div id="mainsidebar"></div> -->
 				<ui:insert name="content">
                		<!-- MAIN CONTENT BELOW -->
-
-
-					<form method="POST" action="j_security_check">
-						<p><label>Username:</label> <input type="text" name="j_username" value="gcruz" /></p>
-						<p><label>Password:</label> <input type="password" name="j_password" value="33Casey" /></p>
-						<input type="submit" value="Login" />
-					</form>
+    
+			        <h1>You have been successfully logged out. Please come visit us again.</h1>
 					
-					<h:link value="Create Account" outcome="CreateAccount" /> | 
-					<h:link value="Forgot Login / Password" outcome="ForgotLogin" />
-
 					<!-- MAIN CONTENT ABOVE -->
             	</ui:insert>
 			</div>

@@ -34,7 +34,8 @@
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
 				</h:form>		
-				<h:outputText value="#{msg['translations.all']}" />			
+				<h:outputText value="#{msg['translations.all']}" />		
+				<h:form><h:commandButton value="log out" action="#{userService.logoutUser}" /></h:form>	
 			</div>
 			<div id="content">
 				<div id="mainsidebar"><div class="testTextPut"> <button type="button" id="testTextButton">Test Text</button></div></div> 

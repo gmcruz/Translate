@@ -11,13 +11,13 @@
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
-		<title>Transformation Page</title>
+		<title>Create New Account</title>
 		
-		<script src="../js/jquery-1.11.1.min.js"></script>
-		<script src="../js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
-		<script src="../js/xregexp-all-min.js"></script>
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script src="js/xregexp-all-min.js"></script>
 			
-		<link rel="stylesheet" type="text/css" href="../resources/css/main.css" />		
+		<link rel="stylesheet" type="text/css" href="resources/css/main.css" />		
 				
 	</h:head>
 	<h:body>
@@ -35,16 +35,22 @@
 				<!-- <div id="mainsidebar"></div> -->
 				<ui:insert name="content">
                		<!-- MAIN CONTENT BELOW -->
+    
+			        <h3>
+			      		Forgot user name or password?
 
+						If you can’t remember your user name or password, enter the email address associated with your membership. We’ll send you an email with your user name and a link for resetting your password.        
+			        </h3>
 
-					<form method="POST" action="j_security_check">
-						<p><label>Username:</label> <input type="text" name="j_username" value="gcruz" /></p>
-						<p><label>Password:</label> <input type="password" name="j_password" value="33Casey" /></p>
-						<input type="submit" value="Login" />
-					</form>
-					
-					<h:link value="Create Account" outcome="CreateAccount" /> | 
-					<h:link value="Forgot Login / Password" outcome="ForgotLogin" />
+					<h:form>	
+				
+						<p>
+							<label>Email Address: </label>
+							<h:inputText value="#{userService.username}" />
+						</p>
+						<h:commandButton value="Submit Details"	action="#{userService.retrieveUser}" />
+					</h:form>
+
 
 					<!-- MAIN CONTENT ABOVE -->
             	</ui:insert>

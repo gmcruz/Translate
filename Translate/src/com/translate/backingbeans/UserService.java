@@ -39,6 +39,17 @@ public class UserService {
 	
 	
 	
+	public String logoutUser(){
+		logout();		
+		return "/UserLoggedOut";
+	}
+	
+	public String retrieveUser(){
+		logger.debug("username: " + username);		
+		userManagerService.retrieveUser(username);		
+		return "UserRetrieved";
+	}
+	
 	public String createUser(){
 		logger.debug("fname: " + fname + " lname: " + lname + " username: " + username +  " password: " + password + " reenterpassword: " + reenterpassword);
 		User createNewUser = new User(fname, lname, username, password, reenterpassword);		
@@ -87,28 +98,26 @@ public class UserService {
 		this.reenterpassword = reenterpassword;
 	}
 	
-	public String login () {
+	public String login(){
 	    FacesContext context = FacesContext.getCurrentInstance();
-	    HttpServletRequest request = (HttpServletRequest) 
-	        context.getExternalContext().getRequest();
+	    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 	    try {
-	      request.login(this.username, this.password);
+	    	request.login(this.username, this.password);
 	    } catch (ServletException e) {
-	      context.addMessage(null, new FacesMessage("Login failed."));
-	      return "error";
+	    	context.addMessage(null, new FacesMessage("Login failed."));
+	    	return "error";
 	    }
 	    return "login-failed";
-	  }
+	}
 
-	public void logout() {
+	public void logout(){
 	    FacesContext context = FacesContext.getCurrentInstance();
-	    HttpServletRequest request = (HttpServletRequest) 
-	        context.getExternalContext().getRequest();
+	    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 	    try {
-	      request.logout();
+	    	request.logout();
 	    } catch (ServletException e) {
-	      context.addMessage(null, new FacesMessage("Logout failed."));
+	    	context.addMessage(null, new FacesMessage("Logout failed."));
 	    }
-	  }
+	}
 	
 }

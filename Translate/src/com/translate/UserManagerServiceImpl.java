@@ -89,5 +89,25 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 		logger.info("ABOUT TO BE DELETED: " + userKnownWord.toString() + " by: " + sessionContext.getCallerPrincipal().getName());
 		userKnownWordDAO.deleteUserKnownWordByIdDAO(userKnownWord.getId());	
 	}
+
+	@Override
+	public String retrieveUser(String username) {
+		String ret = "failed";
+		try{
+			logger.info("CALLED retrieveUser(String " + username);
+			User user = getUserByUsername(username);
+			sendUserRetrievelLink(user.getUsername());
+			ret = "sucess";
+		}catch(Exception e){
+			
+		}
+		return ret;
+	}
+
+	private void sendUserRetrievelLink(String username) {
+		logger.info("CALLED sendUserRetrievelLink(String " + username);		
+		//TODO send email out.
+		logger.info("CALLED (Link Sent) sendUserRetrievelLink(String " + username);		
+	}
 	
 }

@@ -25,6 +25,7 @@
                   		<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
                   		<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
 					</h:form>
+					<h:form><h:commandButton value="log out"	action="#{userService.logoutUser}" /></h:form>	
 				</div>
 				<ui:insert name="content">
                [Template content will be inserted here]

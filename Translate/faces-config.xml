@@ -14,4 +14,18 @@
 			<var>msg</var>
 		</resource-bundle>
 	</application>
+	
+	
+	<!-- http://www.jsftutorials.net/jsf-navigation-by-examples.html  -->	
+<navigation-rule> 
+   <from-view-id>/auth/testPara.jsp</from-view-id> 
+    <navigation-case> 
+      <from-action>#{userService.logoutUser}</from-action> 
+      <from-outcome>UserLoggedOut</from-outcome> 
+      <to-view-id>/UserLoggedOut.jsp</to-view-id> 
+    </navigation-case> 
+  </navigation-rule>  
+  
+
+	
 </faces-config>
