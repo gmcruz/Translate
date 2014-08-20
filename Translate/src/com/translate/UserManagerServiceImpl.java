@@ -96,10 +96,12 @@ public class UserManagerServiceImpl implements UserManagerServiceLocal, UserMana
 		try{
 			logger.info("CALLED retrieveUser(String " + username);
 			User user = getUserByUsername(username);
-			sendUserRetrievelLink(user.getUsername());
-			ret = "sucess";
+			if(user != null && user.getId() > 1){				
+				sendUserRetrievelLink(user.getUsername());
+				ret = "sucess";
+			}
 		}catch(Exception e){
-			
+			logger.info("EXCEPTION retrieveUser(String "+ username + ") --> getUserByUsername(: " + e.getMessage());
 		}
 		return ret;
 	}

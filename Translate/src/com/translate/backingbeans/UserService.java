@@ -46,8 +46,13 @@ public class UserService {
 	
 	public String retrieveUser(){
 		logger.debug("username: " + username);		
-		userManagerService.retrieveUser(username);		
-		return "UserRetrieved";
+		String ret = userManagerService.retrieveUser(username);	
+		if("failed".equals(ret)){
+			return "ForgotLogin";
+		}else{
+			return "UserRetrieved";
+		}
+		
 	}
 	
 	public String createUser(){
