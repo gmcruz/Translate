@@ -1,5 +1,7 @@
 package com.translate.backingbeans;
 
+import java.util.ResourceBundle;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
@@ -41,14 +43,26 @@ public class UserService {
 	
 	public String logoutUser(){
 		logout();		
-		return "/UserLoggedOut";
+		return "UserLoggedOut";
 	}
 	
 	public String retrieveUser(){
 		logger.debug("username: " + username);		
 		String ret = userManagerService.retrieveUser(username);	
 		if("failed".equals(ret)){
+									
+			FacesContext context = FacesContext.getCurrentInstance();
+			ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msg");
+			String message = bundle.getString("user.retrieve.emailFail");			
+			
+			context.addMessage("retrieveUserForm:userRetrieveEmailFail", new FacesMessage(message));
+			
+			//FLASH SCOPE WORKS MIGHT NEED ELSEWHERE
+			//import com.sun.faces.context.flash.ELFlash;
+			//ELFlash.getFlash().put("ForgotLoginMsg", message);			
+			
 			return "ForgotLogin";
+			
 		}else{
 			return "UserRetrieved";
 		}

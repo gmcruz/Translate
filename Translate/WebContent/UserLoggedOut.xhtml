@@ -11,7 +11,7 @@
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
-		<title>Account Created</title>
+		<title>Successful Logout</title>
 		
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
@@ -29,7 +29,6 @@
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
 				</h:form>		
-				<h:outputText value="#{msg['translations.all']}" />			
 			</div>
 			<div id="content">
 				<!-- <div id="mainsidebar"></div> -->
@@ -43,7 +42,7 @@
 			</div>
 			<div id="mainfooter">				
 				<p>
-					This is the footer 2.0.<br />
+					<h:outputText value="#{msg['footer.main']}" /><br />
 				</p>
 			</div>
 		</div>

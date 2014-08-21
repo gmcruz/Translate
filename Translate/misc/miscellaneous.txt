@@ -1,0 +1,62 @@
+
+
+
+
+
+
+
+
+*******************************************************************************************************************
+
+String password = "33Luser";		
+		try {
+			
+	        MessageDigest md2 = MessageDigest.getInstance("SHA-256");
+	        md2.update(password.getBytes()); 
+	        byte byteData[] = md2.digest();	 
+	        
+	        StringBuffer sb = new StringBuffer();
+	        for (int i = 0; i < byteData.length; i++) {
+	         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	 
+	        System.out.println(sb.toString());	 
+	        
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+
+ 	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+		    	
+*****************************/
+
+$("#localetbl tr").each(function() {
+		            var Language = $(this).find("td").eq(0).html();
+		            var Country = $(this).find("td").eq(1).html();
+		            var LocaleID = $(this).find("td").eq(2).html();
+		            console.log("INSERT INTO 'locale' (`language`,`country`,`localeid`,`active`) VALUES ('" + Language.trim() + "','" + Country.trim() + "','" + LocaleID.trim() + "', 0);");
+		            
+
+		    	});
+		    	
+		    	
+		    	
+		    	
+
+
+		    	
+		    	
+*****************************/		    	

@@ -28,26 +28,27 @@
 					<h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English" /> | 
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
-				</h:form>		
-				<h:outputText value="#{msg['translations.all']}" />			
+				</h:form>			
 			</div>
 			<div id="content">
 				<!-- <div id="mainsidebar"></div> -->
 				<ui:insert name="content">
                		<!-- MAIN CONTENT BELOW -->
     
-			        <h1>
-			        	Your user name and instructions to reset your password have been emailed to you.
-
-						If you don't receive this email within 10 minutes, check your junk and spam folders for messages from info@lingoli.com. The link to reset your password will expire in 3 hours.
+			        <h1>			        		
+						<h:outputFormat value="#{msg['user.retrieve.emailSuccess']}" escape="false">
+							<f:param value="info@lingoli.com" />
+						</h:outputFormat>	
 			        </h1>
 					<p></p>
+					
+					
 					<!-- MAIN CONTENT ABOVE -->
             	</ui:insert>
 			</div>
 			<div id="mainfooter">				
 				<p>
-					This is the footer 2.0.<br />
+					<h:outputText value="#{msg['footer.main']}" /><br />
 				</p>
 			</div>
 		</div>

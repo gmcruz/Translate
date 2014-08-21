@@ -30,7 +30,6 @@
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
 				</h:form>		
-				<h:outputText value="#{msg['translations.all']}" />			
 			</div>
 			<div id="content">
 				<!-- <div id="mainsidebar"></div> -->
@@ -51,7 +50,7 @@
 			</div>
 			<div id="mainfooter">				
 				<p>
-					This is the footer 2.0.<br />
+					<h:outputText value="#{msg['footer.main']}" /><br />
 				</p>
 			</div>
 		</div>

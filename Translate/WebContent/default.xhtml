@@ -19,13 +19,15 @@
 		<div id="maincontainer">
 			<div id="content">
 				<div id="mainsidebar">
-					<h3>Language switcher:</h3>
+					<h3>Site Language:</h3>
 					<h:form id="langauge_form">
 						<h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English" /> | 
                   		<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
                   		<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
 					</h:form>
-					<h:form><h:commandButton value="log out"	action="#{userService.logoutUser}" /></h:form>	
+					<h:form>
+						<h:commandButton value="Log Out" action="#{userService.logoutUser}" />
+					</h:form>	
 				</div>
 				<ui:insert name="content">
                [Template content will be inserted here]
@@ -33,7 +35,7 @@
 			</div>
 			<div id="mainfooter">				
 				<p>
-					This is the footer 2.0.<br />
+					<h:outputText value="#{msg['footer.main']}" /><br />
 				</p>
 			</div>
 		</div>

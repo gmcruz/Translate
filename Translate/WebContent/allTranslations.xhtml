@@ -15,7 +15,7 @@
       <div id="maincontainer">
          <div id="content">
             <div id="mainsidebar">
-               <h3>Language switcher:</h3>
+               <h3>Site Language:</h3>
                <h:form id="langauge_form">
 					<h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English" /> | 
                   	<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
@@ -43,7 +43,7 @@
          </div>
          <div id="mainfooter">            
             <p>
-               Footer of site template<br/>
+              <h:outputText value="#{msg['footer.main']}" /><br />
             </p>
          </div>
       </div>

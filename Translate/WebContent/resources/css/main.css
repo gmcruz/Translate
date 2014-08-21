@@ -6,7 +6,7 @@
 	   padding: 0;
 	   font-family: Verdana, sans-serif;
 	   font-size: 0.9em;
-	   background: #E8E8E8;
+	   background: #FFFFFF;/*#E8E8E8*/
 	}
 	#maincontainer {
 	   margin: 0 auto;
@@ -41,4 +41,10 @@
 	   color: #666666;
 	   font-size: 0.85em;
 	   border: 1px dashed #666666;
+	}
+	.error {	   
+	   text-align: center;
+	   color: red;
+	   font-size: 0.85em;
+	   border: 0px dashed red;
 	}

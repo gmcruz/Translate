@@ -28,8 +28,7 @@
 					<h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English" /> | 
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
                  	<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
-				</h:form>		
-				<h:outputText value="#{msg['translations.all']}" />			
+				</h:form>
 			</div>
 			<div id="content">
 				<!-- <div id="mainsidebar"></div> -->
@@ -42,13 +41,21 @@
 						If you can’t remember your user name or password, enter the email address associated with your membership. We’ll send you an email with your user name and a link for resetting your password.        
 			        </h3>
 
-					<h:form>	
+					<h:form id="retrieveUserForm">	
 				
 						<p>
 							<label>Email Address: </label>
 							<h:inputText value="#{userService.username}" />
 						</p>
-						<h:commandButton value="Submit Details"	action="#{userService.retrieveUser}" />
+						<h:commandButton value="Submit Details"	action="#{userService.retrieveUser}" />				
+						
+						<p>
+							<h:outputText value="" id="userRetrieveEmailFail" />	
+							<h:message class="error" for="userRetrieveEmailFail" id="userRetrieveEmailFailError" />
+						</p>
+						
+						<!-- WORKS MIGHT NEEED ELSEWHERE <h:outputText value="#{flash.ForgotLoginMsg}" /> -->	
+						
 					</h:form>
 
 
@@ -57,7 +64,7 @@
 			</div>
 			<div id="mainfooter">				
 				<p>
-					This is the footer 2.0.<br />
+					<h:outputText value="#{msg['footer.main']}" /><br />
 				</p>
 			</div>
 		</div>
