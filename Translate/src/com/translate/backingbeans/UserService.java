@@ -55,7 +55,7 @@ public class UserService {
 			ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msg");
 			String message = bundle.getString("user.retrieve.emailFail");			
 			
-			context.addMessage("retrieveUserForm:userRetrieveEmailFail", new FacesMessage(message));
+			context.addMessage("retrieveUserForm", new FacesMessage(message));
 			
 			//FLASH SCOPE WORKS MIGHT NEED ELSEWHERE
 			//import com.sun.faces.context.flash.ELFlash;

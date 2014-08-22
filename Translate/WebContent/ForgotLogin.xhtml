@@ -45,16 +45,23 @@
 				
 						<p>
 							<label>Email Address: </label>
-							<h:inputText value="#{userService.username}" />
+							<h:inputText value="#{userService.username}"
+								required="true"
+                         		requiredMessage="Error: A username is required." />
 						</p>
 						<h:commandButton value="Submit Details"	action="#{userService.retrieveUser}" />				
-						
-						<p>
+						<div class="messagecolor">
+				            <h:messages showSummary="true" 
+				                        showDetail="false"
+				                        errorStyle="color: #d20005" 
+				                        infoStyle="color: blue"/>
+				        </div>
+						<!--<div>
 							<h:outputText value="" id="userRetrieveEmailFail" />	
 							<h:message class="error" for="userRetrieveEmailFail" id="userRetrieveEmailFailError" />
-						</p>
+						</div>
 						
-						<!-- WORKS MIGHT NEEED ELSEWHERE <h:outputText value="#{flash.ForgotLoginMsg}" /> -->	
+						 WORKS MIGHT NEEED ELSEWHERE <h:outputText value="#{flash.ForgotLoginMsg}" /> -->	
 						
 					</h:form>
 
