@@ -48,17 +48,34 @@
 						</p>
 						<p>
 							<label>Email Address: </label>
-							<h:inputText value="#{userService.username}" />
+							<h:inputText 
+								id="username" 
+								value="#{userService.username}"
+								validatorMessage="#{msg['user.createAccount.username']}">	 
+								<f:validateRegex pattern="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$" for="username"/>
+							</h:inputText>
+							<h:message for="username" showDetail="true" />	 
 						</p>
 						<p>
 							<label>Password: </label>
-							<h:inputText value="#{userService.password}" />
+							<h:inputSecret value="#{userService.password}" 
+								id="passwordValue" 
+								validatorMessage="#{msg['user.createAccount.password']}">	
+								<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12})" for="passwordValue"/>							
+							</h:inputSecret>
+							<h:message for="passwordValue" showDetail="true" />
 						</p>
 						<p>
 							<label>Re-enter Password: </label>
-							<h:inputText value="#{userService.reenterpassword}" />
+							<h:inputSecret value="#{userService.reenterpassword}" 
+								id="reenterpasswordValue" 
+								validatorMessage="#{msg['user.createAccount.reenterpassword']}">	
+							<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12})" for="reenterpasswordValue"/>							
+							</h:inputSecret>
+							<h:message for="reenterpasswordValue" showDetail="true" />
 						</p>
 						<h:commandButton value="Submit Details"	action="#{userService.createUser}" />
+						
 					</h:form>
 
 
