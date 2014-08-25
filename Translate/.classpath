@@ -7,7 +7,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate4.2.8"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Javax"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Translate"/>
-	<classpathentry kind="lib" path="C:/jars/jxl.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

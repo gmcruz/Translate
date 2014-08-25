@@ -15,7 +15,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Dispatcher</servlet-name>
-		<url-pattern>/springmvc/*</url-pattern>
+		<url-pattern>/smvc/*</url-pattern>
 	</servlet-mapping>
   
   
