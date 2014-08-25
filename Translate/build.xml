@@ -103,13 +103,12 @@
 	   	  <classes dir="${bin}"></classes>
 	   	
       	  <lib dir="${lib}"/>
-	      <fileset dir="${html}"/>  <!-- html files -->	   	
-	   	 
-	   	  <webinf dir="."> 	   		 
-	     	 <include name="glassfish-web.xml"/>
-	   	     <include name="faces-config.xml"/>
-	   	     <include name="beans.xml" />	   	 	
-	   	  </webinf>	   
+	      <fileset dir="${html}"/>  <!-- html files -->	   
+	   		
+	   	  <!-- Copy everthing in the root/WEB-INF folder to the war WEB-INF folder -->
+	   	  <webinf dir="./WEB-INF"> 	   		 
+	     	 <include name="*" />	   	 	
+	   	  </webinf>
 	   	
 	   </war>
 		
