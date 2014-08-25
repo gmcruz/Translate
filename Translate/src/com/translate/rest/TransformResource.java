@@ -15,7 +15,7 @@ import javax.ws.rs.core.SecurityContext;
 
 import org.apache.log4j.Logger;
 
-import com.translate.TransformationManagerServiceLocal;
+import com.translate.services.TransformationManagerServiceLocal;
 
 
 @Path("/transformations")

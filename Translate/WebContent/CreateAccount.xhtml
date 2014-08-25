@@ -51,8 +51,8 @@
 							<h:inputText 
 								id="username" 
 								value="#{userService.username}"
-								validatorMessage="#{msg['user.createAccount.username']}">	 
-								<f:validateRegex pattern="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$" for="username"/>
+								validatorMessage="#{msg['user.createAccount.username']}">	ctmiDani1 
+								<f:validateRegex pattern="^[_A-Za-z0-9-]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" for="username"/>
 							</h:inputText>
 							<h:message for="username" showDetail="true" />	 
 						</p>

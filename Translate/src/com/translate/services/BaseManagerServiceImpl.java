@@ -1,4 +1,4 @@
-package com.translate;
+package com.translate.services;
 
 import java.util.List;
 

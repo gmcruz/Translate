@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.translate.UserManagerServiceLocal;
 import com.translate.domain.User;
+import com.translate.services.UserManagerServiceLocal;
 import com.translate.util.randomString;
 
 

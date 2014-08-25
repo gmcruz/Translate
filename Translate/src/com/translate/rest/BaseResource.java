@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
-import com.translate.BaseManagerServiceLocal;
 import com.translate.domain.Base;
+import com.translate.services.BaseManagerServiceLocal;
 
 
 @Path("/bases")

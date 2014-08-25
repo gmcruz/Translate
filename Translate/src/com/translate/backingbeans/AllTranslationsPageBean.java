@@ -6,8 +6,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIData;
 
-import com.translate.TranslationManagerServiceLocal;
 import com.translate.domain.Translation;
+import com.translate.services.TranslationManagerServiceLocal;
 
 @ManagedBean(name="allTranslationsPageBean")
 public class AllTranslationsPageBean {

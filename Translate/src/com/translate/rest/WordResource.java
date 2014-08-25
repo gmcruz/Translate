@@ -15,9 +15,9 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
-import com.translate.WordManagerServiceLocal;
 import com.translate.dataaccess.WordMappingDataAccess;
 import com.translate.domain.Word;
+import com.translate.services.WordManagerServiceLocal;
 
 
 @Path("/words")

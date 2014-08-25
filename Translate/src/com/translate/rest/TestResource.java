@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 
-import com.translate.TranslationManagerServiceLocal;
+import com.translate.services.TranslationManagerServiceLocal;
 
 
 @Path("/tests")

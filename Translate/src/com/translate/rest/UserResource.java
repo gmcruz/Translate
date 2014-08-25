@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
-import com.translate.UserManagerServiceLocal;
 import com.translate.domain.User;
+import com.translate.services.UserManagerServiceLocal;
 
 
 @Path("/users")

@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 
-import com.translate.LocaleManagerServiceLocal;
 import com.translate.domain.Locale;
+import com.translate.services.LocaleManagerServiceLocal;
 
 
 @Path("/locales")

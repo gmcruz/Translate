@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
-import com.translate.TranslationManagerServiceLocal;
 import com.translate.domain.Translation;
+import com.translate.services.TranslationManagerServiceLocal;
 
 
 @Path("/translations")
