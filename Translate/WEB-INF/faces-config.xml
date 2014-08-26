@@ -12,7 +12,7 @@
 			<supported-locale>es</supported-locale>
 		</locale-config>
 		<resource-bundle>
-			<base-name>resources.com.translate.messages</base-name>
+			<base-name>resources.com.lingoli.messages</base-name>
 			<var>msg</var>
 		</resource-bundle>
 	</application>

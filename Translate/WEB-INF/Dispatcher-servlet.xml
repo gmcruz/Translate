@@ -18,7 +18,7 @@
         </bean>   
                   
         
-        <context:component-scan base-package="com.translate"/>
+        <context:component-scan base-package="com.lingoli"/>
         
         <mvc:annotation-driven />
                  

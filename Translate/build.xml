@@ -1,4 +1,4 @@
-<project name="Translate Module Build" default="BuildAll">
+<project name="Lingoli Module Build" default="BuildAll">
 	
 	<property name="glassfish_path" value="C:\glassfish4\glassfish"/>
 	<property name="glassfish_libs" value="${glassfish_path}\modules"/>
@@ -8,7 +8,7 @@
     <property name="src" value="./src"/> 
 	<property name="resrc" value="./resources"/> 
     <property name="dist" value="./dist"/>
-	<property name="warfile" value="${dist}/TranslateModule.war"/>	
+	<property name="warfile" value="${dist}/LingoliModule.war"/>	
 	<property name="html" value="./WebContent"/>
     
     <path id="my.classpath">
@@ -75,8 +75,8 @@
 			</fileset>
 		</copy>
 		
-   		<copy todir="${bin}/resources/com/translate">
-   			<fileset dir="${resrc}/com/translate">
+   		<copy todir="${bin}/resources/com/lingoli">
+   			<fileset dir="${resrc}/com/lingoli">
    				<include name="*.properties"/>
    			</fileset>
    		</copy>	
@@ -90,8 +90,8 @@
    				<include name="*.*"/>
    			</fileset>
    		</copy>		
-   		<copy todir="${html}/resources/css/com/translate">
-     		<fileset dir="${resrc}/css/com/translate">
+   		<copy todir="${html}/resources/css/com/lingoli">
+     		<fileset dir="${resrc}/css/com/lingoli">
    				<include name="*.*"/>
    			</fileset> 			
    		</copy>	   			
@@ -112,7 +112,7 @@
 	   	
 	   </war>
 		
-		<copy file="${warfile}" tofile="${glassfish_path}\domains\domain1\autodeploy\TranslateModule.war"/>
+		<copy file="${warfile}" tofile="${glassfish_path}\domains\domain1\autodeploy\LingoliModule.war"/>
 		
 	</target>
 	

@@ -5,17 +5,17 @@
 	
 	<persistence-unit name="worlddb" transaction-type="JTA">
 		<jta-data-source>jdbc/worldDb</jta-data-source>
-		<!-- <class>com.translate.domain.Content</class>
-		<class>com.translate.domain.Language</class>-->
-		<class>com.translate.domain.Base</class>
-		<class>com.translate.domain.Translation</class>
-		<class>com.translate.domain.Word</class>		
-		<class>com.translate.domain.Locale</class>		
-		<class>com.translate.domain.WordMapping</class>
-		<class>com.translate.domain.User</class>
-		<class>com.translate.domain.UserKnownWord</class>
-		<class>com.translate.domain.User_Group</class>
-		<class>com.translate.domain.Person</class>
+		<!-- <class>com.lingoli.domain.Content</class>
+		<class>com.lingoli.domain.Language</class>-->
+		<class>com.lingoli.domain.Base</class>
+		<class>com.lingoli.domain.Translation</class>
+		<class>com.lingoli.domain.Word</class>		
+		<class>com.lingoli.domain.Locale</class>		
+		<class>com.lingoli.domain.WordMapping</class>
+		<class>com.lingoli.domain.User</class>
+		<class>com.lingoli.domain.UserKnownWord</class>
+		<class>com.lingoli.domain.User_Group</class>
+		<class>com.lingoli.domain.Person</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>		           
             <property name="eclipselink.logging.level" value="INFO" />
@@ -28,7 +28,7 @@
 	
 	<!--  
 	<persistence-unit name="worlddb" transaction-type="RESOURCE_LOCAL">
-		<class>com.translate.domain.Translate</class>
+		<class>com.lingoli.domain.Translate</class>
       	<properties>		      	      
         	<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 		    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/world" />			
