@@ -1,4 +1,12 @@
 
+https://ant.apache.org/manual/Tasks/war.html
+
+
+
+
+
+
+*********************************************************************************************
 
 Lingoli.war:
 	WEB-INF/classes/META-INF/persistence.xml 
@@ -12,16 +20,11 @@ Lingoli.war:
 			 \js	
 	index.html
 
-
-
-
 Put log4j.properties under WEB-INF\classes of the project as mentioned previously in this thread.
 Put log4j-xx.jar under WEB-INF\lib
 Test if log4j was loaded: add -Dlog4j.debug @ the end of your java options of tomcat
 
-
-
-
+************************************************************************************************
 
 
 

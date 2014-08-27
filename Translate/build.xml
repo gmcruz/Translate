@@ -3,15 +3,16 @@
 	<property name="glassfish_path" value="C:\glassfish4\glassfish"/>
 	<property name="glassfish_libs" value="${glassfish_path}\modules"/>
 	
-    <property name="bin" value="./bin"/>
+    <property name="bin" value="./bin"/><!-- bin becomes classes. -->
     <property name="lib" value="./lib"/>
     <property name="src" value="./src"/> 
-	<property name="resrc" value="./WebContent/resources"/> 
     <property name="dist" value="./dist"/>
-	<property name="warfile" value="${dist}/LingoliModule.war"/>	
-	<property name="html" value="./WebContent"/>
+	<property name="warfile" value="${dist}/Lingoli.war"/>	
+	<property name="html" value="./WarStructure"/>
+	<property name="resrc" value="./WarStructure/resources"/> 
+	
     
-    <path id="my.classpath">
+    <path id="machine.classpath">
         <pathelement path="${java.class.path}"/>
         <pathelement location="${bin}"/>
         
@@ -30,7 +31,7 @@
     </target>	
 	
 	<target name="classpath">
-		   <property name="current.classpath" refid="my.classpath"/>		   
+		   <property name="current.classpath" refid="machine.classpath"/>		   
 		   <echo level="info">Classpath is : ${current.classpath}</echo>
 	</target>
     
@@ -44,75 +45,43 @@
         </delete>
     </target>
     
-    <target name="prep">        
+    <target name="prep" depends="clean">        
         <mkdir dir="${bin}"/>
         <mkdir dir="${dist}"/>        
     </target>
             
     <target name="compile" description="Compile all Java classes" depends="prep">
         
-    	<!-- no ant runtime.-->
+    	<!-- no ant runtime. -->
     	<presetdef name="javac">
     		<javac includeantruntime="false" />
     	</presetdef>
     	
         <javac srcdir="${src}" destdir="${bin}" debug="true" encoding="ISO-8859-1">
-            <classpath refid="my.classpath"/>
+            <classpath refid="machine.classpath"/>
         </javac>
         
-        <echo message="Compiled."/>
+        <echo message="Compiled classes have been placed in: ${bin}" />
+    	
     </target>
 
-	<target name="war" depends="compile" description="Build WAR file.">
-		<copy todir="${bin}">
-			<fileset dir="${src}">
-				<include name="**/persistence.xml"/>
-			</fileset>
-		</copy>		
-		<copy todir="${bin}">
-		    <fileset dir="${src}">
-				<include name="**/log4j.properties"/>
-			</fileset>
-		</copy>
-		
-   		<copy todir="${bin}/resources/com/lingoli">
-   			<fileset dir="${resrc}/com/lingoli">
-   				<include name="*.properties"/>
-   			</fileset>
-   		</copy>	
-   		<copy todir="${html}/resources/images">
-   			<fileset dir="${resrc}/images">
-   				<include name="*.*"/>
-   			</fileset>
-   		</copy>			
-   		<copy todir="${html}/resources/css">
-   			<fileset dir="${resrc}/css">
-   				<include name="*.*"/>
-   			</fileset>
-   		</copy>		
-   		<copy todir="${html}/resources/css/com/lingoli">
-     		<fileset dir="${resrc}/css/com/lingoli">
-   				<include name="*.*"/>
-   			</fileset> 			
-   		</copy>	   			
+	<target name="war" depends="compile" description="Build WAR file." >
 				
 	   <delete file="${warfile}"/>	   
 		
-	   <war destfile="${warfile}" webxml="./web.xml" >
+	   <war destfile="${warfile}" needxmlfile="false" >
 	      
 	   	  <classes dir="${bin}"></classes>
 	   	
       	  <lib dir="${lib}"/>
-	      <fileset dir="${html}"/>  <!-- html files -->	   
-	   		
-	   	  <!-- Copy everthing in the root/WEB-INF folder to the war WEB-INF folder -->
-	   	  <webinf dir="./WEB-INF"> 	   		 
-	   	 	<fileset dir="./WEB-INF" includes="smvc/" />
-	   	  </webinf>
 	   	
+	   	  <webinf dir="./WarStructure/WEB-INF"> 	   		 
+	   	 	<fileset dir="./WEB-INF" includes="smvc/" />
+	   	  </webinf>	   		
+	      	   	
 	   </war>
 		
-		<copy file="${warfile}" tofile="${glassfish_path}\domains\domain1\autodeploy\LingoliModule.war"/>
+		<copy file="${warfile}" tofile="${glassfish_path}\domains\domain1\autodeploy\Lingoli.war"/>
 		
 	</target>
 	
