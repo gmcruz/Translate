@@ -1,5 +1,24 @@
 
 
+Lingoli.war:
+	WEB-INF/classes/META-INF/persistence.xml 
+	WEB-INF/classes/log4j.properties
+	WEB-INF/classes/com/lingoli/*/*.class
+	WEB-INF/classes/resources/com/lingoli/messages_en.properties
+	WEB-INF/web.xml......
+	views/index.jsp
+	resources\css
+			 \images
+			 \js	
+	index.html
+
+
+
+
+Put log4j.properties under WEB-INF\classes of the project as mentioned previously in this thread.
+Put log4j-xx.jar under WEB-INF\lib
+Test if log4j was loaded: add -Dlog4j.debug @ the end of your java options of tomcat
+
 
 
 

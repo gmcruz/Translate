@@ -1,0 +1,50 @@
+	body {
+	   border-style: dashed;
+	   border-width: 1px;
+	   color: green;
+	   margin: 0;
+	   padding: 0;
+	   font-family: Verdana, sans-serif;
+	   font-size: 0.9em;
+	   background: #FFFFFF;/*#E8E8E8*/
+	}
+	#maincontainer {
+	   margin: 0 auto;
+	   padding: 0 20px 10px 20px;
+	   border: 1px dotted #666666;
+	   width: 865px; /* subtract 40px from banner width for padding */
+	   /*background: #FFFFFF url(../../resources/images/headerRoxio.png) no-repeat;*/
+	   /*padding-top: 110px;*/
+	   color: red;
+	}
+	#mainsidebar {
+	   font-size: 0.9em;
+	   width: 225px;
+	   float: right;
+	   border: 1px dashed #666666;
+	   background: #EAECEE;
+	   padding: 0 15px 5px 15px;
+	}
+	#mainsidebar ul {
+	   padding-left: 30px;
+	}
+	#mainheader {
+	   clear: both;
+	   text-align: center;
+	   color: #666666;
+	   font-size: 0.85em;
+	   border: 1px dashed #666666;
+	}
+	#mainfooter {
+	   clear: both;
+	   text-align: center;
+	   color: #666666;
+	   font-size: 0.85em;
+	   border: 1px dashed #666666;
+	}
+	.error {	   
+	   text-align: center;
+	   color: red;
+	   font-size: 0.85em;
+	   border: 0px dashed red;
+	}

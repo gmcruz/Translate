@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="#{languageSwitcher.language}"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<f:view locale="#{languageSwitcher.locale}">
+	
+	<h:head>
+		
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		
+		<title>Account Retrieved</title>
+		
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+		<script src="js/xregexp-all-min.js"></script>
+			
+		<link rel="stylesheet" type="text/css" href="resources/css/main.css" />		
+				
+	</h:head>
+	<h:body>
+		<div id="maincontainer">
+			<div id="mainheader">					
+				<h3>Site Language:</h3>
+				<h:form id="langauge_form">
+					<h:commandLink action="#{languageSwitcher.changeLanguage('en')}" value="English" /> | 
+                 	<h:commandLink action="#{languageSwitcher.changeLanguage('es')}" value="Spanish" /> | 
+                 	<h:commandLink action="#{languageSwitcher.changeLanguage('de')}" value="Deutsch" />
+				</h:form>			
+			</div>
+			<div id="content">
+				<!-- <div id="mainsidebar"></div> -->
+				<ui:insert name="content">
+               		<!-- MAIN CONTENT BELOW -->
+    
+			        <h1>			        		
+						<h:outputFormat value="#{msg['user.retrieve.emailSuccess']}" escape="false">
+							<f:param value="info@lingoli.com" />
+						</h:outputFormat>	
+			        </h1>
+					<p></p>
+					
+					
+					<!-- MAIN CONTENT ABOVE -->
+            	</ui:insert>
+			</div>
+			<div id="mainfooter">				
+				<p>
+					<h:outputText value="#{msg['footer.main']}" /><br />
+				</p>
+			</div>
+		</div>
+	</h:body>
+</f:view>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
