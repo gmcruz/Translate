@@ -65,21 +65,21 @@
     	
     </target>
 
+
 	<target name="war" depends="compile" description="Build WAR file." >
 				
-	   <delete file="${warfile}"/>	   
-		
-	   <war destfile="${warfile}" needxmlfile="false" >
-	      
-	   	  <classes dir="${bin}"></classes>
-	   	
-      	  <lib dir="${lib}"/>
-	   	
-	   	  <webinf dir="./WarStructure/WEB-INF"> 	   		 
-	   	 	<fileset dir="./WEB-INF" includes="smvc/" />
-	   	  </webinf>	   		
-	      	   	
-	   </war>
+		<delete file="${warfile}"/>	   
+				
+		<war destfile="${warfile}" webxml="./WarStructure/WEB-INF/web.xml">
+		  	<classes dir="${bin}"/>
+		  	
+			<zipfileset dir="./WarStructure/views" prefix="views"/>
+			<zipfileset dir="./WarStructure/resources" prefix="resources"/>
+		  			  				
+			<webinf dir="./WarStructure/WEB-INF" />	   	
+			<lib dir="${lib}" />			
+
+		</war>
 		
 		<copy file="${warfile}" tofile="${glassfish_path}\domains\domain1\autodeploy\Lingoli.war"/>
 		
@@ -87,3 +87,28 @@
 	
 
 </project>
+
+
+
+
+
+<!-- misc
+	<target name="copy" depends="compile" description="Copy files into their place for war to complete build." >
+		
+		<copy todir="${bin}/META-INF">
+			<fileset dir="./WarStructure/WEB-INF/classes/META-INF"><include name="**/persistence.xml"/></fileset>
+		</copy>		 	
+ 		<echo message="persistence.xml has been placed in: ${bin}(classes)/META-INF" />
+ 		
+ 		<copy todir="${bin}">
+		    <fileset dir="./WarStructure/WEB-INF/classes"><include name="**/log4j.properties"/></fileset>
+		</copy>
+    	<echo message="log4j.properties has been placed in: ${bin}(classes)" />
+    	
+    	<copy todir="${bin}/resources">
+			<fileset dir="./WarStructure/WEB-INF/classes/resources" />
+		</copy>		 	
+ 		<echo message="resources dir has been placed in: ${bin}(classes)/resources" />
+    	
+    </target> 
+-->

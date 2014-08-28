@@ -7,7 +7,7 @@
   	<!-- MAJOR SECTION ******************************************************************************************************-->
    	<!-- ************************** Spring MVC specific *********************************************************************-->
    	<!-- ********************************************************************************************************************-->
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>Dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
@@ -16,7 +16,7 @@
 	<servlet-mapping>
 		<servlet-name>Dispatcher</servlet-name>
 		<url-pattern>/smvc/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
   
   
   
@@ -71,8 +71,8 @@
 	   <auth-method>FORM</auth-method>	    
        <realm-name>jdbcRealm</realm-name>
 	   <form-login-config>
-	      <form-login-page>/login.jsf</form-login-page>
-	      <form-error-page>/login-failed.jsf</form-error-page>
+	      <form-login-page>/views/login.jsf</form-login-page>
+	      <form-error-page>/views/login-failed.jsf</form-error-page>
 	   </form-login-config>
 	</login-config>
       <security-role>
@@ -92,7 +92,7 @@
    <security-constraint> 
    	<web-resource-collection>
    		<web-resource-name>JSF Pages</web-resource-name>
-   		<url-pattern>/auth/*</url-pattern>
+   		<url-pattern>/views/auth/*</url-pattern>
    		<http-method>GET</http-method>
         <http-method>POST</http-method>
    	</web-resource-collection>

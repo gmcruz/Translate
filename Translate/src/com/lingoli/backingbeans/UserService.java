@@ -43,7 +43,7 @@ public class UserService {
 	
 	public String logoutUser(){
 		logout();		
-		return "UserLoggedOut";
+		return "/views/UserLoggedOut";
 	}
 	
 	public String retrieveUser(){
@@ -64,7 +64,7 @@ public class UserService {
 			return "ForgotLogin";
 			
 		}else{
-			return "UserRetrieved";
+			return "/views/UserRetrieved";
 		}
 		
 	}

@@ -57,7 +57,7 @@
 
 	        $.ajax({
 	            type: "POST",
-	            url: domainName + "/LingoliModule/resource/words/post",
+	            url: domainName + "/Lingoli/resource/words/post",
 	            dataType: "json",
 	            contentType: "application/json; charset=UTF-8",
 	            data: { fromlocaleid: fromLang, fromWord: fromWord, word: word, localeid: toLang, maptoid: id } ,
@@ -80,7 +80,7 @@
 	function changeSelectLanguages(fromLang, toLang){//TODO does this need to happen multiple times?
 		var fromOptions = $("#fromlanguageOptions");
 		var toOptions = $("#tolanguageOptions");
-		$.getJSON( domainName+"/LingoliModule/resource/locales/active", function( data ) {													
+		$.getJSON( domainName+"/Lingoli/resource/locales/active", function( data ) {													
 			if (data.hasOwnProperty("locale")) {						
 				$.each( data.locale, function( key, valLocale ) {							
 					
@@ -174,7 +174,7 @@
         $.ajax({
         	async: false,
         	type: "POST",
-            url: domainName + "/LingoliModule/resource/users/knownword",
+            url: domainName + "/Lingoli/resource/users/knownword",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             data: { localeid: fromLang, wordid: wordid, word: word } ,
@@ -194,7 +194,7 @@
         $.ajax({
         	async: false,
         	type: "POST",
-            url: domainName + "/LingoliModule/resource/users/unknownword",
+            url: domainName + "/Lingoli/resource/users/unknownword",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             data: { localeid: fromLang, wordid: wordid, word: word } ,
@@ -220,7 +220,7 @@
 	          	//aysnc in order to be able to set a variable in the json to be seen outside.
 	            async: false,
 			 	type: "POST",
-	            url: domainName + "/LingoliModule/resource/transformations/post",
+	            url: domainName + "/Lingoli/resource/transformations/post",
 	            dataType: "json",
 	            data: { textToProcess: requestedTextToProcess, fromLang: requestedFromLang, toLang: requestedToLang } ,
 	            success: function (data) {

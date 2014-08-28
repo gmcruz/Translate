@@ -9,6 +9,7 @@ https://ant.apache.org/manual/Tasks/war.html
 *********************************************************************************************
 
 Lingoli.war:
+	WEB-INF/lib/*[thirdParty.jars]
 	WEB-INF/classes/META-INF/persistence.xml 
 	WEB-INF/classes/log4j.properties
 	WEB-INF/classes/com/lingoli/*/*.class
