@@ -43,7 +43,7 @@ public class UserService {
 	
 	public String logoutUser(){
 		logout();		
-		return "/views/UserLoggedOut";
+		return "/WEB-INF/views/UserLoggedOut";
 	}
 	
 	public String retrieveUser(){
@@ -61,10 +61,10 @@ public class UserService {
 			//import com.sun.faces.context.flash.ELFlash;
 			//ELFlash.getFlash().put("ForgotLoginMsg", message);			
 			
-			return "ForgotLogin";
+			return "/WEB-INF/views/ForgotLogin";
 			
 		}else{
-			return "/views/UserRetrieved";
+			return "/WEB-INF/views/UserRetrieved";
 		}
 		
 	}
@@ -74,7 +74,7 @@ public class UserService {
 		User createNewUser = new User(fname, lname, username, password, reenterpassword);		
 		userManagerService.createUser(createNewUser);
 		login();
-		return "UserCreated";
+		return "/WEB-INF/views/UserCreated";
 	}
 
 	public String getFname() {
@@ -126,7 +126,7 @@ public class UserService {
 	    	context.addMessage(null, new FacesMessage("Login failed."));
 	    	return "error";
 	    }
-	    return "login-failed";
+	    return "/WEB-INF/views/login-failed";
 	}
 
 	public void logout(){

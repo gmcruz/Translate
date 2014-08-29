@@ -71,12 +71,15 @@
 		<delete file="${warfile}"/>	   
 				
 		<war destfile="${warfile}" webxml="./WarStructure/WEB-INF/web.xml">
-		  	<classes dir="${bin}"/>
-		  	
-			<zipfileset dir="./WarStructure/views" prefix="views"/>
+			
+			 <fileset dir="./WarStructure"/>
+			 
+		  	<classes dir="${bin}"/>		  	
+			
 			<zipfileset dir="./WarStructure/resources" prefix="resources"/>
 		  			  				
-			<webinf dir="./WarStructure/WEB-INF" />	   	
+			<webinf dir="./WarStructure/WEB-INF" />	 
+			  	
 			<lib dir="${lib}" />			
 
 		</war>
