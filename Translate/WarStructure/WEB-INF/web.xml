@@ -15,7 +15,7 @@
 
 	<servlet-mapping>
 		<servlet-name>Dispatcher</servlet-name>
-		<url-pattern>/smvc/</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
   
   
@@ -27,7 +27,7 @@
  	<!-- MAJOR SECTION ******************************************************************************************************-->
    	<!-- ************************** JSP specific*****************************************************************************-->
    	<!-- ********************************************************************************************************************-->      
-   <servlet>
+ <!--   <servlet>
       <servlet-name>Faces Servlet</servlet-name>
       <servlet-class>javax.faces.webapp.FacesServlet</servlet-class> 
    	  <load-on-startup>1</load-on-startup>
@@ -56,13 +56,12 @@
       <param-value>Development</param-value>
    </context-param>
    
-   <!-- http://www.jsftutorials.net/jsf-navigation-by-examples.html-->
 	<context-param> 
 		<param-name>javax.faces.CONFIG_FILES</param-name> 
       	<param-value>/WEB-INF/faces-config.xml</param-value> 
 	</context-param> 
  
- 
+  -->
  
  	<!-- MAJOR SECTION ******************************************************************************************************-->
    	<!-- ************************** Security Setup for the Entire System ****************************************************-->
